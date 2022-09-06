@@ -1,5 +1,5 @@
 <template>
-  <h1 class="h1">oi</h1>
+    <router-view></router-view>
 </template>
 
 <script>
