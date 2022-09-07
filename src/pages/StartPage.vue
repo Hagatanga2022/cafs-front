@@ -1,15 +1,15 @@
 <template>
   <v-app style="background-color: #1d6382" view="lHh Lpr lFf">
     <v-app-bar flat outlined color="#1D6382">
-        <div class="btn-container">
-          <div>
-            <Cadastro />
-          </div>
-          <v-divider dark vertical inset class="mx-4"> </v-divider>
-          <div>
-            <Login />
-          </div>
+      <div class="btn-container">
+        <div>
+          <Cadastro />
         </div>
+        <v-divider dark vertical inset class="mx-4"> </v-divider>
+        <div>
+          <Login />
+        </div>
+      </div>
       <div class="spheres">
         <div class="sphere"></div>
         <div class="sphere"></div>
@@ -33,9 +33,9 @@
         </div>
         <div class="text">
           <div class="text text-shadow">
-            Controle de Acesso a Fábrica de Software
+            <b> Controle de Acesso a Fábrica de Software </b>
           </div>
-          <div class="text text-shadow">
+          <div class="text mt-10 text-shadow">
             O Controle de acesso à fábrica de software, referido pelo acrônimo
             C.A.F.S, é um sistema que busca auxiliar os coordenadores e as suas
             equipes a gerenciarem a sua jornada de trabalho previamente
@@ -49,7 +49,7 @@
 
 <script>
 import Login from "../components/Login.vue";
-import Cadastro from '../components/Cadastro.vue'
+import Cadastro from "../components/Cadastro.vue";
 export default {
   components: {
     Login,
@@ -76,7 +76,7 @@ export default {
 .container {
   height: 93vh;
 }
-.btn-container{
+.btn-container {
   display: flex;
   height: 100%;
   width: 100%;

@@ -1,25 +1,60 @@
 <template>
   <v-container>
-    <v-btn @click="cadastro = true" class="v-btn1" v-on="on">Cadastro</v-btn>
-    <v-dialog v-model="cadastro" max-width="600px" max-height="600px">
-      <v-card class="pop-up-card">
-        <v-card-title class="text-h3 justify-center">Cadastro</v-card-title>
+    <v-btn @click="Novaconta = true" class="v-btn1" v-on="on">Cadastro</v-btn>
+    <v-dialog v-model="Novaconta" max-width="600px" max-height="600px">
+      <v-card class="pop-up-card" elevation="10" outlined>
+        <v-card-title class="text-h3 justify-center teal--text"
+          >Cadastro</v-card-title
+        >
         <v-col>
           <v-text-field
             class="input mx-auto"
+            color="teal"
             square
             outlined
-            v-model="text"
-            label="Digite seu e-mail"
+            label="Nome"
           ></v-text-field>
           <v-text-field
             class="input mx-auto"
+            color="teal"
             square
             outlined
-            v-model="text"
-            label="Digite sua senha"
+            label="Sobrenome"
           >
           </v-text-field>
+          <v-text-field
+            class="input mx-auto"
+            color="teal"
+            square
+            outlined
+            label="SIAPE"
+          >
+          </v-text-field>
+          <v-text-field
+            class="input mx-auto"
+            color="teal"
+            square
+            outlined
+            label="Email"
+          >
+          </v-text-field>
+          <v-text-field
+            class="input mx-auto"
+            color="teal"
+            square
+            outlined
+            label="Senha"
+          >
+          </v-text-field>
+        <div align="center">
+          <v-btn class="ma-1 white--text" color="teal">Cadastrar</v-btn>
+        </div>
+        </v-col>
+        <v-col>
+          <div align="center">Já possui uma conta?</div>
+          <div @click="cadastro = true">
+            <Cadastro />
+          </div>
         </v-col>
       </v-card>
     </v-dialog>
@@ -30,7 +65,7 @@
 export default {
   data() {
     return {
-      cadastro: false,
+      Novaconta: false,
     };
   },
 };
@@ -38,12 +73,12 @@ export default {
 
 <style>
 .pop-up-card {
-    justify-items: center;
+  justify-items: center;
+  border-radius: 100px;
 }
 .input {
   max-width: 400px;
   display: block;
-  margin: 0 auto;
 }
 .v-btn1:before {
   content: "";
