@@ -3,7 +3,7 @@
     <v-app-bar flat outlined color="#1D6382">
         <div class="btn-container">
           <div>
-            <v-btn class="v-btn btn-text"> Cadastro </v-btn>
+            <Cadastro />
           </div>
           <v-divider dark vertical inset class="mx-4"> </v-divider>
           <div>
@@ -49,9 +49,11 @@
 
 <script>
 import Login from "../components/Login.vue";
+import Cadastro from '../components/Cadastro.vue'
 export default {
   components: {
     Login,
+    Cadastro,
   },
 };
 </script>

@@ -6,14 +6,14 @@
         <v-card-title class="text-h3 justify-center">Login</v-card-title>
         <v-col>
           <v-text-field
-            class="input"
+            class="input mx-auto"
             square
             outlined
             v-model="text"
             label="Digite seu e-mail"
           ></v-text-field>
           <v-text-field
-            class="input"
+            class="input mx-auto"
             square
             outlined
             v-model="text"
@@ -41,9 +41,8 @@ export default {
     justify-items: center;
 }
 .input {
-  max-width: 400px;
+  max-width: 450px;
   display: block;
-  margin: 0 auto;
 }
 .v-btn1:before {
   content: "";
