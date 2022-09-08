@@ -101,7 +101,7 @@ export default {
   align-items: center;
 }
 .cube:nth-child(3) .image1 {
-  background-image: url(../assets/AA1.png);
+  background-image: url(../assets/CAFS1.png);
   width: 60%;
   height: 75%;
   position: fixed;
@@ -171,7 +171,7 @@ export default {
   align-content: space-around;
 }
 .sphere:nth-child(3) .image {
-  background-image: url(../assets/IMG-20220617-WA0011.jpg);
+  background-image: url(../assets/IFLogo1.png);
   width: 60%;
   height: auto;
   background-size: contain;

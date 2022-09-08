@@ -1,9 +1,72 @@
 <template>
-  <router-view></router-view>
+  <v-app>
+    <v-navigation-drawer
+      permanent
+      app
+      :mini-variant.sync="mini"
+      v-model="sidebar"
+      class="white--text"
+      color="cyan darken-1"
+    >
+      <v-list class="d-flex" dense dark>
+        <v-list-item class="mt-8">
+          <v-btn icon class="mx-auto" :to="{ name: 'StartPage' }" light>
+            <v-img
+              id="IFLogo"
+              alt="IFLogo"
+              :src="IFLogo"
+              transition="scale-transition"
+              contain
+              width="100"
+              height="100"
+            />
+          </v-btn>
+        </v-list-item>
+        <v-divider></v-divider>
+      </v-list>
+      <v-list class="mt-10 white--text">
+        <v-list-item v-for="item of items" :key="item.title" link :to="item.to">
+          <v-list-item-icon>
+            <v-icon dark>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content class="white--text">{{
+            item.title
+          }}</v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-divider light></v-divider>
+    </v-navigation-drawer>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+    <v-footer app class="py-3">
+      <span class="overline">C.A.F.S &copy;2022</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-export default {};
+import IFLogo from "../assets/IFLogo1.png";
+export default {
+  data() {
+    return {
+      sidebar: true,
+      mini: false,
+      IFLogo,
+      items: [
+        { title: "Pesquisar", icon: "mdi-magnify", to: "/pesquisar" },
+        { title: "Home", icon: "mdi-home", to: "/home" },
+        { title: "Bolsistas", icon: "mdi-school", to: "/bolsistas" },
+        { title: "Computadores", icon: "mdi-laptop", to: "/computadores" },
+        { title: "Projetos", icon: "mdi-folder", to: "/projetos" },
+      ],
+    };
+  },
+};
 </script>
 
-<style></style>
+<style>
+  .theme--light.v-divider {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+  }
+</style>

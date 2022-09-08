@@ -33,20 +33,21 @@
           <v-text-field
             class="input mx-auto"
             color="teal"
+            append-icon="mdi-email"
             square
             outlined
             label="Email"
+            hint="www.example.com/page"
           >
           </v-text-field>
           <v-text-field
-            class="input mx-auto"
-            color="teal"
-            square
-            outlined
-            label="Senha"
-          >
-          </v-text-field>
-        <div align="center">
+              label="Password"
+              v-model="user.password"
+              :type="show ? 'text' : 'password'"
+              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show = !show"
+            ></v-text-field>
+         <div align="center">
           <v-btn class="ma-1 white--text" color="teal">Cadastrar</v-btn>
         </div>
         </v-col>

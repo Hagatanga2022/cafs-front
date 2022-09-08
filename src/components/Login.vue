@@ -21,7 +21,9 @@
             square
             outlined
             v-model="text"
+            prepend-icon="mdi-camera"
             label="Digite sua senha"
+            
           >
           </v-text-field>
         <div class="mt-2" align="center">
