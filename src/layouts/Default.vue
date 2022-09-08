@@ -10,7 +10,7 @@
     >
       <v-list class="d-flex" dense dark>
         <v-list-item class="mt-8">
-          <v-btn icon class="mx-auto" :to="StartPage" light>
+          <v-btn icon class="mx-auto" to="/" light>
             <v-img
               id="IFLogo"
               alt="IFLogo"
