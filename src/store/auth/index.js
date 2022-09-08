@@ -1,4 +1,4 @@
-import authService from "@/api/auth";
+import AuthService from "@/api/auth";
 
 export const auth = {
   namespaced: true,
@@ -19,13 +19,14 @@ export const auth = {
   actions: {
     async login({ commit }, user) {
       try {
-        const userInfo = await authService.login(user)
+        console.log("Passou por aqui pelo menos")
+        const userInfo = await AuthService.login(user)
+        console.log("UserInfo", userInfo)
         commit("setLoginInfo", userInfo);
         return Promise.resolve(userInfo)
       } catch(e) {
         commit("setLogout");
         return Promise.reject(e)
-
       }
     },
     logout({ commit }) {

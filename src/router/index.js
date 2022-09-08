@@ -30,7 +30,7 @@ const routes = [
     path: "/",
     component: () => import("../layouts/Default.vue"),
     meta: {
-      auth: true,
+      auth: false,
     },
     children: [
       {

@@ -1,3 +1,3 @@
 import axios from "axios"
 
-axios.defaults.baseURL = "https://cafs-backend.herokuapp.com/"
+axios.defaults.baseURL = "http://localhost:8000/"
