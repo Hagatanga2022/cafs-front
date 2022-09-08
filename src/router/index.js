@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
-
 import Home from "../pages/Home.vue";
 import StartPage from "../pages/StartPage.vue";
 import Bolsistas from "../pages/Bolsistas.vue";
