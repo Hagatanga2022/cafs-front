@@ -1,20 +1,25 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import store from "../store";
 
-import Home from '../pages/Home.vue'
+import Home from "../pages/Home.vue";
 import StartPage from "../pages/StartPage.vue";
 import Bolsistas from "../pages/Bolsistas.vue";
 import Computadores from "../pages/Computadores.vue";
-import Projetos from "../pages/Projetos.vue"
-import ProjetosConcluidos from "../pages/ProjetosC.vue"
-import Perfil from "../pages/Perfil.vue"
+import Projetos from "../pages/Projetos.vue";
+import ProjetosConcluidos from "../pages/ProjetosC.vue";
+import Perfil from "../pages/Perfil.vue";
+import store from "@/store";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    component: () => import("../layouts/Blank.vue"), 
+    component: () => import("../layouts/Blank.vue"),
+    meta: {
+      auth: false,
+    },
     children: [
       {
         path: "",
@@ -25,7 +30,10 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("../layouts/Default.vue"), 
+    component: () => import("../layouts/Default.vue"),
+    meta: {
+      auth: true,
+    },
     children: [
       {
         path: "/home",
@@ -64,12 +72,24 @@ const routes = [
       },
     ],
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.auth)) {
+    if (!store.state.auth.loggedIn) {
+      next({ name: "Login" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;
