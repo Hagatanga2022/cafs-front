@@ -9,7 +9,6 @@ import Computadores from "../pages/Computadores.vue";
 import Projetos from "../pages/Projetos.vue";
 import ProjetosConcluidos from "../pages/ProjetosC.vue";
 import Perfil from "../pages/Perfil.vue";
-import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -49,11 +48,6 @@ const routes = [
         path: "/computadores",
         name: Computadores,
         component: Computadores,
-      },
-      {
-        path: "/home",
-        name: Home,
-        component: Home,
       },
       {
         path: "/projetos",
