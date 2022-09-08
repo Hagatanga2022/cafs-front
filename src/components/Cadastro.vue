@@ -54,12 +54,12 @@
             <v-btn class="ma-1 white--text" color="teal">Cadastrar</v-btn>
           </div>
         </v-col>
-        <v-col>
+        <!-- <v-col>
           <div align="center">Já possui uma conta?</div>
           <div @click="cadastro = true">
             <Cadastro />
           </div>
-        </v-col>
+        </v-col> -->
       </v-card>
     </v-dialog>
   </v-container>

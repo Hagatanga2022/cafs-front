@@ -32,12 +32,12 @@
             <v-btn class="mt-1 white--text" color="teal">Logar</v-btn>
           </div>
         </v-col>
-        <v-col>
+        <!-- <v-col>
           <div align="center">Ainda não possui uma conta?</div>
           <div @click="cadastro = true">
             <Cadastro />
           </div>
-        </v-col>
+        </v-col> -->
       </v-card>
     </v-dialog>
   </v-container>
@@ -50,6 +50,7 @@ export default {
     return {
       login: false,
       Cadastro,
+      show: false,
     };
   },
 };
