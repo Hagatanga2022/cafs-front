@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-card class="overflow-hidden">
-      <v-app-bar
+      <v-toolbar
         class="white--text d-flex"
         color="cyan darken-1"
         dark
@@ -9,23 +9,39 @@
         extension-height="100"
         elevation="1"
       >
-        <v-toolbar-title height="400px" class="mt-10">
-          <h1>
-            <b>C.A.F.S</b>
-          </h1>
-          <h3><p>Controle de acesso à Fábrica de Software</p></h3>
+        <v-img
+          id="Projetos"
+          alt="Projetos"
+          :src="Projetos"
+          width="200"
+          height="200"
+        ></v-img>
+        <v-spacer />
+        <v-toolbar-title class="title ml-5">
+          <h1>Projetos</h1>
         </v-toolbar-title>
-      </v-app-bar>
+        <v-spacer />
+      </v-toolbar>
     </v-card>
   </v-app>
 </template>
 
 <script>
-export default {};
+import Projetos from "../assets/projetos.png";
+export default {
+  data() {
+    return {
+      Projetos,
+    };
+  },
+};
 </script>
 
 <style>
-v-toolbal-title {
-  font-size: 20px;
+.title,
+#Projetos {
+  margin-top: 6rem;
+  text-align: center;
+  align-content: center;
 }
 </style>

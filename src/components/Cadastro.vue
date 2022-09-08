@@ -41,15 +41,18 @@
           >
           </v-text-field>
           <v-text-field
-              label="Password"
-              v-model="user.password"
-              :type="show ? 'text' : 'password'"
-              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show = !show"
-            ></v-text-field>
+            class="input mx-auto"
+            color="teal"
+            :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show = !show"
+            outlined
+            label="Senha"
+          >
+          </v-text-field>
          <div align="center">
-          <v-btn class="ma-1 white--text" color="teal">Cadastrar</v-btn>
-        </div>
+            <v-btn class="ma-1 white--text" color="teal">Cadastrar</v-btn>
+          </div>
         </v-col>
         <v-col>
           <div align="center">Já possui uma conta?</div>
@@ -67,7 +70,49 @@ export default {
   data() {
     return {
       Novaconta: false,
+      user: {},
+      show: false,
+      errorLogin: false,
+      novaConta: false,
     };
+  },
+  methods: {
+    reset() {
+      this.user = "";
+    },
+    async login() {
+      try {
+        await fb.auth.signInWithEmailAndPassword(
+          this.user.email,
+          this.user.password
+        );
+        this.$router.push({ name: "Home" });
+      } catch (error) {
+        const errorCode = error.code;
+        switch (errorCode) {
+          case "auth/wrong-password":
+            this.errorLogin = true;
+            break;
+          case "auth/invalid-email":
+            this.errorLogin = true;
+            break;
+          case "auth/user-not-found":
+            this.novaConta = true;
+            break;
+          default:
+            this.errorLogin = true;
+            break;
+        }
+      }
+    },
+    async criarNovaConta() {
+      this.novaConta = false;
+      await fb.auth.createUserWithEmailAndPassword(
+        this.user.email,
+        this.user.password
+      );
+      this.login();
+    },
   },
 };
 </script>

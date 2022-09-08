@@ -10,7 +10,7 @@
     >
       <v-list class="d-flex" dense dark>
         <v-list-item class="mt-8">
-          <v-btn icon class="mx-auto" :to="{ name: 'StartPage' }" light>
+          <v-btn icon class="mx-auto" :to="StartPage" light>
             <v-img
               id="IFLogo"
               alt="IFLogo"
@@ -54,11 +54,17 @@ export default {
       mini: false,
       IFLogo,
       items: [
-        { title: "Pesquisar", icon: "mdi-magnify", to: "/pesquisar" },
         { title: "Home", icon: "mdi-home", to: "/home" },
         { title: "Bolsistas", icon: "mdi-school", to: "/bolsistas" },
         { title: "Computadores", icon: "mdi-laptop", to: "/computadores" },
         { title: "Projetos", icon: "mdi-folder", to: "/projetos" },
+        { title: "Perfil", icon: "mdi-account", to: "/perfil" },
+        {
+          title: "Projetos concluídos",
+          icon: " mdi-check-circle",
+          to: "/projetosc",
+        },
+        { title: "Sair", icon: " mdi-exit-to-app", to: "/" },
       ],
     };
   },
@@ -66,7 +72,7 @@ export default {
 </script>
 
 <style>
-  .theme--light.v-divider {
-    border-color: rgba(255, 255, 255, 0.12) !important;
-  }
+.theme--light.v-divider {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
 </style>

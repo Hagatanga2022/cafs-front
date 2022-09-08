@@ -10,6 +10,7 @@
           <v-text-field
             class="input mx-auto"
             color="teal"
+            append-icon="mdi-email"
             square
             outlined
             v-model="text"
@@ -18,17 +19,18 @@
           <v-text-field
             class="input mx-auto"
             color="teal"
+            :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show = !show"
             square
             outlined
             v-model="text"
-            prepend-icon="mdi-camera"
             label="Digite sua senha"
-            
           >
           </v-text-field>
-        <div class="mt-2" align="center">
-          <v-btn class="mt-1 white--text" color="teal">Logar</v-btn>
-        </div>
+          <div class="mt-2" align="center">
+            <v-btn class="mt-1 white--text" color="teal">Logar</v-btn>
+          </div>
         </v-col>
         <v-col>
           <div align="center">Ainda não possui uma conta?</div>
@@ -42,7 +44,7 @@
 </template>
 
 <script>
-import Cadastro from '../components/Cadastro.vue'
+import Cadastro from "../components/Cadastro.vue";
 export default {
   data() {
     return {
