@@ -3,33 +3,16 @@
     <v-btn @click="login = true" class="v-btn1" v-on="on">Login</v-btn>
     <v-dialog v-model="login" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
-        <v-card-title class="text-h3 justify-center teal--text"
-          >Login</v-card-title
-        >
+        <v-card-title class="text-h3 justify-center teal--text">Login</v-card-title>
         <v-col justify="center">
-          <v-text-field
-            class="input mx-auto"
-            color="teal"
-            append-icon="mdi-email"
-            square
-            outlined
-            v-model="text"
-            label="Digite seu e-mail"
-          ></v-text-field>
-          <v-text-field
-            class="input mx-auto"
-            color="teal"
-            :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show = !show"
-            square
-            outlined
-            v-model="text"
-            label="Digite sua senha"
-          >
+          <v-text-field class="input mx-auto" color="teal" append-icon="mdi-email" square outlined
+            v-model="user.username" label="Digite seu e-mail"></v-text-field>
+          <v-text-field class="input mx-auto" color="teal" :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" square outlined
+            v-model="user.password" label="Digite sua senha">
           </v-text-field>
           <div class="mt-2" align="center">
-            <v-btn class="mt-1 white--text" color="teal">Logar</v-btn>
+            <v-btn class="mt-1 white--text" @click="submitLogin()" color="teal">Logar</v-btn>
           </div>
         </v-col>
         <!-- <v-col>
@@ -45,13 +28,27 @@
 
 <script>
 import Cadastro from "../components/Cadastro.vue";
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
+      user: {},
       login: false,
       Cadastro,
       show: false,
     };
+  },
+  methods: {
+    ...mapActions("auth", ["login"]),
+    async submitLogin() {
+      try {
+        await this.login(this.user)
+        this.$router.push({ name: "Home" })
+      } catch(e) {
+        console.log(e)
+      }
+    }
   },
 };
 </script>
@@ -61,10 +58,12 @@ export default {
   justify-items: center;
   border-radius: 50px;
 }
+
 .input {
   max-width: 400px;
   display: block;
 }
+
 .v-btn1:before {
   content: "";
   display: block;
