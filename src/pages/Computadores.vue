@@ -18,7 +18,7 @@
         ></v-img>
         <v-spacer></v-spacer>
         <v-toolbar-title class="title ml-5">
-          <h1>Computadores</h1>
+          <h1>Computadores.</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
