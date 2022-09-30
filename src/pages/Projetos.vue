@@ -18,7 +18,7 @@
         ></v-img>
         <v-spacer />
         <v-toolbar-title class="title ml-5">
-          <h1>Projetos</h1>
+          <h1>Projetos.</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
