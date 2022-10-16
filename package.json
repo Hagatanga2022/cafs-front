@@ -21,6 +21,7 @@
     "@babel/core": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",

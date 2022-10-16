@@ -1,4 +1,4 @@
-import AuthService from "@/api/auth";
+import authService from "@/api/auth";
 
 export const auth = {
   namespaced: true,
@@ -9,24 +9,22 @@ export const auth = {
   mutations: {
     setLoginInfo(state, user) {
       state.user = user;
-      state.loggedIN = true;
+      state.loggedIn = true;
     },
     setLogout(state) {
       state.user = {};
-      state.loggedIN = false;
+      state.loggedIn = false;
     },
   },
   actions: {
     async login({ commit }, user) {
       try {
-        console.log("Passou por aqui pelo menos")
-        const userInfo = await AuthService.login(user)
-        console.log("UserInfo", userInfo)
+        const userInfo = await authService.login(user);
         commit("setLoginInfo", userInfo);
-        return Promise.resolve(userInfo)
-      } catch(e) {
+        return Promise.resolve(userInfo);
+      } catch (e) {
         commit("setLogout");
-        return Promise.reject(e)
+        return Promise.reject(e);
       }
     },
     logout({ commit }) {
