@@ -26,7 +26,7 @@
     <v-app-bar class="context" flat outlined color="#1D6382">
       <div class="btn-container">
         <div>
-          <Cadastro />
+          <Cadastro class="overlap" />
         </div>
         <v-divider dark vertical inset class="mx-4"> </v-divider>
         <div>
@@ -181,7 +181,7 @@ html {
 }
 
 .circles {
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
