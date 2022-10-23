@@ -6,7 +6,7 @@
       :mini-variant.sync="mini"
       v-model="sidebar"
       class="white--text"
-      color="cyan darken-1"
+      color="#1d6382"
     >
       <v-list class="d-flex" dense dark>
         <v-list-item class="mt-8">
@@ -25,6 +25,7 @@
         <v-divider></v-divider>
       </v-list>
       <v-list class="mt-10 white--text">
+
         <v-list-item v-for="item of items" :key="item.title" link :to="item.to">
           <v-list-item-icon>
             <v-icon dark>{{ item.icon }}</v-icon>
@@ -33,6 +34,16 @@
             item.title
           }}</v-list-item-content>
         </v-list-item>
+
+        <v-list-item @click="submitLogout">
+          <v-list-item-icon>
+            <v-icon dark>mdi-exit-to-app</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content class="white--text">
+            Sair
+          </v-list-item-content>
+        </v-list-item>
+
       </v-list>
       <v-divider light></v-divider>
     </v-navigation-drawer>
@@ -46,7 +57,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
 import IFLogo from "../assets/IFLogo1.png";
+
 export default {
   data() {
     return {
@@ -64,10 +77,21 @@ export default {
           icon: " mdi-check-circle",
           to: "/projetosc",
         },
-        { title: "Sair", icon: " mdi-exit-to-app", to: "/" },
       ],
     };
   },
+  methods: {
+    ...mapActions("auth", ["logout"]),
+    async submitLogout() {
+      try {
+        await this.logout();
+        console.log("Saiu")
+        this.$router.push({ path: "/" });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  }
 };
 </script>
 

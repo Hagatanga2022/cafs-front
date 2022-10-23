@@ -1,6 +1,29 @@
 <template>
   <v-app style="background-color: #1d6382" view="lHh Lpr lFf">
-    <v-app-bar flat outlined color="#1D6382">
+    <v-container class="context"></v-container>
+    <div
+      style="background-color: #1d6382; padding-top: 10%"
+      class="text-container"
+    >
+      <div class="sphere-cube"></div>
+      <div class="cube"></div>
+      <div class="cube">
+        <div class="image1"></div>
+      </div>
+      <div class="text">
+        <div class="text text-shadow">
+          <b> Controle de Acesso à Fábrica de Software </b>
+        </div>
+        <div class="text mt-5 text-shadow">
+          O Controle de acesso à fábrica de software, referido pelo acrônimo
+          C.A.F.S, é um sistema que busca auxiliar os coordenadores e as suas
+          equipes a gerenciarem a sua jornada de trabalho previamente
+          estabelecida.
+        </div>
+      </div>
+    </div>
+
+    <v-app-bar class="context" flat outlined color="#1D6382">
       <div class="btn-container">
         <div>
           <Cadastro />
@@ -10,43 +33,23 @@
           <Login />
         </div>
       </div>
-      <div class="spheres">
-        <div class="sphere"></div>
-        <div class="sphere"></div>
-        <div class="sphere">
-          <div class="image"></div>
-        </div>
-        <div class="sphere"></div>
-        <div class="sphere"></div>
-        <div class="sphere"></div>
-      </div>
     </v-app-bar>
-    <v-container>
-      <div
-        style="background-color: #1d6382; padding-top: 10%"
-        class="text-container"
-      >
-        <div class="sphere-cube"></div>
-        <div class="cube"></div>
-        <div class="cube">
-          <div class="image1"></div>
-        </div>
-        <div class="text">
-          <div class="text text-shadow">
-            <b> Controle de Acesso a Fábrica de Software </b>
-          </div>
-          <div class="text mt-10 text-shadow">
-            O Controle de acesso à fábrica de software, referido pelo acrônimo
-            C.A.F.S, é um sistema que busca auxiliar os coordenadores e as suas
-            equipes a gerenciarem a sua jornada de trabalho previamente
-            estabelecida
-          </div>
-        </div>
-      </div>
-    </v-container>
+    <div class="area">
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
   </v-app>
 </template>
-
 <script>
 import Login from "../components/Login.vue";
 import Cadastro from "../components/Cadastro.vue";
@@ -121,83 +124,9 @@ export default {
   box-shadow: 0px 10px 30px #3b3b3b57;
 }
 .sphere-cube {
-  background-color: #5a8a9f;
-  width: 9vw;
-  height: 9vw;
-  border-radius: 100px;
   position: relative;
   left: -25vw;
   top: 5vh;
-}
-.sphere:nth-child(6) {
-  background-color: #5a8a9f;
-  width: 9vw;
-  height: 9vw;
-  border-radius: 100px;
-  position: relative;
-  right: 10vw;
-  top: 67vh;
-}
-.sphere:nth-child(5) {
-  background-color: #5a8a9f81;
-  width: 6vw;
-  height: 6vw;
-  border-radius: 100px;
-  position: relative;
-  right: 8vw;
-  top: 73vh;
-}
-.sphere:nth-child(4) {
-  background-color: #5a8a9fb6;
-  width: 6vw;
-  height: 6vw;
-  border-radius: 100px;
-  position: fixed;
-  left: 350px;
-  top: 65px;
-}
-.sphere:nth-child(3) {
-  background-color: #6e9eb2;
-  width: 9vw;
-  height: 9vw;
-  border-radius: 100px;
-  position: absolute;
-  left: 3.7vw;
-  top: 5vh;
-  overflow: hidden;
-  display: flex;
-  padding-top: 1%;
-  justify-content: space-around;
-  align-content: space-around;
-}
-.sphere:nth-child(3) .image {
-  background-image: url(../assets/IFLogo1.png);
-  width: 60%;
-  height: auto;
-  background-size: contain;
-  border-radius: 10px;
-}
-.sphere:nth-child(2) {
-  background-color: #5a8a9f9f;
-  width: 6vw;
-  height: 6vw;
-  border-radius: 100px;
-  position: absolute;
-  left: 4vh;
-  top: 11vh;
-}
-.sphere:nth-child(1) {
-  background-color: #5a8a9f81;
-  width: 6vw;
-  height: 6vw;
-  border-radius: 100px;
-  position: absolute;
-  left: 9vw;
-  top: 6vh;
-}
-.spheres {
-  width: 0;
-  height: 0;
 }
 .text {
   width: 60vh;
@@ -227,10 +156,136 @@ html {
 .text {
   color: white;
 }
-.text-container {
+/* .text-container {
   height: 100%;
   width: 100%;
   justify-content: flex-end;
   display: flex;
+} */
+
+/* Fundo */
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.context {
+  position: absolute;
+}
+
+.area {
+  background: "#1d6382";
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  width: 100%;
+  height: 100vh;
+}
+
+.circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+}
+
+.circles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
+  }
+
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
 }
 </style>

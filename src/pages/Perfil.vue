@@ -3,7 +3,7 @@
     <v-card class="overflow-hidden">
       <v-toolbar
         class="white--text d-flex"
-        color="cyan darken-1"
+        color="#1d6382"
         dark
         extended
         extension-height="100"
@@ -40,8 +40,8 @@
           append-icon="mdi-email"
           square
           outlined
-          v-model="text"
-          label="Digite seu e-mail"
+          v-model="user.username"
+          
         ></v-text-field>
         <h3 class="h3">Senha</h3>
         <v-text-field
@@ -49,14 +49,14 @@
           color="teal"
           square
           outlined
-          v-model="text"
+          v-model="user.password"
           :type="show ? 'text' : 'password'"
           :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="show = !show"
-          label="Digite sua senha"
+          
         >
         </v-text-field>
-        <v-btn class="white--text" color="teal" @click="salvarPerfil"
+        <v-btn class="white--text" color="teal" @click="verificarAtualizacao"
           >Salvar</v-btn
         >
       </v-form>
@@ -69,14 +69,34 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex"
 import Perfil from "../assets/perfil.jpg";
+
 export default {
+  created() {
+    this.newUser.username = this.user.username
+    this.newUser.password = this.user.password
+  },
   data() {
     return {
       Perfil,
       show: false,
+      salvar: false,
+      newUser: {},
     };
   },
+  computed: {
+    ...mapState("auth", ["user"]),
+  },
+  methods: {
+    ...mapActions("auth", ["updateUser"]),
+    verificarAtualizacao() {
+      if (this.user.username != this.newUser.username || this.user.password != this.newUser.password) {
+        this.updateUser(this.newUser)
+        console.log("DEU")
+      }
+    }
+  }
 };
 </script>
 

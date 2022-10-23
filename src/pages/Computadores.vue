@@ -3,7 +3,7 @@
     <v-card class="overflow-hidden">
       <v-toolbar
         class="white--text d-flex"
-        color="cyan darken-1"
+        color="#1d6382"
         dark
         extended
         extension-height="100"

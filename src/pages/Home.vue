@@ -3,7 +3,7 @@
     <v-card class="overflow-hidden">
       <v-toolbar
         class="white--text d-flex"
-        color="cyan darken-1"
+        color="#1d6382"
         dark
         extended
         extension-height="100"
@@ -29,7 +29,7 @@
             outlined
             auto-grow
             name="input-7-4"
-            background-color="grey lighten-2"
+            background-color="white"
             rows="1"
             width="100px"
             label="Quadro de avisos"
@@ -95,11 +95,11 @@ export default {
 }
 
 .avisos {
-  border-color: darkgrey;
+  border-color: lightgray;
   border-style: solid;
   border-width: 2px;
   border-radius: 1%;
-  background-color: lightgrey;
+  background-color: white;
   margin-left: 18rem;
   max-width: 1000px;
   max-height: 500px;

@@ -30,37 +30,37 @@ const routes = [
     path: "/",
     component: () => import("../layouts/Default.vue"),
     meta: {
-      auth: false,
+      auth: true,
     },
     children: [
       {
         path: "/home",
-        name: Home,
+        name: "Home",
         component: Home,
       },
       {
         path: "/bolsistas",
-        name: Bolsistas,
+        name: "Bolsistas",
         component: Bolsistas,
       },
       {
         path: "/computadores",
-        name: Computadores,
+        name: "Computadores",
         component: Computadores,
       },
       {
         path: "/projetos",
-        name: Projetos,
+        name: "Projetos",
         component: Projetos,
       },
       {
         path: "/projetosc",
-        name: ProjetosConcluidos,
+        name: "ProjetosConcluidos",
         component: ProjetosConcluidos,
       },
       {
         path: "/perfil",
-        name: Perfil,
+        name: "Perfil",
         component: Perfil,
       },
     ],
@@ -76,7 +76,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.auth)) {
     if (!store.state.auth.loggedIn) {
-      next({ name: "Login" });
+      next({ path: "/" });
     } else {
       next();
     }
