@@ -58,22 +58,21 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["get", "update"]),
-    async setInfoUser() {
-      await this.get()
+    setInfoUser() {
+      this.get()
       this.newUser.username = this.user.username
       this.newUser.first_name = this.user.first_name
       this.newUser.last_name = this.user.last_name
     },
     async updateInfo() {
-      console.log(this.newUser)
-      // try {
-      //   if (this.newUser.username != await this.get().username) delete this.newUser.username
-      //   await this.update(this.newUser);
-      //   await this.setInfoUser()
-      //   this.salvar = true;
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      try {
+        if (this.newUser.username != await this.get().username) delete this.newUser.username
+        await this.update(this.newUser);
+        await this.setInfoUser()
+        this.salvar = true;
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
