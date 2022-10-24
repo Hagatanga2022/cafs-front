@@ -1,3 +1,4 @@
+import axios from "axios";
 import authService from "@/api/auth";
 
 export const auth = {
@@ -15,6 +16,18 @@ export const auth = {
     setLoginInfo(state, userForm) {
       state.user = userForm;
     },
+    setHeaders(state) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
+      axios.defaults.headers.get["Authorization"] = `Bearer ${state.token}`;
+      axios.defaults.headers.post["Authorization"] = `Bearer ${state.token}`;
+      axios.defaults.headers.patch["Authorization"] = `Bearer ${state.token}`;
+    },
+    unsetHeaders() {
+      delete axios.defaults.headers.common["Authorization"];
+      delete axios.defaults.headers.get["Authorization"];
+      delete axios.defaults.headers.post["Authorization"];
+      delete axios.defaults.headers.patch["Authorization"];
+    },
     setLogout(state) {
       Object.keys(state.user).forEach((key) => delete state.user[key]);
       state.token = "";
@@ -30,6 +43,7 @@ export const auth = {
       try {
         const userToken = await authService.register(userForm);
         commit("setToken", userToken);
+        commit("setHeaders");
         dispatch("get");
         return Promise.resolve(userToken);
       } catch (e) {
@@ -40,6 +54,7 @@ export const auth = {
       try {
         const userToken = await authService.login(userForm);
         commit("setToken", userToken);
+        commit("setHeaders");
         dispatch("get");
         return Promise.resolve(userToken);
       } catch (e) {
@@ -49,6 +64,7 @@ export const auth = {
     },
     async logout({ commit }) {
       await authService.logout();
+      commit("unsetHeaders");
       commit("setLogout");
     },
     async update({ dispatch }, newUser) {
