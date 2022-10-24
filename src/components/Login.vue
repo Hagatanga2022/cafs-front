@@ -23,6 +23,7 @@
         </v-col> -->
       </v-card>
     </v-dialog>
+    <v-snackbar color="red darken-2" v-model="errorLogin" multline timeout="2000">Erro ao efetuar o Login!</v-snackbar>
   </v-container>
 </template>
 
@@ -36,6 +37,7 @@ export default {
     return {
       user: {},
       loginPopUp: false,
+      errorLogin: false,
       show: false,
     };
   },
@@ -43,10 +45,10 @@ export default {
     ...mapActions("auth", ["login"]),
     async submitLogin() {
       try {
-        console.log(`Usuário: ${this.user.username} \nSenha: ${this.user.password}`)
         await this.login(this.user);
         this.$router.push({ path: '/home' });
       } catch (e) {
+        this.errorLogin = true
         console.log(e);
       }
     },

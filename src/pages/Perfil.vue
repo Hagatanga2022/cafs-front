@@ -32,6 +32,8 @@
         <v-btn class="white--text" color="teal" @click="updateInfo">Salvar</v-btn>
       </v-form>
       <v-snackbar color="blue darken-2" v-model="salvar" multline timeout="2000">Perfil salvo com sucesso!</v-snackbar>
+      <v-snackbar color="red darken-2" v-model="notChanged" multline timeout="2000">Não houve alteração no perfil!</v-snackbar>
+      <v-snackbar color="red darken-2" v-model="errorUpdate" multline timeout="2000">Erro ao salvar o perfil!</v-snackbar>
     </v-container>
     <v-container sm="5"></v-container>
   </v-app>
@@ -50,6 +52,8 @@ export default {
       Perfil,
       show: false,
       salvar: false,
+      notChanged: false,
+      errorUpdate: false,
       newUser: {},
     };
   },
@@ -64,14 +68,22 @@ export default {
       this.newUser.first_name = this.user.first_name
       this.newUser.last_name = this.user.last_name
     },
+    compareInfo() {
+      return this.newUser.username != this.user.username || this.newUser.first_name != this.user.first_name || this.newUser.last_name != this.user.last_name
+    },
     async updateInfo() {
-      try {
-        if (this.newUser.username != await this.get().username) delete this.newUser.username
-        await this.update(this.newUser);
-        await this.setInfoUser()
-        this.salvar = true;
-      } catch (e) {
-        console.log(e);
+      if (this.compareInfo()) {
+        try {
+          if (this.newUser.username == this.user.username) delete this.newUser.username
+          await this.update(this.newUser);
+          await this.setInfoUser();
+          this.salvar = true;
+        } catch (e) {
+          this.errorUpdate = true;
+          console.log(e);
+        }
+      } else {
+        this.notChanged = true;
       }
     }
   }
