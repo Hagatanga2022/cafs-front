@@ -1,23 +1,32 @@
 <template>
   <v-container>
-    <v-btn @click="Novaconta = true" class="v-btn1">Cadastro</v-btn>
-    <v-dialog v-model="Novaconta" max-width="600px" max-height="600px">
+    <v-btn @click="novaConta = true" class="v-btn1">Cadastro</v-btn>
+    <v-dialog v-model="novaConta" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
         <v-card-title class="text-h3 justify-center teal--text">Cadastro</v-card-title>
         <v-col>
-          <v-text-field class="input mx-auto" color="teal" square outlined label="Nome"></v-text-field>
-          <v-text-field class="input mx-auto" color="teal" square outlined label="Sobrenome">
+          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
+            v-model="form.username" label="Apelido">
           </v-text-field>
-          <v-text-field class="input mx-auto" color="teal" square outlined label="SIAPE">
+          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
+            v-model="form.first_name" label="Nome">
           </v-text-field>
-          <v-text-field class="input mx-auto" color="teal" append-icon="mdi-email" square outlined label="Email"
-            hint="www.example.com/page">
+          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
+            v-model="form.last_name" label="Sobrenome">
           </v-text-field>
-          <v-text-field class="input mx-auto" color="teal" :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" outlined label="Senha">
+          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" append-icon="mdi-email" square
+            outlined v-model="form.email" label="Email" hint="www.example.com/page">
+          </v-text-field>
+          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" outlined
+            v-model="form.password1" label="Senha">
+          </v-text-field>
+          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" outlined
+            v-model="form.password2" label="Confirme sua senha">
           </v-text-field>
           <div align="center">
-            <v-btn class="ma-1 white--text" color="teal">Cadastrar</v-btn>
+            <v-btn class="ma-1 white--text" @click="submitForm" color="teal">Cadastrar</v-btn>
           </div>
         </v-col>
         <!-- <v-col>
@@ -32,50 +41,27 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
-      Novaconta: false,
-      user: {},
-      show: false,
-      errorLogin: false,
+      // errorLogin: false,
       novaConta: false,
+      show: false,
+      form: {},
     };
   },
   methods: {
-    async login() {
+    ...mapActions("auth", ["register"]),
+    async submitForm() {
       try {
-        await fb.auth.signInWithEmailAndPassword(
-          this.user.email,
-          this.user.password
-        );
-        this.$router.push({ name: "Home" });
-      } catch (error) {
-        const errorCode = error.code;
-        switch (errorCode) {
-          case "auth/wrong-password":
-            this.errorLogin = true;
-            break;
-          case "auth/invalid-email":
-            this.errorLogin = true;
-            break;
-          case "auth/user-not-found":
-            this.novaConta = true;
-            break;
-          default:
-            this.errorLogin = true;
-            break;
-        }
+        await this.register(this.form);
+        this.$router.push({ path: '/home' });
+      } catch (e) {
+        console.log(e);
       }
-    },
-    async criarNovaConta() {
-      this.novaConta = false;
-      await fb.auth.createUserWithEmailAndPassword(
-        this.user.email,
-        this.user.password
-      );
-      this.login();
-    },
+    }
   },
 };
 </script>
@@ -102,5 +88,4 @@ export default {
   border-radius: inherit;
   box-shadow: none;
 }
-
 </style>

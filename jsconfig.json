@@ -1,6 +1,8 @@
 {
   "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true
+    // "experimentalDisableTemplateSupport": true,
+    "extensions": [".vue"],
+    "target": 2.7
   },
   "compilerOptions": {
     "target": "es5",
@@ -8,15 +10,8 @@
     "baseUrl": "./",
     "moduleResolution": "node",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   }
 }

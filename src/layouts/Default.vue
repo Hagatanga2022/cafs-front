@@ -1,25 +1,11 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      permanent
-      app
-      :mini-variant.sync="mini"
-      v-model="sidebar"
-      class="white--text"
-      color="#1d6382"
-    >
+    <v-navigation-drawer permanent app :mini-variant.sync="mini" v-model="sidebar" class="white--text" color="#1d6382">
       <v-list class="d-flex" dense dark>
         <v-list-item class="mt-8">
           <v-btn icon class="mx-auto" to="/" light>
-            <v-img
-              id="IFLogo"
-              alt="IFLogo"
-              :src="IFLogo"
-              transition="scale-transition"
-              contain
-              width="100"
-              height="100"
-            />
+            <v-img id="IFLogo" alt="IFLogo" :src="IFLogo" transition="scale-transition" contain width="100"
+              height="100" />
           </v-btn>
         </v-list-item>
         <v-divider></v-divider>
@@ -31,7 +17,7 @@
             <v-icon dark>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content class="white--text">{{
-            item.title
+              item.title
           }}</v-list-item-content>
         </v-list-item>
 
@@ -85,7 +71,6 @@ export default {
     async submitLogout() {
       try {
         await this.logout();
-        console.log("Saiu")
         this.$router.push({ path: "/" });
       } catch (e) {
         console.log(e);

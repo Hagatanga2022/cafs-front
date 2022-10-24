@@ -5,14 +5,14 @@
       <v-card class="pop-up-card" elevation="10" outlined>
         <v-card-title class="text-h3 justify-center teal--text">Login</v-card-title>
         <v-col justify="center">
-          <v-text-field class="input mx-auto" color="teal" append-icon="mdi-email" square outlined
-            v-model="user.username" label="Digite seu e-mail"></v-text-field>
-          <v-text-field class="input mx-auto" color="teal" :type="show ? 'text' : 'password'"
+          <v-text-field class="input mx-auto" @keyup.enter="submitLogin" color="teal" append-icon="mdi-email" square
+            outlined v-model="user.username" label="Digite seu email ou apelido"></v-text-field>
+          <v-text-field class="input mx-auto" @keyup.enter="submitLogin" color="teal" :type="show ? 'text' : 'password'"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" square outlined
             v-model="user.password" label="Digite sua senha">
           </v-text-field>
           <div class="mt-2" align="center">
-            <v-btn @click="submitLogin()" class="mt-1 white--text" color="teal">Logar</v-btn>
+            <v-btn @click="submitLogin" class="mt-1 white--text" color="teal">Logar</v-btn>
           </div>
         </v-col>
         <!-- <v-col>
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import Cadastro from "../components/Cadastro.vue";
+// import Cadastro from "../components/Cadastro.vue";
 import { mapActions } from "vuex";
 
 export default {
-  components: { Cadastro },
+  // components: { Cadastro },
   data() {
     return {
       user: {},

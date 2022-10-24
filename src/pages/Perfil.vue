@@ -1,21 +1,8 @@
 <template>
   <v-app>
     <v-card class="overflow-hidden">
-      <v-toolbar
-        class="white--text d-flex"
-        color="#1d6382"
-        dark
-        extended
-        extension-height="100"
-        elevation="1"
-      >
-        <v-img
-          id="Perfil"
-          alt="Perfil"
-          :src="Perfil"
-          width="150"
-          height="150"
-        ></v-img>
+      <v-toolbar class="white--text d-flex" color="#1d6382" dark extended extension-height="100" elevation="1">
+        <v-img id="Perfil" alt="Perfil" :src="Perfil" width="150" height="150"></v-img>
         <v-spacer />
         <v-toolbar-title class="title ml-5">
           <h1>Perfil.</h1>
@@ -33,36 +20,18 @@
         <h1>736.932.871-57</h1>
       </div>
       <v-form>
-        <h3 class="h3 mt-5">Email</h3>
-        <v-text-field
-          class="input"
-          color="teal"
-          append-icon="mdi-email"
-          square
-          outlined
-          v-model="user.username"
-          
-        ></v-text-field>
-        <h3 class="h3">Senha</h3>
-        <v-text-field
-          class="input"
-          color="teal"
-          square
-          outlined
-          v-model="user.password"
-          :type="show ? 'text' : 'password'"
-          :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="show = !show"
-          
-        >
+        <h3 class="h3 mt-5">Apelido</h3>
+        <v-text-field class="input" color="teal" square outlined v-model="newUser.username">
         </v-text-field>
-        <v-btn class="white--text" color="teal" @click="verificarAtualizacao"
-          >Salvar</v-btn
-        >
+        <h3 class="h3">Nome</h3>
+        <v-text-field class="input" color="teal" square outlined v-model="newUser.first_name">
+        </v-text-field>
+        <h3 class="h3">Sobrenome</h3>
+        <v-text-field class="input" color="teal" square outlined v-model="newUser.last_name">
+        </v-text-field>
+        <v-btn class="white--text" color="teal" @click="updateInfo">Salvar</v-btn>
       </v-form>
-      <v-snackbar color="blue darken-2" v-model="salvar" multline timeout="2000"
-        >Perfil salvo com sucesso!</v-snackbar
-      >
+      <v-snackbar color="blue darken-2" v-model="salvar" multline timeout="2000">Perfil salvo com sucesso!</v-snackbar>
     </v-container>
     <v-container sm="5"></v-container>
   </v-app>
@@ -73,9 +42,8 @@ import { mapState, mapActions } from "vuex"
 import Perfil from "../assets/perfil.jpg";
 
 export default {
-  created() {
-    this.newUser.username = this.user.username
-    this.newUser.password = this.user.password
+  async created() {
+    await this.setInfoUser()
   },
   data() {
     return {
@@ -89,12 +57,23 @@ export default {
     ...mapState("auth", ["user"]),
   },
   methods: {
-    ...mapActions("auth", ["updateUser"]),
-    verificarAtualizacao() {
-      if (this.user.username != this.newUser.username || this.user.password != this.newUser.password) {
-        this.updateUser(this.newUser)
-        console.log("DEU")
-      }
+    ...mapActions("auth", ["get", "update"]),
+    async setInfoUser() {
+      await this.get()
+      this.newUser.username = this.user.username
+      this.newUser.first_name = this.user.first_name
+      this.newUser.last_name = this.user.last_name
+    },
+    async updateInfo() {
+      console.log(this.newUser)
+      // try {
+      //   if (this.newUser.username != await this.get().username) delete this.newUser.username
+      //   await this.update(this.newUser);
+      //   await this.setInfoUser()
+      //   this.salvar = true;
+      // } catch (e) {
+      //   console.log(e);
+      // }
     }
   }
 };
