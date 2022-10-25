@@ -3,16 +3,10 @@
     <v-btn @click="novaConta = true" class="v-btn1">Cadastro</v-btn>
     <v-dialog v-model="novaConta" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
-        <v-card-title class="text-h3 justify-center teal--text">Cadastro</v-card-title>
+        <v-card-title class="text-h3 mb-5 justify-center teal--text">Cadastro</v-card-title>
         <v-col>
           <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
             v-model="form.username" label="Apelido">
-          </v-text-field>
-          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
-            v-model="form.first_name" label="Nome">
-          </v-text-field>
-          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
-            v-model="form.last_name" label="Sobrenome">
           </v-text-field>
           <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" append-icon="mdi-email" square
             outlined v-model="form.email" label="Email" hint="www.example.com/page">
@@ -46,7 +40,6 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      // errorLogin: false,
       novaConta: false,
       show: false,
       form: {},
@@ -57,7 +50,7 @@ export default {
     async submitForm() {
       try {
         await this.register(this.form);
-        this.$router.push({ path: '/home' });
+        this.$router.push({ name: "Home" });
       } catch (e) {
         console.log(e);
       }

@@ -32,8 +32,10 @@
         <v-btn class="white--text" color="teal" @click="updateInfo">Salvar</v-btn>
       </v-form>
       <v-snackbar color="blue darken-2" v-model="salvar" multline timeout="2000">Perfil salvo com sucesso!</v-snackbar>
-      <v-snackbar color="red darken-2" v-model="notChanged" multline timeout="2000">Não houve alteração no perfil!</v-snackbar>
-      <v-snackbar color="red darken-2" v-model="errorUpdate" multline timeout="2000">Erro ao salvar o perfil!</v-snackbar>
+      <v-snackbar color="red darken-2" v-model="notChanged" multline timeout="2000">Não houve alteração no perfil!
+      </v-snackbar>
+      <v-snackbar color="red darken-2" v-model="errorUpdate" multline timeout="2000">Erro ao salvar o perfil!
+      </v-snackbar>
     </v-container>
     <v-container sm="5"></v-container>
   </v-app>
@@ -44,8 +46,8 @@ import { mapState, mapActions } from "vuex"
 import Perfil from "../assets/perfil.jpg";
 
 export default {
-  async created() {
-    await this.setInfoUser()
+  created() {
+    this.setInfoUser()
   },
   data() {
     return {
@@ -64,6 +66,7 @@ export default {
     ...mapActions("auth", ["get", "update"]),
     setInfoUser() {
       this.get()
+      console.log("No peril: ", this.user.first_name)
       this.newUser.username = this.user.username
       this.newUser.first_name = this.user.first_name
       this.newUser.last_name = this.user.last_name

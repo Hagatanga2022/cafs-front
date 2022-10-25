@@ -37,6 +37,7 @@ export const auth = {
   actions: {
     async get({ commit }) {
       const userForm = await authService.get();
+      console.log("Ao pegar: ", userForm.first_name);
       commit("setLoginInfo", userForm);
     },
     async register({ dispatch, commit }, userForm) {
