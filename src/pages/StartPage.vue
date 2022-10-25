@@ -102,6 +102,7 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
+  z-index: 3;
 }
 .cube:nth-child(3) .image1 {
   background-image: url(../assets/CAFS1.png);
@@ -111,6 +112,7 @@ export default {
   background-size: contain;
   border-radius: 200px 200px 100px 100px;
   transform: rotate(315deg);
+
 }
 .cube:nth-child(2) {
   background-color: #d9d9d9;
@@ -122,6 +124,7 @@ export default {
   left: 3vw;
   top: 45vh;
   box-shadow: 0px 10px 30px #3b3b3b57;
+  z-index: 3;
 }
 .sphere-cube {
   position: relative;
@@ -171,22 +174,24 @@ html {
 
 .context {
   position: absolute;
+  z-index: 2;
 }
 
 .area {
   background: "#1d6382";
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
   width: 100%;
-  height: 100vh;
+  height: auto;
 }
 
 .circles {
-  position: sticky;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: 1;
 }
 
 .circles li {
@@ -196,8 +201,8 @@ html {
   width: 20px;
   height: 20px;
   background: rgba(255, 255, 255, 0.2);
-  animation: animate 25s linear infinite;
-  bottom: -150px;
+  animation: animate 15s linear infinite;
+  bottom: -200px;
 }
 
 .circles li:nth-child(1) {
@@ -279,13 +284,20 @@ html {
   0% {
     transform: translateY(0) rotate(0deg);
     opacity: 1;
-    border-radius: 0;
+    border-radius: 20%;
+   
   }
-
-  100% {
+  50% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
     border-radius: 50%;
+  
+  }
+  70% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 100%;
+    
   }
 }
 </style>
