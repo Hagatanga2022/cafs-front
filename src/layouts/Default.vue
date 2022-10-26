@@ -3,8 +3,9 @@
     <v-navigation-drawer permanent app :mini-variant.sync="mini" v-model="sidebar" class="white--text" color="#1d6382">
       <v-list class="d-flex" dense dark>
         <v-list-item class="mt-8">
-          <v-btn icon class="mx-auto" to="/" light>
-            <v-img id="IFLogo" alt="IFLogo" :src="IFLogo" transition="scale-transition" contain width="100"
+          <v-btn icon class="mx-auto" to="/" light 
+            >
+            <v-img id="IFLogo" alt="IFLogo" :src="IFLogo" transition="scale-transition" contain width="100%"
               height="100" />
           </v-btn>
         </v-list-item>
@@ -36,7 +37,7 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-    <v-footer app class="py-3">
+    <v-footer app id="footersize" class="py-3">
       <span class="overline">C.A.F.S &copy;2022</span>
     </v-footer>
   </v-app>
@@ -83,5 +84,8 @@ export default {
 <style>
 .theme--light.v-divider {
   border-color: rgba(255, 255, 255, 0.12) !important;
+}
+#footersize{
+  width: 18.2vw;
 }
 </style>

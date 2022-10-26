@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card class="overflow-hidden">
+    <v-card id="content">
       <v-toolbar
         class="white--text d-flex"
         color="#1d6382"
@@ -107,5 +107,8 @@ export default {
 
 .h1 {
   font-size: 70px;
+}
+#content{
+  border-radius: 0%;
 }
 </style>

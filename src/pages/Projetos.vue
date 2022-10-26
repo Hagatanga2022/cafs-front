@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card class="overflow-hidden">
+    <v-card id="content">
       <v-toolbar
         class="white--text d-flex"
         color="#1d6382"
@@ -18,7 +18,7 @@
         ></v-img>
         <v-spacer />
         <v-toolbar-title class="title ml-5">
-          <h1>Projetos.</h1>
+          <h1>Projetos</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
@@ -43,5 +43,8 @@ export default {
   margin-top: 6rem;
   text-align: center;
   align-content: center;
+}
+#content{
+  border-radius: 0%;
 }
 </style>

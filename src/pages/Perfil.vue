@@ -1,16 +1,17 @@
 <template>
   <v-app>
-    <v-card class="overflow-hidden">
+    <v-card id="content">
       <v-toolbar class="white--text d-flex" color="#1d6382" dark extended extension-height="100" elevation="1">
         <v-img id="Perfil" alt="Perfil" :src="Perfil" width="150" height="150"></v-img>
         <v-spacer />
-        <v-toolbar-title class="title ml-5">
-          <h1>Perfil.</h1>
+        <v-toolbar-title v-model="newUser.username" class="title ml-5">
+          <h1>Perfil</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
     </v-card>
-    <v-container sm="7" class="pa-15" fluid>
+    <v-container sm="7" id="profilebody" fluid
+    style="padding-left: 4vw;padding-top: 6vh;">
       <div class="siape">
         <h3 class="h3">Siape</h3>
         <h1>181734619</h1>
@@ -103,5 +104,12 @@ export default {
 
 .h3 {
   color: teal;
+}
+#content{
+  border-radius: 0;
+  height: auto;
+}
+#profilebody{
+  overflow: scroll;
 }
 </style>
