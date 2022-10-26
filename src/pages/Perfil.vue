@@ -5,7 +5,7 @@
         <v-img id="Perfil" alt="Perfil" :src="Perfil" width="150" height="150"></v-img>
         <v-spacer />
         <v-toolbar-title v-model="newUser.username" class="title ml-5">
-          <h1>Perfil</h1>
+          <h1>{{newUser.first_name}} {{newUser.last_name}}</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
