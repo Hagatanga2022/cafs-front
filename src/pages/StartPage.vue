@@ -12,10 +12,10 @@
       </div>
       <div class="text">
         <div class="text text-shadow">
-          <b> Controle de Acesso à Fábrica de Software </b>
+          <b> Controle de Acesso à Fábrica de Software</b>
         </div>
-        <div class="text mt-5 text-shadow">
-          O Controle de acesso à fábrica de software, referido pelo acrônimo
+        <div class="text pt-3 text-shadow">
+          O Controle de acesso à Fábrica de Software, referido pelo acrônimo
           C.A.F.S, é um sistema que busca auxiliar os coordenadores e as suas
           equipes a gerenciarem a sua jornada de trabalho previamente
           estabelecida.
@@ -28,7 +28,7 @@
         <div>
           <Cadastro class="overlap" />
         </div>
-        <v-divider dark vertical inset class="mx-4"> </v-divider>
+        <v-divider class="mx-4" dark vertical></v-divider>
         <div>
           <Login />
         </div>
@@ -84,7 +84,6 @@ export default {
   height: 100%;
   width: 100%;
   justify-content: right;
-  padding: 10px;
 }
 .cube:nth-child(3) {
   background-color: #ffffff;
@@ -108,11 +107,10 @@ export default {
   background-image: url(../assets/CAFS1.png);
   width: 60%;
   height: 75%;
-  position: fixed;
+  position: absolute;
   background-size: contain;
   border-radius: 200px 200px 100px 100px;
   transform: rotate(315deg);
-
 }
 .cube:nth-child(2) {
   background-color: #d9d9d9;
@@ -131,33 +129,8 @@ export default {
   left: -25vw;
   top: 5vh;
 }
-.text {
-  width: 60vh;
-  height: 26vh;
-  background-color: #1d6482ea;
-  border-radius: 20px 0px 10px 20px;
-}
-.text:nth-child(1) {
-  font-size: 3em;
-  line-height: 100%;
-  text-align: right;
-  position: absolute;
-  top: 30vh;
-  right: 10vh;
-}
-.text:nth-child(2) {
-  font-size: 1.75em;
-  line-height: 100%;
-  text-align: right;
-  position: absolute;
-  right: 10vh;
-  top: 50vh;
-}
 #body {
   overflow: hidden;
-}
-.text {
-  color: white;
 }
 /* .text-container {
   height: 100%;
@@ -280,24 +253,56 @@ export default {
   animation-duration: 11s;
 }
 
+.text {
+  width: 60vh;
+  height: 26vh;
+  border-radius: 20px 0px 10px 20px;
+  right: 15vh;
+  color: white;
+}
+.text:nth-child(1) {
+  font-size: 3em;
+  line-height: 100%;
+  text-align: right;
+  position: absolute;
+  top: 30vh;
+}
+.text:nth-child(2) {
+  font-size: 1.75em;
+  line-height: 100%;
+  text-align: right;
+  position: absolute;
+  top: 50vh;
+}
+
 @keyframes animate {
   0% {
     transform: translateY(0) rotate(0deg);
     opacity: 1;
     border-radius: 20%;
-   
   }
   50% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
     border-radius: 50%;
-  
   }
   70% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
     border-radius: 100%;
-    
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .cube:nth-child(2),
+  .cube:nth-child(3) {
+    visibility: hidden;
+  }
+
+  .text,
+  .text:nth-child(1),
+  .text:nth-child(2) {
+    font-size: 50px;
   }
 }
 </style>
