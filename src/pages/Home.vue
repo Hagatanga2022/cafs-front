@@ -24,9 +24,10 @@
     <v-container fluid>
       <v-row>
         <v-col id="text-area" cols="11" md="8">
-          <v-textarea
+          <v-text-field
             prepend-inner-icon="mdi-comment"
             outlined
+            v-model="comentario.descricao"
             auto-grow
             name="input-7-4"
             background-color="white"
@@ -34,7 +35,8 @@
             width="100px"
             label="Quadro de avisos"
             placeholder="Informe avisos aos bolsistas de seus projetos."
-          ></v-textarea>
+            @keydown.enter="comentar"
+          ></v-text-field>
         </v-col>
         <v-container class="avisos">
           <v-row class="vh-100 vw-100">
@@ -59,6 +61,44 @@
               </div>
             </v-col>
           </v-row>
+          <v-card class="mx-auto">
+            <v-list-item
+              three-line
+              v-for="(comentario, index) in comentarios"
+              :key="index"
+            >
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  comentario.titulo
+                }}</v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ comentario.descricao }}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ comentario.data_publicacao.split("-").reverse().join("/").substr(6, 2) + comentario.data_publicacao.split("-").reverse().join("/").substr(24, 25) }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-btn
+                @click="deletarComentario(comentario.id)"
+                color="secondary"
+                fab
+                x-small
+                dark
+                class="ma-2"
+              >
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn
+                @click="editarComentario(comentario.id)"
+                color="secondary"
+                fab
+                x-small
+                dark
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </v-list-item>
+          </v-card>
         </v-container>
       </v-row>
     </v-container>
@@ -67,11 +107,46 @@
 
 <script>
 import Avisos from "../assets/avisos.png";
+import { mapState } from "vuex"
+import axios from "axios";
+
 export default {
+  async created() {
+    await this.listarComentarios()
+  },
   data() {
     return {
       Avisos,
+      comentarios: [],
+      comentario: {},
     };
+  },
+  computed: {
+    ...mapState("auth", ["user"]),
+  },
+  methods: {
+    async listarComentarios() {
+      const { data } = await axios.get("avisos/");
+      this.comentarios = data;
+    },
+    async comentar() {
+      this.comentario.publicado_por = this.user.pk;
+      this.comentario.titulo = `Aviso de ${this.user.first_name}`;
+      await axios.post("avisos/", this.comentario);
+      this.listarComentarios();
+    },
+    async deletarComentario(id) {
+      await axios.delete(`avisos/${id}/`);
+      this.listarComentarios();
+    },
+    async editarComentario(id) {
+      try {
+        await axios.put(`avisos/${id}/`, this.comentario);
+        this.listarComentarios();
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>
@@ -108,7 +183,7 @@ export default {
 .h1 {
   font-size: 70px;
 }
-#content{
+#content {
   border-radius: 0%;
 }
 </style>
