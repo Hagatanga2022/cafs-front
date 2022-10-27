@@ -12,14 +12,16 @@
     </v-card>
     <v-container sm="7" id="profilebody" fluid
     style="padding-left: 4vw;padding-top: 6vh;">
+    <div v-if="user.siape">
       <div class="siape">
         <h3 class="h3">Siape</h3>
-        <h1>181734619</h1>
+        <h1>{{ user.siape }}</h1>
       </div>
       <div class="cpf mt-5">
         <h3 class="h3">CPF</h3>
-        <h1>736.932.871-57</h1>
+        <h1>{{ user.cpf }}</h1>
       </div>
+    </div>
       <v-form>
         <h3 class="h3 mt-5">Apelido</h3>
         <v-text-field class="input" color="teal" square outlined v-model="newUser.username">
@@ -29,6 +31,12 @@
         </v-text-field>
         <h3 class="h3">Sobrenome</h3>
         <v-text-field class="input" color="teal" square outlined v-model="newUser.last_name">
+        </v-text-field>
+        <h3 class="h3">Siape</h3>
+        <v-text-field class="input" color="teal" square outlined v-model="newUser.siape">
+        </v-text-field>
+        <h3 class="h3">CPF</h3>
+        <v-text-field class="input" color="teal" square outlined v-model="newUser.cpf">
         </v-text-field>
         <v-btn class="white--text" color="teal" @click="updateInfo">Salvar</v-btn>
       </v-form>
@@ -71,6 +79,8 @@ export default {
       this.newUser.username = this.user.username
       this.newUser.first_name = this.user.first_name
       this.newUser.last_name = this.user.last_name
+      this.newUser.siape = this.user.siape
+      this.newUser.cpf = this.user.cpf
     },
     compareInfo() {
       return this.newUser.username != this.user.username || this.newUser.first_name != this.user.first_name || this.newUser.last_name != this.user.last_name
@@ -110,6 +120,6 @@ export default {
   height: auto;
 }
 #profilebody{
-  overflow: scroll;
+  overflow-y: visible;
 }
 </style>

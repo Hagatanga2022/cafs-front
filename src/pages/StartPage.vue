@@ -153,9 +153,6 @@ export default {
   right: 10vh;
   top: 50vh;
 }
-html {
-  overflow: hidden;
-}
 .text {
   color: white;
 }

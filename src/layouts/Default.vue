@@ -103,9 +103,7 @@ export default {
   opacity: 0;
 }
 
-.barra{
-  overflow-y: hidden;
-}
+
 
 .barra:hover #IFLogo{
   opacity: 1;
