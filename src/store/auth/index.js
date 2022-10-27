@@ -29,15 +29,14 @@ export const auth = {
       delete axios.defaults.headers.patch["Authorization"];
     },
     setLogout(state) {
-      Object.keys(state.user).forEach((key) => delete state.user[key]);
-      state.token = "";
+      state.user = null;
+      state.token = null;
       state.loggedIn = false;
     },
   },
   actions: {
     async get({ commit }) {
       const userForm = await authService.get();
-      console.log("Ao pegar: ", userForm.first_name);
       commit("setLoginInfo", userForm);
     },
     async register({ dispatch, commit }, userForm) {
@@ -67,6 +66,7 @@ export const auth = {
       await authService.logout();
       commit("unsetHeaders");
       commit("setLogout");
+      location.reload();
     },
     async update({ dispatch }, newUser) {
       try {

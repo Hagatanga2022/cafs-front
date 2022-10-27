@@ -3,27 +3,58 @@
     <v-btn @click="loginPopUp = true" class="v-btn1">Login</v-btn>
     <v-dialog v-model="loginPopUp" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
-        <v-card-title class="text-h3 justify-center teal--text">Login</v-card-title>
-        <v-col justify="center">
-          <v-text-field class="input mx-auto" @keyup.enter="submitLogin" color="teal" append-icon="mdi-email" square
-            outlined v-model="user.username" label="Digite seu email ou apelido"></v-text-field>
-          <v-text-field class="input mx-auto" @keyup.enter="submitLogin" color="teal" :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" square outlined
-            v-model="user.password" label="Digite sua senha">
-          </v-text-field>
-          <div class="mt-2" align="center">
-            <v-btn @click="submitLogin" class="mt-1 white--text" color="teal">Logar</v-btn>
-          </div>
-        </v-col>
-        <!-- <v-col>
-          <div align="center">Ainda não possui uma conta?</div>
-          <div @click="cadastro = true">
-            <Cadastro />
-          </div>
-        </v-col> -->
+        <v-form ref="form" v-model="valid" lazy-validation>
+          <v-card-title class="text-h3 justify-center teal--text"
+            >Login</v-card-title
+          >
+          <v-col justify="center">
+            <v-text-field
+              class="input mx-auto"
+              @keyup.enter="submitLogin"
+              color="teal"
+              append-icon="mdi-email"
+              square
+              required
+              outlined
+              v-model="user.username"
+              label="Digite seu email ou apelido"
+            ></v-text-field>
+            <v-text-field
+              class="input mx-auto"
+              @keyup.enter="submitLogin"
+              color="teal"
+              :type="show ? 'text' : 'password'"
+              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show = !show"
+              square
+              required
+              outlined
+              v-model="user.password"
+              label="Digite sua senha"
+            >
+            </v-text-field>
+            <div class="mt-2" align="center">
+              <v-btn @click="submitLogin" :disabled="!valid" class="mt-1 white--text" color="teal"
+                >Logar</v-btn
+              >
+            </div>
+          </v-col>
+          <!-- <v-col>
+            <div align="center">Ainda não possui uma conta?</div>
+            <div @click="cadastro = true">
+              <Cadastro />
+            </div>
+          </v-col> -->
+        </v-form>
       </v-card>
     </v-dialog>
-    <v-snackbar color="red darken-2" v-model="errorLogin" multline timeout="2000">Erro ao efetuar o Login!</v-snackbar>
+    <v-snackbar
+      color="red darken-2"
+      v-model="errorLogin"
+      multline
+      timeout="2000"
+      >Erro ao efetuar o Login!</v-snackbar
+    >
   </v-container>
 </template>
 
@@ -36,6 +67,7 @@ export default {
   data() {
     return {
       user: {},
+      valid: true,
       loginPopUp: false,
       errorLogin: false,
       show: false,
@@ -46,9 +78,9 @@ export default {
     async submitLogin() {
       try {
         await this.login(this.user);
-        this.$router.push({ path: '/home' });
+        this.$router.push({ path: "/home" });
       } catch (e) {
-        this.errorLogin = true
+        this.errorLogin = true;
         console.log(e);
       }
     },

@@ -35,11 +35,11 @@
             width="100px"
             label="Quadro de avisos"
             placeholder="Informe avisos aos bolsistas de seus projetos."
-            @keydown.enter="comentar"
+            @keydown.enter="postAnnouncement"
           ></v-text-field>
         </v-col>
-        <v-container class="avisos">
-          <v-row class="vh-100 vw-100">
+        <v-container>
+          <v-row v-if="comentarios.length === 0" class="avisos mb-0 vh-100 vw-100">
             <v-col sm="5">
               <v-img
                 class="d-flex justify-center align-center"
@@ -61,42 +61,55 @@
               </div>
             </v-col>
           </v-row>
-          <v-card class="mx-auto">
+          <v-card
+            class="avisos mt-10"
+            v-for="(comentario, index) in comentarios"
+            :key="index"
+          >
             <v-list-item
               three-line
-              v-for="(comentario, index) in comentarios"
-              :key="index"
             >
               <v-list-item-content>
-                <v-list-item-title>{{
-                  comentario.titulo
-                }}</v-list-item-title>
+                <v-list-item-title>{{ comentario.titulo }}</v-list-item-title>
                 <v-list-item-subtitle>
                   {{ comentario.descricao }}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
-                  {{ comentario.data_publicacao.split("-").reverse().join("/").substr(6, 2) + comentario.data_publicacao.split("-").reverse().join("/").substr(24, 25) }}
+                  {{
+                    comentario.data_publicacao
+                      .split("-")
+                      .reverse()
+                      .join("/")
+                      .substr(6, 2) +
+                    comentario.data_publicacao
+                      .split("-")
+                      .reverse()
+                      .join("/")
+                      .substr(24, 25)
+                  }}
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-btn
-                @click="deletarComentario(comentario.id)"
-                color="secondary"
-                fab
-                x-small
-                dark
-                class="ma-2"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-              <v-btn
-                @click="editarComentario(comentario.id)"
-                color="secondary"
-                fab
-                x-small
-                dark
-              >
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
+              <div v-if="user.pk == comentario.publicado_por">
+                <v-btn
+                  @click="editAnnouncement(comentario.id)"
+                  color="secondary"
+                  fab
+                  x-small
+                  dark
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn
+                  @click="deleteAnnouncement(comentario.id)"
+                  color="secondary"
+                  fab
+                  x-small
+                  dark
+                  class="ma-2"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </div>
             </v-list-item>
           </v-card>
         </v-container>
@@ -107,12 +120,13 @@
 
 <script>
 import Avisos from "../assets/avisos.png";
-import { mapState } from "vuex"
+import { mapActions, mapState } from "vuex";
 import axios from "axios";
 
 export default {
-  async created() {
-    await this.listarComentarios()
+  created() {
+    this.get();
+    this.getAnnouncement();
   },
   data() {
     return {
@@ -125,27 +139,28 @@ export default {
     ...mapState("auth", ["user"]),
   },
   methods: {
-    async listarComentarios() {
+    ...mapActions("auth", ["get"]),
+    async getAnnouncement() {
       const { data } = await axios.get("avisos/");
       this.comentarios = data;
     },
-    async comentar() {
+    async postAnnouncement() {
       this.comentario.publicado_por = this.user.pk;
       this.comentario.titulo = `Aviso de ${this.user.first_name}`;
       await axios.post("avisos/", this.comentario);
-      this.listarComentarios();
+      this.getAnnouncement();
     },
-    async deletarComentario(id) {
-      await axios.delete(`avisos/${id}/`);
-      this.listarComentarios();
-    },
-    async editarComentario(id) {
+    async editAnnouncement(id) {
       try {
         await axios.put(`avisos/${id}/`, this.comentario);
-        this.listarComentarios();
+        this.getAnnouncement();
       } catch (e) {
         console.log(e);
       }
+    },
+    async deleteAnnouncement(id) {
+      await axios.delete(`avisos/${id}/`);
+      this.getAnnouncement();
     },
   },
 };
