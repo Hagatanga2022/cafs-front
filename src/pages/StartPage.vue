@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background-color: #1d6382" view="lHh Lpr lFf">
+  <v-app id="body" style="background-color: #1d6382" view="lHh Lpr lFf">
     <v-container class="context"></v-container>
     <div
       style="background-color: #1d6382; padding-top: 10%"
@@ -152,6 +152,9 @@ export default {
   position: absolute;
   right: 10vh;
   top: 50vh;
+}
+#body {
+  overflow: hidden;
 }
 .text {
   color: white;
