@@ -16,7 +16,7 @@
             v-model="form.password1" label="Senha">
           </v-text-field>
           <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" outlined
+             @click:append="show = !show" outlined
             v-model="form.password2" label="Confirme sua senha">
           </v-text-field>
           <div align="center">
