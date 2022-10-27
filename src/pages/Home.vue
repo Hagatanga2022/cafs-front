@@ -11,7 +11,7 @@
       >
         <v-spacer />
         <v-toolbar-title class="texts">
-          <div>
+          <div class="cafs-title">
             <h1 class="h1">C.A.F.S</h1>
             <h3>
               <p>Controle de acesso à Fábrica de Software</p>
@@ -110,5 +110,10 @@ export default {
 }
 #content{
   border-radius: 0%;
+}
+
+.cafs-title {
+  margin-left: 50%;
+  margin-right: 50%;
 }
 </style>

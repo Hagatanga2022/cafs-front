@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer permanent mini-variant-width="100"  expand-on-hover app :mini-variant.sync="mini"  v-model="sidebar" class="white--text barra" color="#1d6382">
+    <v-navigation-drawer permanent mini-variant-width="100" transition="slide-x-transition"  expand-on-hover app :mini-variant.sync="mini"  v-model="sidebar" class="barra white--text" color="#1d6382">
       <v-list  class="d-flex" dense dark>
         <v-list-item class="mt-8 pt-9">
           <v-btn icon class="mx-auto" to="/" light 
@@ -88,28 +88,33 @@ export default {
 
 
 }
+
 .theme--light.v-divider {
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
+
 #footersize{
   width: 100vw;
   height: 5vh;
   opacity: 0.3;
 }
+
 #IFLogo{
   opacity: 0;
 }
+
 .barra{
-  width: 200px;
+  overflow-y: hidden;
 }
+
 .barra:hover #IFLogo{
   opacity: 1;
   animation: animate 0.3s ;
-
 }
+
 @keyframes animate{
   0% {
-    opacity: 0;
+    opacity: 0; 
   }
   100%{
     opacity: 1;
