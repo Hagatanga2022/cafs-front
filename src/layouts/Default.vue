@@ -1,17 +1,17 @@
 <template>
   <v-app>
-    <v-navigation-drawer permanent app :mini-variant.sync="mini" v-model="sidebar" class="white--text" color="#1d6382">
-      <v-list class="d-flex" dense dark>
-        <v-list-item class="mt-8">
+    <v-navigation-drawer permanent mini-variant-width="100"  expand-on-hover app :mini-variant.sync="mini"  v-model="sidebar" class="white--text barra" color="#1d6382">
+      <v-list  class="d-flex" dense dark>
+        <v-list-item class="mt-8 pt-9">
           <v-btn icon class="mx-auto" to="/" light 
             >
             <v-img id="IFLogo" alt="IFLogo" :src="IFLogo" transition="scale-transition" contain width="100%"
-              height="100" />
+              height="15vh" />
           </v-btn>
         </v-list-item>
         <v-divider></v-divider>
       </v-list>
-      <v-list class="mt-10 white--text">
+      <v-list class="mt-10 white--text pt-9">
 
         <v-list-item v-for="item of items" :key="item.title" link :to="item.to">
           <v-list-item-icon>
@@ -82,10 +82,38 @@ export default {
 </script>
 
 <style>
+#testing{
+  margin:0px;
+  padding-right:0px;
+
+
+}
 .theme--light.v-divider {
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 #footersize{
-  width: 18.2vw;
+  width: 100vw;
+  height: 5vh;
+  opacity: 0.3;
 }
+#IFLogo{
+  opacity: 0;
+}
+.barra{
+  width: 200px;
+}
+.barra:hover #IFLogo{
+  opacity: 1;
+  animation: animate 0.3s ;
+
+}
+@keyframes animate{
+  0% {
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
 </style>
