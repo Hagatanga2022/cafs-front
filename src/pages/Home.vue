@@ -111,9 +111,4 @@ export default {
 #content{
   border-radius: 0%;
 }
-
-.cafs-title {
-  margin-left: 50%;
-  margin-right: 50%;
-}
 </style>
