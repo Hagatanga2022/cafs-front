@@ -1,14 +1,7 @@
 <template>
   <v-app>
     <v-card id="content">
-      <v-toolbar
-        class="white--text d-flex"
-        color="#1d6382"
-        dark
-        extended
-        extension-height="100"
-        elevation="1"
-      >
+      <v-toolbar class="white--text d-flex" color="#1d6382" dark extended extension-height="100" elevation="1">
         <v-spacer />
         <v-toolbar-title class="texts">
           <div class="cafs-title">
@@ -24,29 +17,15 @@
     <v-container fluid>
       <v-row>
         <v-col id="text-area" cols="11" md="8">
-          <v-text-field
-            prepend-inner-icon="mdi-comment"
-            outlined
-            v-model="comentario.descricao"
-            auto-grow
-            name="input-7-4"
-            background-color="white"
-            rows="1"
-            width="100px"
-            label="Quadro de avisos"
-            placeholder="Informe avisos aos bolsistas de seus projetos."
-            @keydown.enter="postAnnouncement"
-          ></v-text-field>
+          <v-text-field prepend-inner-icon="mdi-comment" outlined v-model="comentario.descricao" auto-grow
+            name="input-7-4" background-color="white" rows="1" width="100px" label="Quadro de avisos"
+            placeholder="Informe avisos aos bolsistas de seus projetos." @keydown.enter="postAnnouncement">
+          </v-text-field>
         </v-col>
         <v-container>
           <v-row v-if="comentarios.length === 0" class="avisos mb-0 vh-100 vw-100">
             <v-col sm="5">
-              <v-img
-                class="d-flex justify-center align-center"
-                :src="Avisos"
-                width="500"
-                height="500"
-              ></v-img>
+              <v-img class="d-flex justify-center align-center" :src="Avisos" width="500" height="500"></v-img>
             </v-col>
             <v-col sm="7" class="texto">
               <div>
@@ -61,14 +40,8 @@
               </div>
             </v-col>
           </v-row>
-          <v-card
-            class="avisos mt-10"
-            v-for="(comentario, index) in comentarios"
-            :key="index"
-          >
-            <v-list-item
-              three-line
-            >
+          <v-card class="avisos mt-10" v-for="(comentario, index) in comentarios" :key="index">
+            <v-list-item three-line>
               <v-list-item-content>
                 <v-list-item-title>{{ comentario.titulo }}</v-list-item-title>
                 <v-list-item-subtitle>
@@ -76,37 +49,24 @@
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
                   {{
-                    comentario.data_publicacao
-                      .split("-")
-                      .reverse()
-                      .join("/")
-                      .substr(6, 2) +
-                    comentario.data_publicacao
-                      .split("-")
-                      .reverse()
-                      .join("/")
-                      .substr(24, 25)
+                      comentario.data_publicacao
+                        .split("-")
+                        .reverse()
+                        .join("/")
+                        .substr(6, 2) +
+                      comentario.data_publicacao
+                        .split("-")
+                        .reverse()
+                        .join("/")
+                        .substr(24, 25)
                   }}
                 </v-list-item-subtitle>
               </v-list-item-content>
               <div v-if="user.pk == comentario.publicado_por">
-                <v-btn
-                  @click="editAnnouncement(comentario.id)"
-                  color="secondary"
-                  fab
-                  x-small
-                  dark
-                >
+                <v-btn @click="editAnnouncement(comentario.id)" color="secondary" fab x-small dark>
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn
-                  @click="deleteAnnouncement(comentario.id)"
-                  color="secondary"
-                  fab
-                  x-small
-                  dark
-                  class="ma-2"
-                >
+                <v-btn @click="deleteAnnouncement(comentario.id)" color="secondary" fab x-small dark class="ma-2">
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </div>
@@ -152,7 +112,7 @@ export default {
     },
     async editAnnouncement(id) {
       try {
-        await axios.put(`avisos/${id}/`, this.comentario);
+        await axios.patch(`avisos/${id}/`, this.comentario);
         this.getAnnouncement();
       } catch (e) {
         console.log(e);
@@ -171,12 +131,14 @@ export default {
   margin-left: 18rem;
   max-width: 1000px;
 }
+
 .texto {
   width: 60vh;
   height: 26vh;
   color: #1d6482ea;
   align-self: center;
 }
+
 .texts {
   margin-top: 6rem;
   margin-left: 30rem;
@@ -198,6 +160,7 @@ export default {
 .h1 {
   font-size: 70px;
 }
+
 #content {
   border-radius: 0%;
 }

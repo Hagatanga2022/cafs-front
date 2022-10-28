@@ -5,23 +5,22 @@
         <v-img id="Perfil" alt="Perfil" :src="Perfil" width="150" height="150"></v-img>
         <v-spacer />
         <v-toolbar-title v-model="newUser.username" class="title ml-5">
-          <h1>{{newUser.first_name}} {{newUser.last_name}}</h1>
+          <h1>{{ newUser.first_name }} {{ newUser.last_name }}</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
     </v-card>
-    <v-container sm="7" id="profilebody" fluid
-    style="padding-left: 4vw;padding-top: 6vh;">
-    <div v-if="user.siape">
-      <div class="siape">
-        <h3 class="h3">Siape</h3>
-        <h1>{{ user.siape }}</h1>
+    <v-container sm="7" id="profilebody" fluid style="padding-left: 4vw;padding-top: 6vh;">
+      <div v-if="user.siape">
+        <div class="siape">
+          <h3 class="h3">Siape</h3>
+          <h1>{{ user.siape }}</h1>
+        </div>
+        <div class="cpf mt-5">
+          <h3 class="h3">CPF</h3>
+          <h1>{{ user.cpf }}</h1>
+        </div>
       </div>
-      <div class="cpf mt-5">
-        <h3 class="h3">CPF</h3>
-        <h1>{{ user.cpf }}</h1>
-      </div>
-    </div>
       <v-form>
         <h3 class="h3 mt-5">Apelido</h3>
         <v-text-field class="input" color="teal" square outlined v-model="newUser.username">
@@ -75,7 +74,6 @@ export default {
     ...mapActions("auth", ["get", "update"]),
     setInfoUser() {
       this.get()
-      console.log("No peril: ", this.user.first_name)
       this.newUser.username = this.user.username
       this.newUser.first_name = this.user.first_name
       this.newUser.last_name = this.user.last_name
@@ -83,7 +81,7 @@ export default {
       this.newUser.cpf = this.user.cpf
     },
     compareInfo() {
-      return this.newUser.username != this.user.username || this.newUser.first_name != this.user.first_name || this.newUser.last_name != this.user.last_name
+      return this.newUser.username != this.user.username || this.newUser.first_name != this.user.first_name || this.newUser.last_name != this.user.last_name || this.newUser.siape != this.user.siape || this.newUser.cpf != this.user.cpf
     },
     async updateInfo() {
       if (this.compareInfo()) {
@@ -115,11 +113,13 @@ export default {
 .h3 {
   color: teal;
 }
-#content{
+
+#content {
   border-radius: 0;
   height: auto;
 }
-#profilebody{
+
+#profilebody {
   overflow-y: visible;
 }
 </style>

@@ -14,8 +14,7 @@ class AuthService {
     return data;
   }
   async update(newUser) {
-    const { data } = await axios.patch("auth/user/", newUser);
-    console.log("Após atualizar: ", data.first_name);
+    await axios.patch("auth/user/", newUser);
   }
   async logout() {
     await axios.post("auth/logout/");

@@ -64,7 +64,6 @@ export const auth = {
     },
     async logout({ commit }) {
       await authService.logout();
-      commit("unsetHeaders");
       commit("setLogout");
       location.reload();
     },
