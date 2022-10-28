@@ -3,24 +3,59 @@
     <v-btn @click="novaConta = true" class="v-btn1">Cadastro</v-btn>
     <v-dialog v-model="novaConta" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
-        <v-card-title class="text-h3 mb-5 justify-center teal--text">Cadastro</v-card-title>
+        <v-card-title class="text-h3 mb-5 justify-center teal--text"
+          >Cadastro</v-card-title
+        >
         <v-col>
-          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" square outlined
-            v-model="form.username" label="Apelido">
+          <v-text-field
+            class="input mx-auto"
+            @keyup.enter="submitForm"
+            color="teal"
+            square
+            outlined
+            v-model="form.username"
+            label="Apelido"
+          >
           </v-text-field>
-          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" append-icon="mdi-email" square
-            outlined v-model="form.email" label="Email" hint="www.example.com/page">
+          <v-text-field
+            class="input mx-auto"
+            @keyup.enter="submitForm"
+            color="teal"
+            append-icon="mdi-email"
+            square
+            outlined
+            v-model="form.email"
+            label="Email"
+            hint="www.example.com/page"
+          >
           </v-text-field>
-          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" @click:append="show = !show" outlined
-            v-model="form.password1" label="Senha">
+          <v-text-field
+            class="input mx-auto"
+            @keyup.enter="submitForm"
+            color="teal"
+            :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show = !show"
+            outlined
+            v-model="form.password1"
+            label="Senha"
+          >
           </v-text-field>
-          <v-text-field class="input mx-auto" @keyup.enter="submitForm" color="teal" :type="show ? 'text' : 'password'"
-             @click:append="show = !show" outlined
-            v-model="form.password2" label="Confirme sua senha">
+          <v-text-field
+            class="input mx-auto"
+            @keyup.enter="submitForm"
+            color="teal"
+            :type="show ? 'text' : 'password'"
+            @click:append="show = !show"
+            outlined
+            v-model="form.password2"
+            label="Confirme sua senha"
+          >
           </v-text-field>
           <div align="center">
-            <v-btn class="ma-1 white--text" @click="submitForm" color="teal">Cadastrar</v-btn>
+            <v-btn class="ma-1 white--text" @click="submitForm" color="teal"
+              >Cadastrar</v-btn
+            >
           </div>
         </v-col>
         <!-- <v-col>
@@ -54,7 +89,7 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    }
+    },
   },
 };
 </script>

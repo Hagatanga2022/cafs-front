@@ -44,7 +44,7 @@ export default {
   text-align: center;
   align-content: center;
 }
-#content{
+#content {
   border-radius: 0%;
 }
 </style>

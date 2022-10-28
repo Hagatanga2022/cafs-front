@@ -34,7 +34,11 @@
             >
             </v-text-field>
             <div class="mt-2" align="center">
-              <v-btn @click="submitLogin" :disabled="!valid" class="mt-1 white--text" color="teal"
+              <v-btn
+                @click="submitLogin"
+                :disabled="!valid"
+                class="mt-1 white--text"
+                color="teal"
                 >Logar</v-btn
               >
             </div>

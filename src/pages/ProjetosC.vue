@@ -3,7 +3,7 @@
     <v-card id="content">
       <v-toolbar
         class="white--text d-flex"
-        color= "#1d6382"
+        color="#1d6382"
         dark
         extended
         extension-height="100"
@@ -44,7 +44,7 @@ export default {
   text-align: center;
   align-content: center;
 }
-#content{
+#content {
   border-radius: 0%;
 }
 </style>
