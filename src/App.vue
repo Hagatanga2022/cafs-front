@@ -7,21 +7,17 @@ import { mapMutations, mapState } from "vuex";
 
 export default {
   created() {
-    if (this.token) {
-      this.setHeaders();
-    } else {
-      this.unsetHeaders();
-    }
+    this.loggedIn ? this.setHeaders() : this.unsetHeaders();
+    this.loggedIn ? this.setAnnounces() : this.cleanAnnouncement();
   },
   computed: {
-    ...mapState("auth", ["token"]),
+    ...mapState("auth", ["loggedIn"]),
   },
   methods: {
     ...mapMutations("auth", ["setHeaders", "unsetHeaders"]),
-  }
+    ...mapMutations("announcement", ["cleanAnnouncement", "setAnnounces"]),
+  },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

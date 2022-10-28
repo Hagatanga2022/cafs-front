@@ -51,12 +51,20 @@
   </v-app>
 </template>
 <script>
+import { mapMutations } from "vuex";
 import Login from "../components/Login.vue";
 import Cadastro from "../components/Cadastro.vue";
+
 export default {
   components: {
     Login,
     Cadastro,
+  },
+  mounted() {
+    this.unsetHeaders();
+  },
+  methods: {
+    ...mapMutations("auth", ["unsetHeaders"]),
   },
 };
 </script>
@@ -65,26 +73,32 @@ export default {
 @viewport {
   user-zoom: fixed;
 }
+
 .sidebar-content {
   height: 100%;
 }
+
 .title {
   color: white;
   font-size: 40px;
   font-weight: 500;
 }
+
 .minor-title {
   color: white;
 }
+
 .container {
   height: 93vh;
 }
+
 .btn-container {
   display: flex;
   height: 100%;
   width: 100%;
   justify-content: right;
 }
+
 .cube:nth-child(3) {
   background-color: #ffffff;
   width: 36vw;
@@ -103,6 +117,7 @@ export default {
   align-items: center;
   z-index: 3;
 }
+
 .cube:nth-child(3) .image1 {
   background-image: url(../assets/CAFS1.png);
   width: 60%;
@@ -112,6 +127,7 @@ export default {
   border-radius: 200px 200px 100px 100px;
   transform: rotate(315deg);
 }
+
 .cube:nth-child(2) {
   background-color: #d9d9d9;
   width: 37vw;
@@ -124,14 +140,17 @@ export default {
   box-shadow: 0px 10px 30px #3b3b3b57;
   z-index: 3;
 }
+
 .sphere-cube {
   position: relative;
   left: -25vw;
   top: 5vh;
 }
+
 #body {
   overflow: hidden;
 }
+
 /* .text-container {
   height: 100%;
   width: 100%;
@@ -260,6 +279,7 @@ export default {
   right: 15vh;
   color: white;
 }
+
 .text:nth-child(1) {
   font-size: 3em;
   line-height: 100%;
@@ -267,6 +287,7 @@ export default {
   position: absolute;
   top: 30vh;
 }
+
 .text:nth-child(2) {
   font-size: 1.75em;
   line-height: 100%;
@@ -281,11 +302,13 @@ export default {
     opacity: 1;
     border-radius: 20%;
   }
+
   50% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
     border-radius: 50%;
   }
+
   70% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;

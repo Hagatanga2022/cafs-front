@@ -1,7 +1,14 @@
 <template>
   <v-app>
     <v-card id="content">
-      <v-toolbar class="white--text d-flex" color="#1d6382" dark extended extension-height="100" elevation="1">
+      <v-toolbar
+        class="white--text d-flex"
+        color="#1d6382"
+        dark
+        extended
+        extension-height="100"
+        elevation="1"
+      >
         <v-spacer />
         <v-toolbar-title class="texts">
           <div class="cafs-title">
@@ -17,15 +24,33 @@
     <v-container fluid>
       <v-row>
         <v-col id="text-area" cols="11" md="8">
-          <v-text-field prepend-inner-icon="mdi-comment" outlined v-model="comentario.descricao" auto-grow
-            name="input-7-4" background-color="white" rows="1" width="100px" label="Quadro de avisos"
-            placeholder="Informe avisos aos bolsistas de seus projetos." @keydown.enter="postAnnouncement">
+          <v-text-field
+            prepend-inner-icon="mdi-comment"
+            outlined
+            v-model="announce.descricao"
+            auto-grow
+            name="input-7-4"
+            background-color="white"
+            rows="1"
+            width="100px"
+            label="Quadro de avisos"
+            placeholder="Informe avisos aos bolsistas de seus projetos."
+            @keydown.enter="postAnnouncementInfo"
+          >
           </v-text-field>
         </v-col>
         <v-container>
-          <v-row v-if="comentarios.length === 0" class="avisos mb-0 vh-100 vw-100">
+          <v-row
+            v-if="allAnnounces.length === 0"
+            class="avisos mb-0 vh-100 vw-100"
+          >
             <v-col sm="5">
-              <v-img class="d-flex justify-center align-center" :src="Avisos" width="500" height="500"></v-img>
+              <v-img
+                class="d-flex justify-center align-center"
+                :src="Avisos"
+                width="500"
+                height="500"
+              ></v-img>
             </v-col>
             <v-col sm="7" class="texto">
               <div>
@@ -40,33 +65,39 @@
               </div>
             </v-col>
           </v-row>
-          <v-card class="avisos mt-10" v-for="(comentario, index) in comentarios" :key="index">
+          <v-card
+            class="avisos mt-10"
+            v-for="(theAnnounce, index) in this.allAnnounces"
+            :key="index"
+          >
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title>{{ comentario.titulo }}</v-list-item-title>
+                <v-list-item-title>{{ theAnnounce.titulo }}</v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ comentario.descricao }}
+                  {{ theAnnounce.descricao }}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
-                  {{
-                      comentario.data_publicacao
-                        .split("-")
-                        .reverse()
-                        .join("/")
-                        .substr(6, 2) +
-                      comentario.data_publicacao
-                        .split("-")
-                        .reverse()
-                        .join("/")
-                        .substr(24, 25)
-                  }}
+                  {{ dateAnnouncement(theAnnounce) }}
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <div v-if="user.pk == comentario.publicado_por">
-                <v-btn @click="editAnnouncement(comentario.id)" color="secondary" fab x-small dark>
+              <div v-if="user.pk == theAnnounce.publicado_por">
+                <v-btn
+                  @click="editAnnouncementInfo(theAnnounce.id)"
+                  color="secondary"
+                  fab
+                  x-small
+                  dark
+                >
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn @click="deleteAnnouncement(comentario.id)" color="secondary" fab x-small dark class="ma-2">
+                <v-btn
+                  @click="deleteAnnouncementInfo(theAnnounce.id)"
+                  color="secondary"
+                  fab
+                  x-small
+                  dark
+                  class="ma-2"
+                >
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </div>
@@ -81,46 +112,54 @@
 <script>
 import Avisos from "../assets/avisos.png";
 import { mapActions, mapState } from "vuex";
-import axios from "axios";
 
 export default {
   created() {
-    this.get();
     this.getAnnouncement();
   },
   data() {
-    return {
-      Avisos,
-      comentarios: [],
-      comentario: {},
-    };
+    return { Avisos };
   },
   computed: {
     ...mapState("auth", ["user"]),
+    ...mapState("announcement", ["announce", "allAnnounces"]),
   },
   methods: {
-    ...mapActions("auth", ["get"]),
-    async getAnnouncement() {
-      const { data } = await axios.get("avisos/");
-      this.comentarios = data;
+    ...mapActions("announcement", [
+      "getAnnouncement",
+      "postAnnouncement",
+      "editAnnouncement",
+      "deleteAnnouncement",
+    ]),
+
+    dateAnnouncement({ data_publicacao }) {
+      return (
+        data_publicacao.split("-").reverse().join("/").substr(6, 2) +
+        data_publicacao.split("-").reverse().join("/").substr(24, 25)
+      );
     },
-    async postAnnouncement() {
-      this.comentario.publicado_por = this.user.pk;
-      this.comentario.titulo = `Aviso de ${this.user.first_name}`;
-      await axios.post("avisos/", this.comentario);
-      this.getAnnouncement();
-    },
-    async editAnnouncement(id) {
+    async postAnnouncementInfo() {
       try {
-        await axios.patch(`avisos/${id}/`, this.comentario);
-        this.getAnnouncement();
+        this.announce.publicado_por = this.user.pk;
+        this.announce.titulo = `Aviso de ${this.user.first_name}`;
+        await this.postAnnouncement();
       } catch (e) {
         console.log(e);
       }
     },
-    async deleteAnnouncement(id) {
-      await axios.delete(`avisos/${id}/`);
-      this.getAnnouncement();
+    async editAnnouncementInfo(idAnnounce) {
+      try {
+        await this.editAnnouncement(idAnnounce);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteAnnouncementInfo(idAnnounce) {
+      try {
+        await this.deleteAnnouncement(idAnnounce);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

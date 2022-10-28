@@ -1,16 +1,34 @@
 <template>
   <v-app>
     <v-card id="content">
-      <v-toolbar class="white--text d-flex" color="#1d6382" dark extended extension-height="100" elevation="1">
-        <v-img id="Perfil" alt="Perfil" :src="Perfil" width="150" height="150"></v-img>
+      <v-toolbar
+        class="white--text d-flex"
+        color="#1d6382"
+        dark
+        extended
+        extension-height="100"
+        elevation="1"
+      >
+        <v-img
+          id="Perfil"
+          alt="Perfil"
+          :src="Perfil"
+          width="150"
+          height="150"
+        ></v-img>
         <v-spacer />
         <v-toolbar-title v-model="newUser.username" class="title ml-5">
-          <h1>{{ newUser.first_name }} {{ newUser.last_name }}</h1>
+          <h1>{{ userName }}</h1>
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
     </v-card>
-    <v-container sm="7" id="profilebody" fluid style="padding-left: 4vw;padding-top: 6vh;">
+    <v-container
+      sm="7"
+      id="profilebody"
+      fluid
+      style="padding-left: 4vw; padding-top: 6vh"
+    >
       <div v-if="user.siape">
         <div class="siape">
           <h3 class="h3">Siape</h3>
@@ -23,26 +41,57 @@
       </div>
       <v-form>
         <h3 class="h3 mt-5">Apelido</h3>
-        <v-text-field class="input" color="teal" square outlined v-model="newUser.username">
-        </v-text-field>
+        <v-text-field
+          class="input"
+          color="teal"
+          square
+          outlined
+          v-model="newUser.username"
+        ></v-text-field>
         <h3 class="h3">Nome</h3>
-        <v-text-field class="input" color="teal" square outlined v-model="newUser.first_name">
-        </v-text-field>
+        <v-text-field
+          class="input"
+          color="teal"
+          square
+          outlined
+          v-model="newUser.first_name"
+        ></v-text-field>
         <h3 class="h3">Sobrenome</h3>
-        <v-text-field class="input" color="teal" square outlined v-model="newUser.last_name">
-        </v-text-field>
+        <v-text-field
+          class="input"
+          color="teal"
+          square
+          outlined
+          v-model="newUser.last_name"
+        ></v-text-field>
         <h3 class="h3">Siape</h3>
-        <v-text-field class="input" color="teal" square outlined v-model="newUser.siape">
-        </v-text-field>
+        <v-text-field
+          class="input"
+          color="teal"
+          square
+          outlined
+          v-model="newUser.siape"
+        ></v-text-field>
         <h3 class="h3">CPF</h3>
-        <v-text-field class="input" color="teal" square outlined v-model="newUser.cpf">
-        </v-text-field>
-        <v-btn class="white--text" color="teal" @click="updateInfo">Salvar</v-btn>
+        <v-text-field
+          class="input"
+          color="teal"
+          square
+          outlined
+          v-model="newUser.cpf"
+        ></v-text-field>
+        <v-btn class="white--text" color="teal" @click="updateUserInfo">
+          Salvar
+        </v-btn>
       </v-form>
-      <v-snackbar color="blue darken-2" v-model="salvar" multline timeout="2000">Perfil salvo com sucesso!</v-snackbar>
-      <v-snackbar color="red darken-2" v-model="notChanged" multline timeout="2000">Não houve alteração no perfil!
+      <v-snackbar color="blue darken-2" v-model="salvar" multline>
+        Perfil salvo com sucesso!
       </v-snackbar>
-      <v-snackbar color="red darken-2" v-model="errorUpdate" multline timeout="2000">Erro ao salvar o perfil!
+      <v-snackbar color="red darken-2" v-model="notChanged" multline>
+        Não houve alteração no perfil!
+      </v-snackbar>
+      <v-snackbar color="red darken-2" v-model="errorUpdate" multline>
+        Erro ao salvar o perfil!
       </v-snackbar>
     </v-container>
     <v-container sm="5"></v-container>
@@ -50,12 +99,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions } from "vuex";
 import Perfil from "../assets/perfil.jpg";
 
 export default {
   created() {
-    this.setInfoUser()
+    this.setUserInfo();
   },
   data() {
     return {
@@ -69,26 +118,43 @@ export default {
   },
   computed: {
     ...mapState("auth", ["user"]),
+
+    userName() {
+      return this.newUser.first_name != "" || this.newUser.last_name != ""
+        ? `Perfil de ${this.newUser.first_name} ${this.newUser.last_name}`
+        : `Perfil de ${this.newUser.username}`;
+    },
   },
   methods: {
-    ...mapActions("auth", ["get", "update"]),
-    setInfoUser() {
-      this.get()
-      this.newUser.username = this.user.username
-      this.newUser.first_name = this.user.first_name
-      this.newUser.last_name = this.user.last_name
-      this.newUser.siape = this.user.siape
-      this.newUser.cpf = this.user.cpf
+    ...mapActions("auth", [
+      "updateUser",
+      // "deleteUser",
+    ]),
+
+    setUserInfo() {
+      this.newUser.username = this.user.username;
+      this.newUser.first_name = this.user.first_name;
+      this.newUser.last_name = this.user.last_name;
+      this.newUser.siape = this.user.siape;
+      this.newUser.cpf = this.user.cpf;
     },
-    compareInfo() {
-      return this.newUser.username != this.user.username || this.newUser.first_name != this.user.first_name || this.newUser.last_name != this.user.last_name || this.newUser.siape != this.user.siape || this.newUser.cpf != this.user.cpf
+    hasChangedUserInfo() {
+      return (
+        this.newUser.username != this.user.username ||
+        this.newUser.first_name != this.user.first_name ||
+        this.newUser.last_name != this.user.last_name ||
+        this.newUser.siape != this.user.siape ||
+        this.newUser.cpf != this.user.cpf
+      );
     },
-    async updateInfo() {
-      if (this.compareInfo()) {
+    async updateUserInfo() {
+      if (this.hasChangedUserInfo()) {
         try {
-          if (this.newUser.username == this.user.username) delete this.newUser.username
-          await this.update(this.newUser);
-          await this.setInfoUser();
+          if (this.newUser.username == this.user.username)
+            delete this.newUser.username;
+          await this.updateUser(this.newUser);
+          this.setUserInfo();
+          this.userName;
           this.salvar = true;
         } catch (e) {
           this.errorUpdate = true;
@@ -97,8 +163,15 @@ export default {
       } else {
         this.notChanged = true;
       }
-    }
-  }
+    },
+    // async deleteUser() {
+    //   try {
+    //     await this.deleteUser(this.user.pk);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
+  },
 };
 </script>
 

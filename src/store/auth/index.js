@@ -5,8 +5,8 @@ export const auth = {
   namespaced: true,
   state: () => ({
     loggedIn: false,
-    user: {},
-    token: "",
+    user: null,
+    token: null,
   }),
   mutations: {
     setToken(state, userToken) {
@@ -29,16 +29,16 @@ export const auth = {
     },
   },
   actions: {
-    async get({ commit }) {
-      const userForm = await authService.get();
+    async getUser({ commit }) {
+      const userForm = await authService.read();
       commit("setLoginInfo", userForm);
     },
     async register({ dispatch, commit }, userForm) {
       try {
-        const userToken = await authService.register(userForm);
+        const userToken = await authService.create(userForm);
         commit("setToken", userToken);
         commit("setHeaders");
-        dispatch("get");
+        dispatch("getUser");
         return Promise.resolve(userToken);
       } catch (e) {
         return Promise.reject(e);
@@ -49,7 +49,7 @@ export const auth = {
         const userToken = await authService.login(userForm);
         commit("setToken", userToken);
         commit("setHeaders");
-        dispatch("get");
+        dispatch("getUser");
         return Promise.resolve(userToken);
       } catch (e) {
         commit("setLogout");
@@ -61,10 +61,18 @@ export const auth = {
       commit("setLogout");
       location.reload();
     },
-    async update({ dispatch }, newUser) {
+    async updateUser({ dispatch }, newUser) {
       try {
         await authService.update(newUser);
-        dispatch("get");
+        dispatch("getUser");
+      } catch (e) {
+        return Promise.reject(e);
+      }
+    },
+    async deleteUser({ dispatch }, idUser) {
+      try {
+        await authService.delete(idUser);
+        dispatch("getUser");
       } catch (e) {
         return Promise.reject(e);
       }
