@@ -3,19 +3,24 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
-  created() {
+  async created() {
     this.loggedIn ? this.setHeaders() : this.unsetHeaders();
-    this.loggedIn ? this.setAnnounces() : this.cleanAnnouncement();
+    this.loggedIn ? await this.getAnnouncement() : this.cleanAnnouncement();
+    this.loggedIn ? await this.getComment() : this.cleanComments();
   },
   computed: {
     ...mapState("auth", ["loggedIn"]),
   },
   methods: {
     ...mapMutations("auth", ["setHeaders", "unsetHeaders"]),
-    ...mapMutations("announcement", ["cleanAnnouncement", "setAnnounces"]),
+    ...mapMutations("announcement", ["cleanAnnouncement"]),
+    ...mapMutations("comment", ["cleanComments"]),
+
+    ...mapActions("announcement", ["getAnnouncement"]),
+    ...mapActions("comment", ["getComment"]),
   },
 };
 </script>

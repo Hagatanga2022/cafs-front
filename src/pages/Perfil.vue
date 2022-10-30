@@ -71,7 +71,7 @@
           type="number"
           square
           outlined
-          v-model="newUser.siape"
+          v-model.number="newUser.siape"
         ></v-text-field>
         <h3 class="h3">CPF</h3>
         <v-text-field
@@ -80,7 +80,7 @@
           type="number"
           square
           outlined
-          v-model="newUser.cpf"
+          v-model.number="newUser.cpf"
         ></v-text-field>
         <v-btn class="white--text" color="teal" @click="updateUserInfo">
           Salvar

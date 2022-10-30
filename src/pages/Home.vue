@@ -62,44 +62,106 @@
               </div>
             </v-col>
           </v-row>
-          <v-card
-            class="avisos mt-10"
-            v-for="(theAnnounce, index) in this.allAnnounces"
-            :key="index"
+          <div
+            v-for="(theAnnounce, indexAnnounce) in allAnnounces"
+            :key="indexAnnounce"
           >
-            <v-list-item three-line>
-              <v-list-item-content>
-                <v-list-item-title>{{ theAnnounce.title }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ theAnnounce.description }}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle>
-                  {{ dateAnnouncement(theAnnounce) }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-              <div v-if="user.pk == theAnnounce.published_by">
-                <v-btn
-                  @click="editAnnouncementInfo(theAnnounce.id)"
-                  color="secondary"
-                  fab
-                  x-small
-                  dark
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn
-                  @click="deleteAnnouncementInfo(theAnnounce.id)"
-                  color="secondary"
-                  fab
-                  x-small
-                  dark
-                  class="ma-2"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </div>
-            </v-list-item>
-          </v-card>
+            <v-card class="avisos mt-10">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{
+                    theAnnounce.published_by.first_name
+                      ? theAnnounce.published_by.first_name
+                      : theAnnounce.published_by.username
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ theAnnounce.description }}
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ dateAnnouncement(theAnnounce) }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+                <div v-if="user.pk == theAnnounce.published_by">
+                  <v-btn
+                    @click="editAnnouncementInfo(theAnnounce.id)"
+                    color="secondary"
+                    fab
+                    x-small
+                    dark
+                  >
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                  <v-btn
+                    @click="deleteAnnouncementInfo(theAnnounce.id)"
+                    color="secondary"
+                    fab
+                    x-small
+                    dark
+                    class="ma-2"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+              </v-list-item>
+              <v-text-field
+                v-model="comment.description"
+                prepend-inner-icon="mdi-comment"
+                @keydown.enter="postCommentInfo(theAnnounce)"
+                outlined
+                auto-grow
+                name="input-7-4"
+                background-color="white"
+                rows="1"
+                width="100px"
+                placeholder="Digite aqui seu comentário"
+              >
+              </v-text-field>
+            </v-card>
+            <v-card
+              class="avisos mt-10"
+              v-for="(theComment, indexComment) in verifyComments(
+                allComments,
+                theAnnounce
+              )"
+              :key="indexComment"
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title
+                    >Comentário de
+                    {{ theComment.published_by.first_name }}</v-list-item-title
+                  >
+                  <v-list-item-subtitle>
+                    {{ theComment.description }}
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ dateComment(theComment) }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+                <div v-if="user.pk == theComment.published_by.id">
+                  <v-btn
+                    @click="editCommentInfo(theComment.id)"
+                    color="secondary"
+                    fab
+                    x-small
+                    dark
+                  >
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                  <v-btn
+                    @click="deleteCommentInfo(theComment.id)"
+                    color="secondary"
+                    fab
+                    x-small
+                    dark
+                    class="ma-2"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </div>
+              </v-list-item>
+            </v-card>
+          </div>
         </v-container>
       </v-row>
     </v-container>
@@ -120,6 +182,7 @@ export default {
   computed: {
     ...mapState("auth", ["user"]),
     ...mapState("announcement", ["announce", "allAnnounces"]),
+    ...mapState("comment", ["comment", "allComments"]),
 
     verifyAnnounces() {
       return this.allAnnounces ? this.allAnnounces.length : 1;
@@ -132,7 +195,14 @@ export default {
       "editAnnouncement",
       "deleteAnnouncement",
     ]),
+    ...mapActions("comment", [
+      "getComment",
+      "postComment",
+      "editComment",
+      "deleteComment",
+    ]),
 
+    // CRUD Announces
     dateAnnouncement({ created_at }) {
       return (
         created_at.split("-").reverse().join("/").substr(6, 2) +
@@ -160,6 +230,40 @@ export default {
     async deleteAnnouncementInfo(idAnnounce) {
       try {
         await this.deleteAnnouncement(idAnnounce);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    // CRUD Comments
+    verifyComments(allComments, theAnnounce) {
+      return allComments.filter((x) => x.announce.id === theAnnounce.id);
+    },
+    dateComment({ created_at }) {
+      return (
+        created_at.split("-").reverse().join("/").substr(6, 2) +
+        created_at.split("-").reverse().join("/").substr(24, 25)
+      );
+    },
+    async postCommentInfo({ id }) {
+      try {
+        this.comment.published_by = this.user.pk;
+        this.comment.announce = id;
+        await this.postComment();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async editCommetInfo(idComment) {
+      try {
+        await this.editCommet(idComment);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteCommentInfo(idComment) {
+      try {
+        await this.deleteComment(idComment);
       } catch (e) {
         console.log(e);
       }
