@@ -68,6 +68,7 @@
         <v-text-field
           class="input"
           color="teal"
+          type="number"
           square
           outlined
           v-model="newUser.siape"
@@ -76,6 +77,7 @@
         <v-text-field
           class="input"
           color="teal"
+          type="number"
           square
           outlined
           v-model="newUser.cpf"
@@ -84,7 +86,7 @@
           Salvar
         </v-btn>
       </v-form>
-      <v-snackbar color="blue darken-2" v-model="salvar" multline>
+      <v-snackbar color="blue darken-2" v-model="save" multline>
         Perfil salvo com sucesso!
       </v-snackbar>
       <v-snackbar color="red darken-2" v-model="notChanged" multline>
@@ -104,13 +106,13 @@ import Perfil from "../assets/perfil.jpg";
 
 export default {
   created() {
-    this.setUserInfo();
+    this.newUser = { ...this.user };
   },
   data() {
     return {
       Perfil,
       show: false,
-      salvar: false,
+      save: false,
       notChanged: false,
       errorUpdate: false,
       newUser: {},
@@ -126,36 +128,22 @@ export default {
     },
   },
   methods: {
-    ...mapActions("auth", [
-      "updateUser",
-      // "deleteUser",
-    ]),
+    ...mapActions("auth", ["updateUser", "deleteUser"]),
 
-    setUserInfo() {
-      this.newUser.username = this.user.username;
-      this.newUser.first_name = this.user.first_name;
-      this.newUser.last_name = this.user.last_name;
-      this.newUser.siape = this.user.siape;
-      this.newUser.cpf = this.user.cpf;
-    },
     hasChangedUserInfo() {
-      return (
-        this.newUser.username != this.user.username ||
-        this.newUser.first_name != this.user.first_name ||
-        this.newUser.last_name != this.user.last_name ||
-        this.newUser.siape != this.user.siape ||
-        this.newUser.cpf != this.user.cpf
+      return !Object.keys(this.newUser).every(
+        (key) =>
+          this.user.hasOwnProperty(key) && this.user[key] === this.newUser[key]
       );
     },
     async updateUserInfo() {
-      if (this.hasChangedUserInfo()) {
+      if (await this.hasChangedUserInfo()) {
         try {
           if (this.newUser.username == this.user.username)
             delete this.newUser.username;
           await this.updateUser(this.newUser);
-          this.setUserInfo();
-          this.userName;
-          this.salvar = true;
+          this.newUser = { ...this.user };
+          this.save = true;
         } catch (e) {
           this.errorUpdate = true;
           console.log(e);
@@ -164,13 +152,13 @@ export default {
         this.notChanged = true;
       }
     },
-    // async deleteUser() {
-    //   try {
-    //     await this.deleteUser(this.user.pk);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
+    async deleteUser() {
+      try {
+        await this.deleteUser();
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>

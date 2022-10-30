@@ -33,6 +33,28 @@
             class="input mx-auto"
             @keyup.enter="submitForm"
             color="teal"
+            type="number"
+            square
+            outlined
+            v-model="form.siape"
+            label="Siape"
+          >
+          </v-text-field>
+          <v-text-field
+            class="input mx-auto"
+            @keyup.enter="submitForm"
+            color="teal"
+            type="number"
+            square
+            outlined
+            v-model="form.cpf"
+            label="CPF"
+          >
+          </v-text-field>
+          <v-text-field
+            class="input mx-auto"
+            @keyup.enter="submitForm"
+            color="teal"
             :type="show ? 'text' : 'password'"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="show = !show"

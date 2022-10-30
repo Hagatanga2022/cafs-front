@@ -12,8 +12,8 @@ class AuthService {
   async update(newUser) {
     await axios.patch("auth/user/", newUser);
   }
-  async delete(idUser) {
-    await axios.delete("auth/user/", idUser);
+  async delete(inactivatedUser) {
+    await axios.patch("auth/user/", inactivatedUser);
   }
   async login(user) {
     const { data } = await axios.post("auth/login/", user);

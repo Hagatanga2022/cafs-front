@@ -64,14 +64,15 @@ export const auth = {
     async updateUser({ dispatch }, newUser) {
       try {
         await authService.update(newUser);
-        dispatch("getUser");
+        await dispatch("getUser");
       } catch (e) {
         return Promise.reject(e);
       }
     },
-    async deleteUser({ dispatch }, idUser) {
+    async deleteUser({ dispatch }) {
       try {
-        await authService.delete(idUser);
+        const inactivatedUser = { is_activate: false };
+        await authService.delete(inactivatedUser);
         dispatch("getUser");
       } catch (e) {
         return Promise.reject(e);

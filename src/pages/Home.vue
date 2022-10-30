@@ -27,7 +27,7 @@
           <v-text-field
             prepend-inner-icon="mdi-comment"
             outlined
-            v-model="announce.descricao"
+            v-model="announce.description"
             auto-grow
             name="input-7-4"
             background-color="white"
@@ -40,10 +40,7 @@
           </v-text-field>
         </v-col>
         <v-container>
-          <v-row
-            v-if="allAnnounces.length === 0"
-            class="avisos mb-0 vh-100 vw-100"
-          >
+          <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100">
             <v-col sm="5">
               <v-img
                 class="d-flex justify-center align-center"
@@ -72,15 +69,15 @@
           >
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title>{{ theAnnounce.titulo }}</v-list-item-title>
+                <v-list-item-title>{{ theAnnounce.title }}</v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ theAnnounce.descricao }}
+                  {{ theAnnounce.description }}
                 </v-list-item-subtitle>
                 <v-list-item-subtitle>
                   {{ dateAnnouncement(theAnnounce) }}
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <div v-if="user.pk == theAnnounce.publicado_por">
+              <div v-if="user.pk == theAnnounce.published_by">
                 <v-btn
                   @click="editAnnouncementInfo(theAnnounce.id)"
                   color="secondary"
@@ -123,6 +120,10 @@ export default {
   computed: {
     ...mapState("auth", ["user"]),
     ...mapState("announcement", ["announce", "allAnnounces"]),
+
+    verifyAnnounces() {
+      return this.allAnnounces ? this.allAnnounces.length : 1;
+    },
   },
   methods: {
     ...mapActions("announcement", [
@@ -132,16 +133,18 @@ export default {
       "deleteAnnouncement",
     ]),
 
-    dateAnnouncement({ data_publicacao }) {
+    dateAnnouncement({ created_at }) {
       return (
-        data_publicacao.split("-").reverse().join("/").substr(6, 2) +
-        data_publicacao.split("-").reverse().join("/").substr(24, 25)
+        created_at.split("-").reverse().join("/").substr(6, 2) +
+        created_at.split("-").reverse().join("/").substr(24, 25)
       );
     },
     async postAnnouncementInfo() {
       try {
-        this.announce.publicado_por = this.user.pk;
-        this.announce.titulo = `Aviso de ${this.user.first_name}`;
+        this.announce.published_by = this.user.pk;
+        this.announce.title = `Aviso de ${
+          this.user.first_name ? this.user.first_name : this.user.username
+        }`;
         await this.postAnnouncement();
       } catch (e) {
         console.log(e);

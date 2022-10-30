@@ -2,17 +2,17 @@ import axios from "axios";
 
 class AnnouncementService {
   async create(announce) {
-    await axios.post("avisos/", announce);
+    await axios.post("api/announces/", announce);
   }
   async read() {
-    const { data } = await axios.get("avisos/");
+    const { data } = await axios.get("api/announces/");
     return data;
   }
   async update(idAnnounce, announce) {
-    await axios.patch(`avisos/${idAnnounce}/`, announce);
+    await axios.patch(`api/announces/${idAnnounce}/`, announce);
   }
   async delete(idAnnounce) {
-    await axios.delete(`avisos/${idAnnounce}/`);
+    await axios.delete(`api/announces/${idAnnounce}/`);
   }
 }
 
