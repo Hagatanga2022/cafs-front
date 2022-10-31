@@ -69,19 +69,19 @@
             <v-card class="avisos mt-10">
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>{{
-                    theAnnounce.published_by.first_name
-                      ? theAnnounce.published_by.first_name
-                      : theAnnounce.published_by.username
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle>
+                  <v-list-item-subtitle
+                    >{{
+                      theAnnounce.published_by.first_name
+                        ? theAnnounce.published_by.first_name
+                        : theAnnounce.published_by.username
+                    }}
+                    - {{ dateAnnouncement(theAnnounce) }}</v-list-item-subtitle
+                  >
+                  <v-list-item-title>
                     {{ theAnnounce.description }}
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    {{ dateAnnouncement(theAnnounce) }}
-                  </v-list-item-subtitle>
+                  </v-list-item-title>
                 </v-list-item-content>
-                <div v-if="user.pk == theAnnounce.published_by">
+                <div v-if="user.pk == theAnnounce.published_by.pk">
                   <v-btn
                     @click="editAnnouncementInfo(theAnnounce.id)"
                     color="secondary"
@@ -127,18 +127,19 @@
             >
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title
-                    >Comentário de
-                    {{ theComment.published_by.first_name }}</v-list-item-title
+                  <v-list-item-subtitle>
+                    {{
+                      theComment.published_by.first_name
+                        ? theComment.published_by.first_name
+                        : theComment.published_by.username
+                    }}
+                    - {{ dateComment(theComment) }}</v-list-item-subtitle
                   >
-                  <v-list-item-subtitle>
+                  <v-list-item-title>
                     {{ theComment.description }}
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    {{ dateComment(theComment) }}
-                  </v-list-item-subtitle>
+                  </v-list-item-title>
                 </v-list-item-content>
-                <div v-if="user.pk == theComment.published_by.id">
+                <div v-if="user.pk == theComment.published_by.pk">
                   <v-btn
                     @click="editCommentInfo(theComment.id)"
                     color="secondary"
@@ -175,6 +176,7 @@ import { mapActions, mapState } from "vuex";
 export default {
   created() {
     this.getAnnouncement();
+    this.getComment();
   },
   data() {
     return { Avisos };
@@ -237,7 +239,9 @@ export default {
 
     // CRUD Comments
     verifyComments(allComments, theAnnounce) {
-      return allComments.filter((x) => x.announce.id === theAnnounce.id);
+      return allComments.filter(
+        (comment) => comment.announce.id === theAnnounce.id
+      );
     },
     dateComment({ created_at }) {
       return (

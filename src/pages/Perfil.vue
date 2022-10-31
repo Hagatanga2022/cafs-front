@@ -86,13 +86,23 @@
           Salvar
         </v-btn>
       </v-form>
-      <v-snackbar color="blue darken-2" v-model="save" multline>
+      <v-snackbar color="blue darken-2" v-model="save" multline timeout="2000">
         Perfil salvo com sucesso!
       </v-snackbar>
-      <v-snackbar color="red darken-2" v-model="notChanged" multline>
+      <v-snackbar
+        color="red darken-2"
+        v-model="notChanged"
+        multline
+        timeout="2000"
+      >
         Não houve alteração no perfil!
       </v-snackbar>
-      <v-snackbar color="red darken-2" v-model="errorUpdate" multline>
+      <v-snackbar
+        color="red darken-2"
+        v-model="errorUpdate"
+        multline
+        timeout="2000"
+      >
         Erro ao salvar o perfil!
       </v-snackbar>
     </v-container>
