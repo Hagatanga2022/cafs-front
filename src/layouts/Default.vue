@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       sidebar: true,
-      mini: false,
+      mini: true,
       IFLogo,
       items: [
         { title: "Home", icon: "mdi-home", to: "/home" },
@@ -81,10 +81,10 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["logout"]),
+
     async submitLogout() {
       try {
         await this.logout();
-        this.$router.push({ path: "/" });
       } catch (e) {
         console.log(e);
       }

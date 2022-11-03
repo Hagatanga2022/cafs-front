@@ -1,16 +1,15 @@
 <template>
-  <v-app>
+  <v-app class="teste">
     <v-card id="content">
       <v-toolbar
-        class="white--text d-flex"
+        class="white--text"
         color="#1d6382"
         dark
         extended
         extension-height="100"
         elevation="1"
       >
-        <v-spacer />
-        <v-toolbar-title class="texts">
+        <v-toolbar-title class="texts justify-center">
           <div class="cafs-title">
             <h1 class="h1">C.A.F.S</h1>
             <h3>
@@ -18,7 +17,6 @@
             </h3>
           </div>
         </v-toolbar-title>
-        <v-spacer />
       </v-toolbar>
     </v-card>
     <v-container fluid>
@@ -75,8 +73,8 @@
                         ? theAnnounce.published_by.first_name
                         : theAnnounce.published_by.username
                     }}
-                    - {{ dateAnnouncement(theAnnounce) }}</v-list-item-subtitle
-                  >
+                    - {{ dateAndTime(theAnnounce) }}
+                  </v-list-item-subtitle>
                   <v-list-item-title>
                     {{ theAnnounce.description }}
                   </v-list-item-title>
@@ -133,7 +131,7 @@
                         ? theComment.published_by.first_name
                         : theComment.published_by.username
                     }}
-                    - {{ dateComment(theComment) }}</v-list-item-subtitle
+                    - {{ dateAndTime(theComment) }}</v-list-item-subtitle
                   >
                   <v-list-item-title>
                     {{ theComment.description }}
@@ -179,7 +177,23 @@ export default {
     this.getComment();
   },
   data() {
-    return { Avisos };
+    return {
+      Avisos,
+      month: [
+        "janeiro",
+        "fevereiro",
+        "março",
+        "abril",
+        "maio",
+        "junho",
+        "julho",
+        "agosto",
+        "setembro",
+        "outubro",
+        "novembro",
+        "dezembro",
+      ],
+    };
   },
   computed: {
     ...mapState("auth", ["user"]),
@@ -204,13 +218,18 @@ export default {
       "deleteComment",
     ]),
 
-    // CRUD Announces
-    dateAnnouncement({ created_at }) {
-      return (
+    dateAndTime({ created_at }) {
+      const date =
         created_at.split("-").reverse().join("/").substr(6, 2) +
-        created_at.split("-").reverse().join("/").substr(24, 25)
-      );
+        created_at.split("-").reverse().join("/").substr(24, 25);
+      const time = created_at.split("-").reverse().join("/").substr(9, 5);
+
+      return `${date.substr(0, 2)} de ${
+        this.month[date.substr(3, 2) - 1]
+      } de ${date.substr(6, 4)} às ${time}`;
     },
+
+    // CRUD Announces
     async postAnnouncementInfo() {
       try {
         this.announce.published_by = this.user.pk;
@@ -241,12 +260,6 @@ export default {
     verifyComments(allComments, theAnnounce) {
       return allComments.filter(
         (comment) => comment.announce.id === theAnnounce.id
-      );
-    },
-    dateComment({ created_at }) {
-      return (
-        created_at.split("-").reverse().join("/").substr(6, 2) +
-        created_at.split("-").reverse().join("/").substr(24, 25)
       );
     },
     async postCommentInfo({ id }) {
@@ -280,6 +293,11 @@ export default {
 #text-area {
   margin-left: 18rem;
   max-width: 1000px;
+}
+
+.teste {
+  display: flex;
+  justify-content: center;
 }
 
 .texto {
