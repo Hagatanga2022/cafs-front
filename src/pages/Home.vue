@@ -27,6 +27,7 @@
             outlined
             v-model="announce.description"
             auto-grow
+            clearable
             name="input-7-4"
             background-color="white"
             rows="1"
@@ -102,11 +103,12 @@
                 </div>
               </v-list-item>
               <v-text-field
-                v-model="comment.description"
+                v-model="specificComment['comment' + indexAnnounce]"
                 prepend-inner-icon="mdi-comment"
-                @keydown.enter="postCommentInfo(theAnnounce)"
+                @keydown.enter="postCommentInfo(theAnnounce, indexAnnounce)"
                 outlined
                 auto-grow
+                clearable
                 name="input-7-4"
                 background-color="white"
                 rows="1"
@@ -139,7 +141,7 @@
                 </v-list-item-content>
                 <div v-if="user.pk == theComment.published_by.pk">
                   <v-btn
-                    @click="editCommentInfo(theComment.id)"
+                    @click="editCommentInfo(theComment.id, indexAnnounce)"
                     color="secondary"
                     fab
                     x-small
@@ -179,6 +181,7 @@ export default {
   data() {
     return {
       Avisos,
+      specificComment: {},
       month: [
         "janeiro",
         "fevereiro",
@@ -262,8 +265,10 @@ export default {
         (comment) => comment.announce.id === theAnnounce.id
       );
     },
-    async postCommentInfo({ id }) {
+    async postCommentInfo({ id }, commentIdentifier) {
       try {
+        this.comment.description =
+          this.specificComment["comment" + commentIdentifier];
         this.comment.published_by = this.user.pk;
         this.comment.announce = id;
         await this.postComment();
@@ -271,8 +276,10 @@ export default {
         console.log(e);
       }
     },
-    async editCommentInfo(idComment) {
+    async editCommentInfo(idComment, commentIdentifier) {
       try {
+        this.comment.description =
+          this.specificComment["comment" + commentIdentifier];
         await this.editComment(idComment);
       } catch (e) {
         console.log(e);
