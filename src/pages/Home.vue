@@ -271,9 +271,9 @@ export default {
         console.log(e);
       }
     },
-    async editCommetInfo(idComment) {
+    async editCommentInfo(idComment) {
       try {
-        await this.editCommet(idComment);
+        await this.editComment(idComment);
       } catch (e) {
         console.log(e);
       }
