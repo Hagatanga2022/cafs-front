@@ -57,8 +57,8 @@
           >
           </v-text-field> -->
         </v-col>
-        <v-container>
-          <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100">
+        <div class="container-avisos">
+          <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100 mt-5">
             <v-col sm="5">
               <v-img
                 class="d-flex justify-center align-center"
@@ -132,6 +132,7 @@
                 background-color="white"
                 rows="1"
                 width="100px"
+                class="comentario"
                 placeholder="Digite aqui seu comentário"
               >
               </v-text-field>
@@ -182,7 +183,7 @@
               </v-list-item>
             </v-card>
           </div>
-        </v-container>
+        </div>
       </v-row>
     </v-container>
   </v-app>
@@ -317,7 +318,7 @@ export default {
 
 <style scoped>
 #text-area {
-  max-width: 70%;
+  max-width: 55%;
 }
 
 .texto-aviso {
@@ -333,13 +334,11 @@ export default {
 }
 
 .avisos {
-  border-color: lightgray;
+  border-color: grey;
   border-style: solid;
   border-width: 2px;
   border-radius: 1%;
   background-color: white;
-  max-width: 1000px;
-  max-height: 500px;
 }
 
 .h1 {
@@ -358,9 +357,11 @@ div.cafs-title h1,
 h3 {
   display: flex;
   justify-content: center;
+  max-width: 100vw;
 }
 
-.quadro-avisos {
+.quadro-avisos,
+.container-avisos {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -368,10 +369,11 @@ h3 {
 }
 
 .cards {
-  width: 70%;
+  width: 80%;
 }
 
-.card-avisos {
-  background-color: black;
-}
+/* .comentario {
+  display: flex;
+  align-self: flex-end;
+} */
 </style>
