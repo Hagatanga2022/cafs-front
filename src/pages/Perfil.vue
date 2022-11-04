@@ -12,7 +12,7 @@
         <v-row justify="space-around">
           <v-avatar id="Perfil" width="150" height="150">
             <img
-              :src="user.profile_photo.url"
+              :src="user.profile_photo ? user.profile_photo.url : Perfil"
               alt="Foto de perfil de user.username"
             />
           </v-avatar>
@@ -137,7 +137,6 @@ import Perfil from "../assets/perfil.jpg";
 
 export default {
   created() {
-    console.log(this.user);
     this.newUser = { ...this.user };
   },
   data() {
