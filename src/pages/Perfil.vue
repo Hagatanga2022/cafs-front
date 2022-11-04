@@ -9,13 +9,21 @@
         extension-height="100"
         elevation="1"
       >
-        <v-img
+        <v-row justify="space-around">
+          <v-avatar id="Perfil" width="150" height="150">
+            <img
+              :src="user.profile_photo.url"
+              alt="Foto de perfil de user.username"
+            />
+          </v-avatar>
+        </v-row>
+        <!-- <v-img
           id="Perfil"
           alt="Perfil"
           :src="Perfil"
           width="150"
           height="150"
-        ></v-img>
+        ></v-img> -->
         <v-spacer />
         <v-toolbar-title v-model="newUser.username" class="title ml-5">
           <h1>{{ userName }}</h1>
@@ -82,6 +90,19 @@
           outlined
           v-model.number="newUser.cpf"
         ></v-text-field>
+        <v-file-input
+          class="input"
+          :rules="rules"
+          square
+          outlined
+          show-size
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="Upe sua foto de perfil"
+          prepend-icon=""
+          v-model="newUser.profile_photo"
+          prepend-inner-icon="mdi-camera"
+          label="Avatar"
+        ></v-file-input>
         <v-btn class="white--text" color="teal" @click="updateUserInfo">
           Salvar
         </v-btn>
@@ -116,16 +137,23 @@ import Perfil from "../assets/perfil.jpg";
 
 export default {
   created() {
+    console.log(this.user);
     this.newUser = { ...this.user };
   },
   data() {
     return {
       Perfil,
+      newUser: {},
       show: false,
       save: false,
       notChanged: false,
       errorUpdate: false,
-      newUser: {},
+      rules: [
+        (value) =>
+          !value ||
+          value.size < 2000000 ||
+          "Avatar size should be less than 2 MB!",
+      ],
     };
   },
   computed: {
@@ -149,6 +177,7 @@ export default {
     async updateUserInfo() {
       if (await this.hasChangedUserInfo()) {
         try {
+          console.log(this.newUser.profile_photo);
           if (this.newUser.username == this.user.username)
             delete this.newUser.username;
           await this.updateUser(this.newUser);

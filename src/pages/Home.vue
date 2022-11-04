@@ -22,7 +22,28 @@
     <v-container id="content" fluid>
       <v-row class="quadro-avisos">
         <v-col id="text-area" cols="11">
-          <v-text-field
+          <v-card>
+            <v-card-text>
+              <v-textarea
+                filled
+                v-model="announce.description"
+                label="Escreva um aviso para todos"
+              ></v-textarea>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn depressed @click="announce.description = ''">
+                Cancelar
+              </v-btn>
+              <v-btn color="success" @click="postAnnouncementInfo" depressed>
+                Publicar
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <!-- <v-text-field
             prepend-inner-icon="mdi-comment"
             outlined
             v-model="announce.description"
@@ -34,7 +55,7 @@
             placeholder="Informe avisos aos bolsistas de seus projetos."
             @keydown.enter="postAnnouncementInfo"
           >
-          </v-text-field>
+          </v-text-field> -->
         </v-col>
         <v-container>
           <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100">
@@ -59,9 +80,10 @@
               </div>
             </v-col>
           </v-row>
-          <div class="cards"
+          <div
+            class="cards"
             v-for="(theAnnounce, indexAnnounce) in allAnnounces"
-            :key="indexAnnounce" 
+            :key="indexAnnounce"
           >
             <v-card class="mt-10">
               <v-list-item>
@@ -178,6 +200,7 @@ export default {
   data() {
     return {
       Avisos,
+      specificComment: {},
       month: [
         "janeiro",
         "fevereiro",
@@ -236,6 +259,8 @@ export default {
           this.user.first_name ? this.user.first_name : this.user.username
         }`;
         await this.postAnnouncement();
+        this.specificComment = {};
+        this.announce.description = "";
       } catch (e) {
         console.log(e);
       }
@@ -288,7 +313,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #text-area {
   max-width: 70%;
 }
@@ -326,7 +351,9 @@ export default {
   justify-content: center;
 }
 
-.upbar, div.cafs-title h1, h3{
+.upbar,
+div.cafs-title h1,
+h3 {
   display: flex;
   justify-content: center;
 }
@@ -345,5 +372,4 @@ export default {
 .card-avisos {
   background-color: black;
 }
-
 </style>
