@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <v-card id="content">
+    <v-card>
       <v-toolbar
-        class="white--text"
+        class="upbar white--text"
         color="#1d6382"
         dark
         extended
         extension-height="100"
         elevation="1"
       >
-        <v-toolbar-title class="texts justify-center">
+        <v-toolbar-title class="texts">
           <div class="cafs-title">
             <h1 class="h1">C.A.F.S</h1>
             <h3>
@@ -19,43 +19,22 @@
         </v-toolbar-title>
       </v-toolbar>
     </v-card>
-    <v-container fluid>
-      <v-row class="ml-16">
-        <v-col id="text-area" cols="11" md="8">
-          <v-card>
-            <v-card-text>
-              <v-textarea
-                filled
-                v-model="announce.description"
-                label="Escreva um aviso para todos"
-              ></v-textarea>
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn depressed @click="announce.description = ''">
-                Cancelar
-              </v-btn>
-              <v-btn color="success" @click="postAnnouncementInfo" depressed>
-                Publicar
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-          <!-- <v-text-field
+    <v-container id="content" fluid>
+      <v-row class="quadro-avisos">
+        <v-col id="text-area" cols="11">
+          <v-text-field
             prepend-inner-icon="mdi-comment"
             outlined
+            v-model="announce.description"
             auto-grow
-            clearable
             name="input-7-4"
             background-color="white"
             rows="1"
-            width="100px"
             label="Quadro de avisos"
             placeholder="Informe avisos aos bolsistas de seus projetos."
-            >
-          </v-text-field> -->
+            @keydown.enter="postAnnouncementInfo"
+          >
+          </v-text-field>
         </v-col>
         <v-container>
           <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100">
@@ -67,7 +46,7 @@
                 height="500"
               ></v-img>
             </v-col>
-            <v-col sm="7" class="texto">
+            <v-col sm="7" class="texto-aviso">
               <div>
                 <h1>
                   Aqui é onde você pode adicionar avisos aos bolsistas nos
@@ -80,11 +59,11 @@
               </div>
             </v-col>
           </v-row>
-          <div
+          <div class="cards"
             v-for="(theAnnounce, indexAnnounce) in allAnnounces"
-            :key="indexAnnounce"
+            :key="indexAnnounce" 
           >
-            <v-card class="avisos mt-10">
+            <v-card class="mt-10">
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-subtitle
@@ -122,12 +101,11 @@
                 </div>
               </v-list-item>
               <v-text-field
-                v-model="specificComment['comment' + indexAnnounce]"
+                v-model="comment.description"
                 prepend-inner-icon="mdi-comment"
-                @keydown.enter="postCommentInfo(theAnnounce, indexAnnounce)"
+                @keydown.enter="postCommentInfo(theAnnounce)"
                 outlined
                 auto-grow
-                clearable
                 name="input-7-4"
                 background-color="white"
                 rows="1"
@@ -160,7 +138,7 @@
                 </v-list-item-content>
                 <div v-if="user.pk == theComment.published_by.pk">
                   <v-btn
-                    @click="editCommentInfo(theComment.id, indexAnnounce)"
+                    @click="editCommentInfo(theComment.id)"
                     color="secondary"
                     fab
                     x-small
@@ -200,7 +178,6 @@ export default {
   data() {
     return {
       Avisos,
-      specificComment: {},
       month: [
         "janeiro",
         "fevereiro",
@@ -259,8 +236,6 @@ export default {
           this.user.first_name ? this.user.first_name : this.user.username
         }`;
         await this.postAnnouncement();
-        this.specificComment = {};
-        this.announce.description = "";
       } catch (e) {
         console.log(e);
       }
@@ -286,10 +261,8 @@ export default {
         (comment) => comment.announce.id === theAnnounce.id
       );
     },
-    async postCommentInfo({ id }, commentIdentifier) {
+    async postCommentInfo({ id }) {
       try {
-        this.comment.description =
-          this.specificComment["comment" + commentIdentifier];
         this.comment.published_by = this.user.pk;
         this.comment.announce = id;
         await this.postComment();
@@ -297,10 +270,8 @@ export default {
         console.log(e);
       }
     },
-    async editCommentInfo(idComment, commentIdentifier) {
+    async editCommentInfo(idComment) {
       try {
-        this.comment.description =
-          this.specificComment["comment" + commentIdentifier];
         await this.editComment(idComment);
       } catch (e) {
         console.log(e);
@@ -319,11 +290,10 @@ export default {
 
 <style>
 #text-area {
-  margin-left: 18.5rem;
-  max-width: 1000px;
+  max-width: 70%;
 }
 
-.texto {
+.texto-aviso {
   width: 60vh;
   height: 26vh;
   color: #1d6482ea;
@@ -331,10 +301,8 @@ export default {
 }
 
 .texts {
+  display: flex;
   margin-top: 6rem;
-  margin-left: 39rem;
-  text-align: center;
-  align-content: center;
 }
 
 .avisos {
@@ -343,7 +311,6 @@ export default {
   border-width: 2px;
   border-radius: 1%;
   background-color: white;
-  margin-left: 18rem;
   max-width: 1000px;
   max-height: 500px;
 }
@@ -354,5 +321,29 @@ export default {
 
 #content {
   border-radius: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.upbar, div.cafs-title h1, h3{
+  display: flex;
+  justify-content: center;
+}
+
+.quadro-avisos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards {
+  width: 70%;
+}
+
+.card-avisos {
+  background-color: black;
+}
+
 </style>
