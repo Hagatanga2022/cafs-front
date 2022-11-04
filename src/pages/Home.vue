@@ -1,15 +1,15 @@
 <template>
-  <v-app class="teste">
-    <v-card id="content">
+  <v-app>
+    <v-card>
       <v-toolbar
-        class="white--text"
+        class="upbar white--text"
         color="#1d6382"
         dark
         extended
         extension-height="100"
         elevation="1"
       >
-        <v-toolbar-title class="texts justify-center">
+        <v-toolbar-title class="texts">
           <div class="cafs-title">
             <h1 class="h1">C.A.F.S</h1>
             <h3>
@@ -19,9 +19,9 @@
         </v-toolbar-title>
       </v-toolbar>
     </v-card>
-    <v-container fluid>
-      <v-row>
-        <v-col id="text-area" cols="11" md="8">
+    <v-container id="content" fluid>
+      <v-row class="quadro-avisos">
+        <v-col id="text-area" cols="11">
           <v-text-field
             prepend-inner-icon="mdi-comment"
             outlined
@@ -30,7 +30,6 @@
             name="input-7-4"
             background-color="white"
             rows="1"
-            width="100px"
             label="Quadro de avisos"
             placeholder="Informe avisos aos bolsistas de seus projetos."
             @keydown.enter="postAnnouncementInfo"
@@ -47,7 +46,7 @@
                 height="500"
               ></v-img>
             </v-col>
-            <v-col sm="7" class="texto">
+            <v-col sm="7" class="texto-aviso">
               <div>
                 <h1>
                   Aqui é onde você pode adicionar avisos aos bolsistas nos
@@ -60,11 +59,11 @@
               </div>
             </v-col>
           </v-row>
-          <div
+          <div class="cards"
             v-for="(theAnnounce, indexAnnounce) in allAnnounces"
-            :key="indexAnnounce"
+            :key="indexAnnounce" 
           >
-            <v-card class="avisos mt-10">
+            <v-card class="mt-10">
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-subtitle
@@ -291,16 +290,10 @@ export default {
 
 <style>
 #text-area {
-  margin-left: 18rem;
-  max-width: 1000px;
+  max-width: 70%;
 }
 
-.teste {
-  display: flex;
-  justify-content: center;
-}
-
-.texto {
+.texto-aviso {
   width: 60vh;
   height: 26vh;
   color: #1d6482ea;
@@ -308,10 +301,8 @@ export default {
 }
 
 .texts {
+  display: flex;
   margin-top: 6rem;
-  margin-left: 30rem;
-  text-align: center;
-  align-content: center;
 }
 
 .avisos {
@@ -320,7 +311,6 @@ export default {
   border-width: 2px;
   border-radius: 1%;
   background-color: white;
-  margin-left: 18rem;
   max-width: 1000px;
   max-height: 500px;
 }
@@ -331,5 +321,29 @@ export default {
 
 #content {
   border-radius: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.upbar, div.cafs-title h1, h3{
+  display: flex;
+  justify-content: center;
+}
+
+.quadro-avisos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards {
+  width: 70%;
+}
+
+.card-avisos {
+  background-color: black;
+}
+
 </style>
