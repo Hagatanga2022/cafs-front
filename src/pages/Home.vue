@@ -1,5 +1,5 @@
 <template>
-  <v-app class="teste">
+  <v-app>
     <v-card id="content">
       <v-toolbar
         class="white--text"
@@ -20,12 +20,32 @@
       </v-toolbar>
     </v-card>
     <v-container fluid>
-      <v-row>
+      <v-row class="ml-16">
         <v-col id="text-area" cols="11" md="8">
-          <v-text-field
+          <v-card>
+            <v-card-text>
+              <v-textarea
+                filled
+                v-model="announce.description"
+                label="Escreva um aviso para todos"
+              ></v-textarea>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn depressed @click="announce.description = ''">
+                Cancelar
+              </v-btn>
+              <v-btn color="success" @click="postAnnouncementInfo" depressed>
+                Publicar
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <!-- <v-text-field
             prepend-inner-icon="mdi-comment"
             outlined
-            v-model="announce.description"
             auto-grow
             clearable
             name="input-7-4"
@@ -34,9 +54,8 @@
             width="100px"
             label="Quadro de avisos"
             placeholder="Informe avisos aos bolsistas de seus projetos."
-            @keydown.enter="postAnnouncementInfo"
-          >
-          </v-text-field>
+            >
+          </v-text-field> -->
         </v-col>
         <v-container>
           <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100">
@@ -240,6 +259,8 @@ export default {
           this.user.first_name ? this.user.first_name : this.user.username
         }`;
         await this.postAnnouncement();
+        this.specificComment = {};
+        this.announce.description = "";
       } catch (e) {
         console.log(e);
       }
@@ -298,13 +319,8 @@ export default {
 
 <style>
 #text-area {
-  margin-left: 18rem;
+  margin-left: 18.5rem;
   max-width: 1000px;
-}
-
-.teste {
-  display: flex;
-  justify-content: center;
 }
 
 .texto {
@@ -316,7 +332,7 @@ export default {
 
 .texts {
   margin-top: 6rem;
-  margin-left: 30rem;
+  margin-left: 39rem;
   text-align: center;
   align-content: center;
 }

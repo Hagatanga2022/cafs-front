@@ -8,7 +8,7 @@ export const announcement = {
   }),
   mutations: {
     setAnnounces(state, announces) {
-      state.allAnnounces = announces;
+      state.allAnnounces = announces.reverse();
     },
     cleanAnnounce(state) {
       state.announce = {};
