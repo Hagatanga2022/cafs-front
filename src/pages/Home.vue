@@ -123,9 +123,9 @@
                 </div>
               </v-list-item>
               <v-text-field
-                v-model="comment.description"
+                v-model="specificComment['comment' + indexAnnounce]"
                 prepend-inner-icon="mdi-comment"
-                @keydown.enter="postCommentInfo(theAnnounce)"
+                @keydown.enter="postCommentInfo(theAnnounce, indexAnnounce)"
                 outlined
                 auto-grow
                 name="input-7-4"
@@ -286,8 +286,10 @@ export default {
         (comment) => comment.announce.id === theAnnounce.id
       );
     },
-    async postCommentInfo({ id }) {
+    async postCommentInfo({ id }, commentIdentifier) {
       try {
+        this.comment.description =
+          this.specificComment["comment" + commentIdentifier];
         this.comment.published_by = this.user.pk;
         this.comment.announce = id;
         await this.postComment();
