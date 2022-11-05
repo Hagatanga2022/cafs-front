@@ -43,12 +43,6 @@
               >
             </div>
           </v-col>
-          <!-- <v-col>
-            <div align="center">Ainda não possui uma conta?</div>
-            <div @click="cadastro = true">
-              <Cadastro />
-            </div>
-          </v-col> -->
         </v-form>
       </v-card>
     </v-dialog>
@@ -57,7 +51,7 @@
       v-model="errorLogin"
       multline
       timeout="2000"
-      >Erro ao efetuar o Login!</v-snackbar
+      >{{ errorMessage }}</v-snackbar
     >
   </v-container>
 </template>
@@ -73,6 +67,7 @@ export default {
       user: {},
       valid: true,
       loginPopUp: false,
+      errorMessage: null,
       errorLogin: false,
       show: false,
     };
@@ -84,8 +79,13 @@ export default {
         await this.login(this.user);
         this.$router.push({ path: "/home" });
       } catch (e) {
+        let firstDataError = JSON.stringify(
+          Object.keys(e.response.data)[0]
+        ).replace(/[\]["]/g, "");
+        this.errorMessage = JSON.stringify(
+          e.response.data[firstDataError]
+        ).replace(/[\]["]/g, "");
         this.errorLogin = true;
-        console.log(e);
       }
     },
   },

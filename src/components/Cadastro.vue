@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-btn @click="novaConta = true" class="v-btn1">Cadastro</v-btn>
-    <v-dialog v-model="novaConta" max-width="600px" max-height="600px">
+    <v-btn @click="newAccount = true" class="v-btn1">Cadastro</v-btn>
+    <v-dialog v-model="newAccount" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
         <v-card-title class="text-h3 mb-5 justify-center teal--text"
           >Cadastro</v-card-title
@@ -80,14 +80,16 @@
             >
           </div>
         </v-col>
-        <!-- <v-col>
-          <div align="center">Já possui uma conta?</div>
-          <div @click="cadastro = true">
-            <Cadastro />
-          </div>
-        </v-col> -->
       </v-card>
     </v-dialog>
+    <v-snackbar
+      color="red darken-2"
+      v-model="errorRegister"
+      multline
+      timeout="2000"
+    >
+      {{ errorMessage }}
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -97,8 +99,10 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      novaConta: false,
+      newAccount: false,
       show: false,
+      errorMessage: null,
+      errorRegister: false,
       form: {},
     };
   },
@@ -109,7 +113,15 @@ export default {
         await this.register(this.form);
         this.$router.push({ name: "Home" });
       } catch (e) {
-        console.log(e);
+        let firstDataError = JSON.stringify(
+          Object.keys(e.response.data)[0]
+        ).replace(/[\]["]/g, "");
+        this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
+          e.response.data[firstDataError]
+        )
+          .replace(/[\]["]/g, "")
+          .toLowerCase()}`;
+        this.errorRegister = true;
       }
     },
   },

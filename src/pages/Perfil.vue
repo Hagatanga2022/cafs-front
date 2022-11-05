@@ -13,7 +13,7 @@
           <v-avatar id="Perfil" width="150" height="150">
             <img
               :src="user.profile_photo ? user.profile_photo.url : Perfil"
-              alt="Foto de perfil de user.username"
+              :alt="ownerOfThePhoto"
             />
           </v-avatar>
         </v-row>
@@ -90,6 +90,7 @@
           outlined
           v-model.number="newUser.cpf"
         ></v-text-field>
+        <h3 class="h3">Foto de Perfil</h3>
         <v-file-input
           class="input"
           :rules="rules"
@@ -99,7 +100,7 @@
           accept="image/png, image/jpeg, image/bmp"
           placeholder="Upe sua foto de perfil"
           prepend-icon=""
-          v-model="newUser.profile_photo"
+          v-model="newUser.profile_photo.file"
           prepend-inner-icon="mdi-camera"
           label="Avatar"
         ></v-file-input>
@@ -124,7 +125,7 @@
         multline
         timeout="2000"
       >
-        Erro ao salvar o perfil!
+        {{ errorMessage }}
       </v-snackbar>
     </v-container>
     <v-container sm="5"></v-container>
@@ -146,6 +147,7 @@ export default {
       show: false,
       save: false,
       notChanged: false,
+      errorMessage: null,
       errorUpdate: false,
       rules: [
         (value) =>
@@ -163,6 +165,10 @@ export default {
         ? `Perfil de ${this.newUser.first_name} ${this.newUser.last_name}`
         : `Perfil de ${this.newUser.username}`;
     },
+
+    ownerOfThePhoto() {
+      return `Foto de ${this.userName}`;
+    },
   },
   methods: {
     ...mapActions("auth", ["updateUser", "deleteUser"]),
@@ -176,15 +182,22 @@ export default {
     async updateUserInfo() {
       if (await this.hasChangedUserInfo()) {
         try {
-          console.log(this.newUser.profile_photo);
           if (this.newUser.username == this.user.username)
             delete this.newUser.username;
           await this.updateUser(this.newUser);
           this.newUser = { ...this.user };
           this.save = true;
         } catch (e) {
+          this.newUser = { ...this.user };
+          let firstDataError = JSON.stringify(
+            Object.keys(e.response.data)[0]
+          ).replace(/[\]["]/g, "");
+          this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
+            e.response.data[firstDataError]
+          )
+            .replace(/[\]["]/g, "")
+            .toLowerCase()}`;
           this.errorUpdate = true;
-          console.log(e);
         }
       } else {
         this.notChanged = true;
