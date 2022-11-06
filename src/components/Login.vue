@@ -5,14 +5,14 @@
       <v-card class="pop-up-card" elevation="10" outlined>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-card-title
-            class="text-h6 font-weight-regular justify-space-between">
+            class="text-h6 font-weight-regular justify-space-between"
+          >
             Login
           </v-card-title>
           <span>{{ currentTitle }}</span>
 
           <v-col justify="center">
             <v-text-field
-              
               @keyup.enter="submitLogin"
               color="teal"
               append-icon="mdi-email"
@@ -35,9 +35,9 @@
             >
             </v-text-field>
             <span class="text-caption grey--text text--darken-1">
-                Esqueceu sua senha?
-              </span>
-            
+              Esqueceu sua senha?
+            </span>
+
             <div class="mt-2" align="center">
               <v-btn
                 @click="submitLogin"
@@ -96,27 +96,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.pop-up-card {
-  justify-items: center;
-  border-radius: 50px;
-}
-
-.input {
-  max-width: 400px;
-  display: block;
-}
-
-.v-btn1:before {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-radius: inherit;
-  box-shadow: none;
-}
-</style>
