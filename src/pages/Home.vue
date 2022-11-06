@@ -39,7 +39,7 @@
                 Cancelar
               </v-btn>
               <v-btn color="success" @click="postAnnouncementInfo" depressed>
-                Publicar
+                Postar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -133,7 +133,7 @@
                 auto-grow
                 name="input-7-4"
                 rows="1"
-                width="100px"
+                width="10px"
                 class="comentario"
                 placeholder="Digite aqui seu comentário"
               >
@@ -375,8 +375,11 @@ h3 {
   width: 80%;
 }
 
-/* .comentario {
+.comentario {
   display: flex;
   align-self: flex-end;
-} */
+  margin: 20px;
+  width: 560px;
+  height: 100px;
+}
 </style>
