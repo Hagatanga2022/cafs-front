@@ -27,7 +27,7 @@
               <v-textarea
                 filled
                 v-model="announce.description"
-                label="Escreva um aviso para todos"
+                label="Escreva um aviso para todos"                
               ></v-textarea>
             </v-card-text>
 
@@ -38,7 +38,7 @@
               <v-btn depressed @click="announce.description = ''">
                 Cancelar
               </v-btn>
-              <v-btn color="success" @click="postAnnouncementInfo" depressed>
+              <v-btn color="green darken-4" @click="postAnnouncementInfo" depressed>
                 Postar
               </v-btn>
             </v-card-actions>
@@ -139,6 +139,9 @@
                 class="comentario"
                 placeholder="Digite aqui seu comentário"
               >
+                <v-icon slot="append" @click="adicionar"
+                  >mdi-send-circle</v-icon
+                >
               </v-text-field>
               <v-divider></v-divider>
             </v-card>
