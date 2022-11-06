@@ -74,7 +74,7 @@
               <div>
                 <h1>
                   Aqui é onde você pode adicionar avisos aos bolsistas nos
-                  projetos
+                  projetos.
                 </h1>
                 <h3 class="mt-5">
                   Use o mural para compartilhar avisos e postar comunicados para
@@ -125,19 +125,22 @@
                   </v-btn>
                 </div>
               </v-list-item>
+              <v-divider></v-divider>
               <v-text-field
                 v-model="specificComment['comment' + indexAnnounce]"
                 prepend-inner-icon="mdi-comment"
                 @keydown.enter="postCommentInfo(theAnnounce, indexAnnounce)"
-                outlined
+                filled
+                dense
+                rounded
                 auto-grow
                 name="input-7-4"
                 rows="1"
-                width="10px"
                 class="comentario"
                 placeholder="Digite aqui seu comentário"
               >
               </v-text-field>
+              <v-divider></v-divider>
             </v-card>
             <v-card
               class="avisos mt-10"
@@ -322,7 +325,7 @@ export default {
 
 <style scoped>
 #text-area {
-  max-width: 55%;
+  max-width: 62%;
 }
 
 .texto-aviso {
@@ -372,14 +375,15 @@ h3 {
 }
 
 .cards {
-  width: 80%;
+  width: 130%;
 }
 
 .comentario {
   display: flex;
   align-self: flex-end;
   margin: 20px;
-  width: 560px;
-  height: 100px;
+  width: 600px;
+  height: 40px;
+  justify-content: center;
 }
 </style>
