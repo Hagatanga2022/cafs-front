@@ -9,7 +9,6 @@
           >
             Login
           </v-card-title>
-          <span>{{ currentTitle }}</span>
 
           <v-col justify="center">
             <v-text-field
@@ -62,11 +61,9 @@
 </template>
 
 <script>
-// import Cadastro from "../components/Cadastro.vue";
 import { mapActions } from "vuex";
 
 export default {
-  // components: { Cadastro },
   data() {
     return {
       user: {},

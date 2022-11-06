@@ -140,7 +140,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .title,
 #Bolsista {
   margin-top: 6rem;

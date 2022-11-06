@@ -27,7 +27,7 @@
               <v-textarea
                 filled
                 v-model="announce.description"
-                label="Escreva um aviso para todos"                
+                label="Escreva um aviso para todos"
               ></v-textarea>
             </v-card-text>
 
@@ -38,7 +38,11 @@
               <v-btn depressed @click="announce.description = ''">
                 Cancelar
               </v-btn>
-              <v-btn color="green darken-4" @click="postAnnouncementInfo" depressed>
+              <v-btn
+                color="green darken-4"
+                @click="postAnnouncementInfo"
+                depressed
+              >
                 Postar
               </v-btn>
             </v-card-actions>
@@ -88,7 +92,7 @@
             v-for="(theAnnounce, indexAnnounce) in allAnnounces"
             :key="indexAnnounce"
           >
-            <v-card class="mt-10">
+            <v-card class="mt-10 pa-2">
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-subtitle
@@ -125,6 +129,60 @@
                   </v-btn>
                 </div>
               </v-list-item>
+              <section class="my-2">
+                <h3
+                  v-if="verifyComments(allComments, theAnnounce).length"
+                  class="justify-start ml-3"
+                >
+                  Comentários
+                </h3>
+                <div
+                  :rounded="false"
+                  class="pl-3"
+                  v-for="(theComment, indexComment) in verifyComments(
+                    allComments,
+                    theAnnounce
+                  )"
+                  :key="indexComment"
+                >
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-subtitle>
+                        {{
+                          theComment.published_by.first_name
+                            ? theComment.published_by.first_name
+                            : theComment.published_by.username
+                        }}
+                        - {{ dateAndTime(theComment) }}</v-list-item-subtitle
+                      >
+                      <v-list-item-title>
+                        {{ theComment.description }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                    <section v-if="user.pk == theComment.published_by.pk">
+                      <v-btn
+                        @click="editCommentInfo(theComment.id, indexAnnounce)"
+                        color="secondary"
+                        fab
+                        x-small
+                        dark
+                        class="mx-2"
+                      >
+                        <v-icon>mdi-pencil</v-icon>
+                      </v-btn>
+                      <v-btn
+                        @click="deleteCommentInfo(theComment.id)"
+                        color="secondary"
+                        fab
+                        x-small
+                        dark
+                      >
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </section>
+                  </v-list-item>
+                </div>
+              </section>
               <v-divider></v-divider>
               <v-text-field
                 v-model="specificComment['comment' + indexAnnounce]"
@@ -139,56 +197,13 @@
                 class="comentario"
                 placeholder="Digite aqui seu comentário"
               >
-                <v-icon slot="append" @click="adicionar"
+                <v-icon
+                  slot="append"
+                  @click="postCommentInfo(theAnnounce, indexAnnounce)"
                   >mdi-send-circle</v-icon
                 >
               </v-text-field>
               <v-divider></v-divider>
-            </v-card>
-            <v-card
-              class="avisos mt-10"
-              v-for="(theComment, indexComment) in verifyComments(
-                allComments,
-                theAnnounce
-              )"
-              :key="indexComment"
-            >
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-subtitle>
-                    {{
-                      theComment.published_by.first_name
-                        ? theComment.published_by.first_name
-                        : theComment.published_by.username
-                    }}
-                    - {{ dateAndTime(theComment) }}</v-list-item-subtitle
-                  >
-                  <v-list-item-title>
-                    {{ theComment.description }}
-                  </v-list-item-title>
-                </v-list-item-content>
-                <div v-if="user.pk == theComment.published_by.pk">
-                  <v-btn
-                    @click="editCommentInfo(theComment.id, indexAnnounce)"
-                    color="secondary"
-                    fab
-                    x-small
-                    dark
-                  >
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                  <v-btn
-                    @click="deleteCommentInfo(theComment.id)"
-                    color="secondary"
-                    fab
-                    x-small
-                    dark
-                    class="ma-2"
-                  >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </div>
-              </v-list-item>
             </v-card>
           </div>
         </div>
@@ -343,13 +358,6 @@ export default {
   margin-top: 6rem;
 }
 
-.avisos {
-  border-color: grey;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 1%;
-}
-
 .h1 {
   font-size: 70px;
 }
@@ -385,7 +393,6 @@ h3 {
   display: flex;
   align-self: flex-end;
   margin: 20px;
-  width: 600px;
   height: 40px;
   justify-content: center;
 }

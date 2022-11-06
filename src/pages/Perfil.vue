@@ -17,13 +17,6 @@
             />
           </v-avatar>
         </v-row>
-        <!-- <v-img
-          id="Perfil"
-          alt="Perfil"
-          :src="Perfil"
-          width="150"
-          height="150"
-        ></v-img> -->
         <v-spacer />
         <v-toolbar-title v-model="newUser.username" class="title ml-5">
           <h1>{{ userName }}</h1>
@@ -31,68 +24,57 @@
         <v-spacer />
       </v-toolbar>
     </v-card>
-    <v-container
-      sm="7"
-      id="profilebody"
-      fluid
-      style="padding-left: 4vw; padding-top: 6vh"
-    >
+    <v-container sm="7" class="profilebody pl-12 pt-12" fluid>
       <div v-if="user.siape">
-        <div class="siape">
-          <h3 class="h3">Siape</h3>
+        <div>
+          <h3>Siape</h3>
           <h1>{{ user.siape }}</h1>
         </div>
-        <div class="cpf mt-5">
-          <h3 class="h3">CPF</h3>
+        <div class="mt-5">
+          <h3>CPF</h3>
           <h1>{{ user.cpf }}</h1>
         </div>
       </div>
       <v-form>
-        <h3 class="h3 mt-5">Apelido</h3>
+        <h3 class="mt-5">Apelido</h3>
         <v-text-field
-          class="input"
           color="teal"
           square
           outlined
           v-model="newUser.username"
         ></v-text-field>
-        <h3 class="h3">Nome</h3>
+        <h3>Nome</h3>
         <v-text-field
-          class="input"
           color="teal"
           square
           outlined
           v-model="newUser.first_name"
         ></v-text-field>
-        <h3 class="h3">Sobrenome</h3>
+        <h3>Sobrenome</h3>
         <v-text-field
-          class="input"
           color="teal"
           square
           outlined
           v-model="newUser.last_name"
         ></v-text-field>
-        <h3 class="h3">Siape</h3>
+        <h3>Siape</h3>
         <v-text-field
-          class="input"
           color="teal"
           type="number"
           square
           outlined
           v-model.number="newUser.siape"
         ></v-text-field>
-        <h3 class="h3">CPF</h3>
+        <h3>CPF</h3>
         <v-text-field
-          class="input"
           color="teal"
           type="number"
           square
           outlined
           v-model.number="newUser.cpf"
         ></v-text-field>
-        <h3 class="h3">Foto de Perfil</h3>
+        <h3>Foto de Perfil</h3>
         <v-file-input
-          class="input"
           :rules="rules"
           square
           outlined
@@ -127,7 +109,6 @@
         {{ errorMessage }}
       </v-snackbar>
     </v-container>
-    <v-container sm="5"></v-container>
   </v-app>
 </template>
 
@@ -221,7 +202,7 @@ export default {
   align-content: center;
 }
 
-.h3 {
+h3 {
   color: teal;
 }
 
@@ -230,7 +211,7 @@ export default {
   height: auto;
 }
 
-#profilebody {
+.profilebody {
   overflow-y: visible;
 }
 </style>

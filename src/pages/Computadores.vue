@@ -37,7 +37,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .title,
 #Computador {
   margin-top: 6rem;
