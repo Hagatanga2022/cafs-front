@@ -132,7 +132,6 @@
                 outlined
                 auto-grow
                 name="input-7-4"
-                background-color="white"
                 rows="1"
                 width="100px"
                 class="comentario"
@@ -343,7 +342,6 @@ export default {
   border-style: solid;
   border-width: 2px;
   border-radius: 1%;
-  background-color: white;
 }
 
 .h1 {

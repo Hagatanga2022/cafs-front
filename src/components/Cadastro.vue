@@ -84,7 +84,7 @@
                 class="mb-4"
                 contain
                 height="128"
-                src="../assets/CAFS1.png"
+                src="../assets/LOGO02.png"
               ></v-img>
               <h3 class="text-h6 font-weight-light mb-2">
                 Bem vindo ao C.A.F.S.
