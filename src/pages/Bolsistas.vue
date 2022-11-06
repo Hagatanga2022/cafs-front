@@ -2,7 +2,7 @@
   <v-app>
     <v-card>
       <v-card-title class="indigo white--text text-h5">
-        Diretório de bolsitas
+        Diretório de bolsistas
       </v-card-title>
       <v-row class="pa-4" justify="space-between">
         <v-col cols="5">
@@ -12,7 +12,7 @@
             :load-children="fetchUsers"
             :open.sync="open"
             activatable
-            color="warning"
+            color="blue"
             open-on-click
             transition
           >

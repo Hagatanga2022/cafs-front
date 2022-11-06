@@ -4,23 +4,25 @@
     <v-dialog v-model="loginPopUp" max-width="600px" max-height="600px">
       <v-card class="pop-up-card" elevation="10" outlined>
         <v-form ref="form" v-model="valid" lazy-validation>
-          <v-card-title class="text-h3 justify-center teal--text"
-            >Login</v-card-title
-          >
+          <v-card-title
+            class="text-h6 font-weight-regular justify-space-between">
+            Login
+          </v-card-title>
+          <span>{{ currentTitle }}</span>
+
           <v-col justify="center">
             <v-text-field
-              class="input mx-auto"
+              
               @keyup.enter="submitLogin"
               color="teal"
               append-icon="mdi-email"
               square
               required
-              outlined
               v-model="user.username"
               label="Digite seu email ou apelido"
             ></v-text-field>
+
             <v-text-field
-              class="input mx-auto"
               @keyup.enter="submitLogin"
               color="teal"
               :type="show ? 'text' : 'password'"
@@ -28,17 +30,20 @@
               @click:append="show = !show"
               square
               required
-              outlined
               v-model="user.password"
               label="Digite sua senha"
             >
             </v-text-field>
+            <span class="text-caption grey--text text--darken-1">
+                Esqueceu sua senha?
+              </span>
+            
             <div class="mt-2" align="center">
               <v-btn
                 @click="submitLogin"
                 :disabled="!valid"
                 class="mt-1 white--text"
-                color="teal"
+                color="blue"
                 >Logar</v-btn
               >
             </div>
