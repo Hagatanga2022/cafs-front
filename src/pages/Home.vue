@@ -58,7 +58,10 @@
           </v-text-field> -->
         </v-col>
         <div class="container-avisos">
-          <v-row v-if="verifyAnnounces === 0" class="avisos mb-0 vh-100 vw-100 mt-5">
+          <v-row
+            v-if="verifyAnnounces === 0"
+            class="avisos mb-0 vh-100 vw-100 mt-5"
+          >
             <v-col sm="5">
               <v-img
                 class="d-flex justify-center align-center"
@@ -161,7 +164,7 @@
                 </v-list-item-content>
                 <div v-if="user.pk == theComment.published_by.pk">
                   <v-btn
-                    @click="editCommentInfo(theComment.id)"
+                    @click="editCommentInfo(theComment.id, indexAnnounce)"
                     color="secondary"
                     fab
                     x-small
@@ -298,8 +301,10 @@ export default {
         console.log(e);
       }
     },
-    async editCommentInfo(idComment) {
+    async editCommentInfo(idComment, commentIdentifier) {
       try {
+        this.comment.description =
+          this.specificComment["comment" + commentIdentifier];
         await this.editComment(idComment);
       } catch (e) {
         console.log(e);

@@ -58,7 +58,7 @@
                 </div>
               </v-card-text>
               <v-divider></v-divider>
-              <v-row class="text-left" tag="v-card-text">
+              <v-row class="text-left">
                 <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
                   Company:
                 </v-col>

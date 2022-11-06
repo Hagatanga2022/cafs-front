@@ -100,7 +100,6 @@
           accept="image/png, image/jpeg, image/bmp"
           placeholder="Upe sua foto de perfil"
           prepend-icon=""
-          v-model="newUser.profile_photo.file"
           prepend-inner-icon="mdi-camera"
           label="Avatar"
         ></v-file-input>

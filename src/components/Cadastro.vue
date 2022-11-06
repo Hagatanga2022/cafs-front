@@ -18,12 +18,13 @@
             <v-card-text>
               <v-text-field
                 label="Apelido"
-                @keyup.enter="submitForm"
+                v-model="form.username"
               ></v-text-field>
 
               <v-text-field
                 label="Email"
-                value="youremail@gmail.com"
+                v-model="form.email"
+                hint="youremail@gmail.com"
                 append-icon="mdi-email"
               ></v-text-field>
 
@@ -36,32 +37,48 @@
 
           <v-window-item :value="2">
             <v-card-text>
-              <v-text-field label="SIAPE" type="number"></v-text-field>
-
-              <v-text-field label="CPF" type="number"></v-text-field>
+              <v-text-field
+                label="SIAPE"
+                v-model="form.siape"
+                type="number"
+              ></v-text-field>
 
               <v-text-field
+                label="CPF"
+                v-model="form.cpf"
+                type="number"
+              ></v-text-field>
+              <span class="text-caption grey--text text--darken-1">
+                Por favor, digite seus dados pessoais
+              </span>
+            </v-card-text>
+          </v-window-item>
+
+          <v-window-item :value="3">
+            <v-card-text>
+              <v-text-field
                 label="Senha"
+                v-model="form.password1"
                 :type="show ? 'text' : 'password'"
                 :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="show = !show"
-                @keyup.enter="submitForm"
               >
               </v-text-field>
 
               <v-text-field
                 label="Confirme sua senha"
+                v-model="form.password2"
                 :type="show ? 'text' : 'password'"
                 @click:append="show = !show"
-                @keyup.enter="submitForm"
-              ></v-text-field>
+              >
+              </v-text-field>
               <span class="text-caption grey--text text--darken-1">
                 Por favor, digite uma senha para sua a conta
               </span>
             </v-card-text>
           </v-window-item>
 
-          <v-window-item :value="3">
+          <v-window-item :value="4">
             <div class="pa-4 text-center">
               <v-img
                 class="mb-4"
@@ -72,8 +89,8 @@
               <h3 class="text-h6 font-weight-light mb-2">
                 Bem vindo ao C.A.F.S.
               </h3>
-              <span class="text-caption grey--text"
-                > Obrigado por se cadastrar!</span
+              <span class="text-caption grey--text">
+                Pronto para fazer seu cadastro!</span
               >
             </div>
           </v-window-item>
@@ -84,13 +101,16 @@
         <v-card-actions>
           <v-btn :disabled="step === 1" text @click="step--"> Voltar </v-btn>
           <v-spacer></v-spacer>
+          <v-btn v-if="step < 4" color="primary" depressed @click="step++">
+            Próximo
+          </v-btn>
           <v-btn
-            :disabled="step === 3"
+            v-if="step === 4"
             color="primary"
             depressed
-            @click="step++"
+            @click="submitForm"
           >
-            Próximo
+            Concluir Cadastro
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -145,9 +165,11 @@ export default {
         case 1:
           return "Cadastrar-se";
         case 2:
+          return "Informações pessoais";
+        case 3:
           return "Criar senha";
         default:
-          return "Conta criada";
+          return "Dados informados!";
       }
     },
   },
