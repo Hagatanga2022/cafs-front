@@ -24,7 +24,7 @@
         <v-spacer />
       </v-toolbar>
     </v-card>
-    <v-container sm="7" class="profilebody pl-12 pt-12" fluid>
+    <v-container sm="7" class="pl-12 pt-12" fluid>
       <div v-if="user.siape">
         <div>
           <h3>Siape</h3>
@@ -38,6 +38,7 @@
       <v-form>
         <h3 class="mt-5">Apelido</h3>
         <v-text-field
+          class="textfield-perfil"
           color="teal"
           square
           outlined
@@ -45,6 +46,7 @@
         ></v-text-field>
         <h3>Nome</h3>
         <v-text-field
+          class="textfield-perfil"
           color="teal"
           square
           outlined
@@ -52,6 +54,7 @@
         ></v-text-field>
         <h3>Sobrenome</h3>
         <v-text-field
+          class="textfield-perfil"
           color="teal"
           square
           outlined
@@ -59,6 +62,7 @@
         ></v-text-field>
         <h3>Siape</h3>
         <v-text-field
+          class="textfield-perfil"
           color="teal"
           type="number"
           square
@@ -67,6 +71,7 @@
         ></v-text-field>
         <h3>CPF</h3>
         <v-text-field
+          class="textfield-perfil"
           color="teal"
           type="number"
           square
@@ -75,6 +80,7 @@
         ></v-text-field>
         <h3>Foto de Perfil</h3>
         <v-file-input
+          class="textfield-perfil"
           :rules="rules"
           square
           outlined
@@ -195,6 +201,10 @@ export default {
 </script>
 
 <style>
+.textfield-perfil {
+  max-width: 30%;
+}
+
 .title,
 #Perfil {
   margin-top: 6rem;
@@ -209,9 +219,5 @@ h3 {
 #content {
   border-radius: 0;
   height: auto;
-}
-
-.profilebody {
-  overflow-y: visible;
 }
 </style>

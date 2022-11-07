@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="content">
     <v-navigation-drawer
       permanent
       mini-variant-width="100"
@@ -46,7 +46,7 @@
       </v-list>
       <v-divider light></v-divider>
     </v-navigation-drawer>
-    <v-main>
+    <v-main class="main-content">
       <router-view></router-view>
     </v-main>
     <v-footer class="footer" padless>
@@ -98,6 +98,15 @@ export default {
 </script>
 
 <style scoped>
+#content {
+  border-radius: 0;
+  height: auto;
+}
+
+.main-content {
+  margin-bottom: 2rem;
+}
+
 #testing {
   margin: 0px;
   padding-right: 0px;

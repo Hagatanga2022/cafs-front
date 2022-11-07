@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card id="content">
+    <v-card>
       <v-toolbar
         class="white--text d-flex"
         color="#1d6382"
@@ -43,8 +43,5 @@ export default {
   margin-top: 6rem;
   text-align: center;
   align-content: center;
-}
-#content {
-  border-radius: 0%;
 }
 </style>
