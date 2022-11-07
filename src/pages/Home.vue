@@ -29,8 +29,88 @@
                 v-model="announce.description"
                 label="Escreva um aviso para todos"
               ></v-textarea>
-            </v-card-text>
+              <v-row
+      class="pb-2 ma-0"
+      justify="space-between"
+    >
+      <v-btn-toggle
+        v-model="formatting"
+        multiple
+      >
+        <v-btn>
+          <v-icon>mdi-format-italic</v-icon>
+        </v-btn>
 
+        <v-btn>
+          <v-icon>mdi-format-bold</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <v-icon>mdi-format-underline</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <v-row
+            align="center"
+            class="flex-column"
+            justify="center"
+          >
+            <v-icon class="cols 12">
+              mdi-format-color-text
+            </v-icon>
+
+            <v-sheet
+              tile
+              style="margin-top: -4px;"
+              height="4"
+              width="26"
+              color="purple"
+            ></v-sheet>
+          </v-row>
+        </v-btn>
+      </v-btn-toggle>
+
+      <v-btn-toggle v-model="alignment">
+        <v-btn>
+          <v-icon>mdi-format-align-center</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <v-icon>mdi-format-align-left</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <v-icon>mdi-format-align-right</v-icon>
+        </v-btn>
+      </v-btn-toggle>
+    </v-row>
+
+    <v-sheet
+      class="py-4 text-center"
+      tile
+    >
+      <v-row
+        class="mb-2"
+        dense
+      >
+        <v-col
+          v-for="n in numbers"
+          :key="n"
+          class="text-caption grey--text text--darken-1"
+          v-text="n"
+        ></v-col>
+      </v-row>
+
+      <v-row dense>
+        <v-col
+          v-for="l in letters"
+          :key="l"
+          class="text-h6 grey--text font-weight-regular text--darken-2"
+          v-text="l"
+        ></v-col>
+      </v-row>
+    </v-sheet>
+            </v-card-text>
             <v-divider></v-divider>
 
             <v-card-actions>
@@ -92,7 +172,7 @@
             v-for="(theAnnounce, indexAnnounce) in allAnnounces"
             :key="indexAnnounce"
           >
-            <v-card class="mt-10 pa-2">
+            <v-card class="mt-10 pa-2" elevation="3">
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-subtitle
@@ -223,6 +303,9 @@ export default {
   },
   data() {
     return {
+      alignment: 1,
+      formatting: [],
+      value: 'Toggle button requirements.\r\rHave at least three toggle buttons in a group\rLabel buttons with text, an icon, or',
       Avisos,
       specificComment: {},
       month: [
