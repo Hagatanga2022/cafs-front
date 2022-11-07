@@ -49,8 +49,12 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-    <v-footer app id="footersize" class="py-3">
-      <span class="overline">C.A.F.S &copy;2022</span>
+    <v-footer class="footer" padless>
+      <v-card class="cafs-footer">
+        <v-card-text class="white--text text-center">
+          {{ new Date().getFullYear() }} — <strong>C.A.F.S</strong>
+        </v-card-text>
+      </v-card>
     </v-footer>
   </v-app>
 </template>
@@ -93,7 +97,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #testing {
   margin: 0px;
   padding-right: 0px;
@@ -103,10 +107,12 @@ export default {
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-#footersize {
+.footer, .cafs-footer {
+  display: flex;
+  color: white;
+  background-color: #808080;
   width: 100vw;
-  height: 5vh;
-  opacity: 0.3;
+  height: 100%;
 }
 
 #IFLogo {
