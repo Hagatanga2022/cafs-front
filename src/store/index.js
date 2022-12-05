@@ -5,10 +5,16 @@ import createPersistedState from "vuex-persistedstate";
 import { auth } from "./auth";
 import { announcement } from "./announcement";
 import { comment } from "./comment";
+import { computer } from "./computer";
 
 Vue.use(Vuex);
 
-const modules = { auth, announcement, comment };
+const modules = {
+  auth,
+  announcement,
+  comment,
+  computer,
+};
 
 export default new Vuex.Store({
   modules,

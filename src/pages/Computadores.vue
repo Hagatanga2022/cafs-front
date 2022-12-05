@@ -27,12 +27,45 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import Computador from "../assets/computador.png";
+
 export default {
-  data() {
-    return {
-      Computador,
-    };
+  data: () => ({
+    Computador,
+  }),
+  computed: {
+    ...mapState("computer", ["computer", "allComputers"]),
+  },
+  methods: {
+    ...mapActions("computer", [
+      "postComputer",
+      "editComputer",
+      "deleteComputer",
+    ]),
+
+    async postComputerInfo() {
+      try {
+        this.computer.published_by = this.user.pk;
+        await this.postComputer();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async editComputerInfo(computerID) {
+      try {
+        await this.editComputer(computerID);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteComputerInfo(computerID) {
+      try {
+        await this.deleteComputer(computerID);
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>
