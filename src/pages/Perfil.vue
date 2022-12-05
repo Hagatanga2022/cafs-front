@@ -79,19 +79,23 @@
           v-model.number="newUser.cpf"
         ></v-text-field>
         <h3>Foto de Perfil</h3>
-        <v-file-input
+        <input
           class="textfield-perfil"
           :rules="rules"
           square
           outlined
+          type="file"
+          ref="file"
+          @change="uploadFile"
           show-size
           accept="image/png, image/jpeg, image/bmp"
           placeholder="Upe sua foto de perfil"
           prepend-icon=""
           prepend-inner-icon="mdi-camera"
           label="Avatar"
-        ></v-file-input>
-        <v-btn class="white--text" color="teal" @click="updateUserInfo">
+        />
+        <br />
+        <v-btn class="white--text mt-10" color="teal" @click="updateUserInfo">
           Salvar
         </v-btn>
       </v-form>
@@ -119,6 +123,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapState, mapActions } from "vuex";
 import Perfil from "../assets/perfil.jpg";
 
@@ -139,7 +144,7 @@ export default {
         (value) =>
           !value ||
           value.size < 2000000 ||
-          "Avatar size should be less than 2 MB!",
+          "O tamanho do avatar deve ser menor de 2 MB!",
       ],
     };
   },
@@ -160,30 +165,62 @@ export default {
     ...mapActions("auth", ["updateUser", "deleteUser"]),
 
     hasChangedUserInfo() {
-      return !Object.keys(this.newUser).every(
-        (key) =>
-          this.user.hasOwnProperty(key) && this.user[key] === this.newUser[key]
+      console.log(
+        !Object.keys(this.newUser).every(
+          (key) =>
+            this.user.hasOwnProperty(key) &&
+            this.user[key] === this.newUser[key]
+        ) || this.image !== undefined
+      );
+      return (
+        !Object.keys(this.newUser).every(
+          (key) =>
+            this.user.hasOwnProperty(key) &&
+            this.user[key] === this.newUser[key]
+        ) || this.image !== undefined
       );
     },
+    uploadFile() {
+      console.log(this.$refs.file.files[0]);
+      this.image = this.$refs.file.files[0];
+    },
+    async submitFile() {
+      const formData = new FormData();
+      formData.append("file", this.image);
+      const headers = { "Content-Type": "multipart/form-data" };
+      const { data } = await axios.post(
+        "http://cafs.pythonanywhere.com/api/media/images/",
+        formData,
+        { headers }
+      );
+      return data.attachment_key;
+    },
     async updateUserInfo() {
+      console.log(this.image);
       if (await this.hasChangedUserInfo()) {
         try {
           if (this.newUser.username == this.user.username)
             delete this.newUser.username;
+          if (this.image)
+            this.newUser.profile_photo_attachment_key = await this.submitFile();
           await this.updateUser(this.newUser);
           this.newUser = { ...this.user };
           this.save = true;
         } catch (e) {
           this.newUser = { ...this.user };
-          let firstDataError = JSON.stringify(
-            Object.keys(e.response.data)[0]
-          ).replace(/[\]["]/g, "");
-          this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
-            e.response.data[firstDataError]
-          )
-            .replace(/[\]["]/g, "")
-            .toLowerCase()}`;
-          this.errorUpdate = true;
+          console.log(e);
+
+          // // Error formatting
+          // let firstDataError = JSON.stringify(
+          //   Object.keys(e.response.data)[0]
+          // ).replace(/[\]["]/g, "");
+          // this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
+          //   e.response.data[firstDataError]
+          // )
+          //   .replace(/[\]["]/g, "")
+          //   .toLowerCase()}`;
+
+          // this.errorUpdate = true;
         }
       } else {
         this.notChanged = true;
