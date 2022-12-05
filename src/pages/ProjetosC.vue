@@ -29,11 +29,9 @@
 <script>
 import ProjetosC from "../assets/concluidos.png";
 export default {
-  data() {
-    return {
-      ProjetosC,
-    };
-  },
+  data: () => ({
+    ProjetosC,
+  }),
 };
 </script>
 

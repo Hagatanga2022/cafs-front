@@ -64,18 +64,17 @@
 import { mapActions } from "vuex";
 
 export default {
-  data() {
-    return {
-      user: {},
-      valid: true,
-      loginPopUp: false,
-      errorMessage: null,
-      errorLogin: false,
-      show: false,
-    };
-  },
+  data: () => ({
+    user: {},
+    show: false,
+    valid: true,
+    loginPopUp: false,
+    errorLogin: false,
+    errorMessage: null,
+  }),
   methods: {
     ...mapActions("auth", ["login"]),
+
     async submitLogin() {
       try {
         await this.login(this.user);

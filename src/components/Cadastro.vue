@@ -130,35 +130,14 @@
 import { mapActions } from "vuex";
 
 export default {
-  data() {
-    return {
-      newAccount: false,
-      show: false,
-      errorMessage: null,
-      errorRegister: false,
-      form: {},
-      step: 1,
-    };
-  },
-  methods: {
-    ...mapActions("auth", ["register"]),
-    async submitForm() {
-      try {
-        await this.register(this.form);
-        this.$router.push({ name: "Home" });
-      } catch (e) {
-        let firstDataError = JSON.stringify(
-          Object.keys(e.response.data)[0]
-        ).replace(/[\]["]/g, "");
-        this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
-          e.response.data[firstDataError]
-        )
-          .replace(/[\]["]/g, "")
-          .toLowerCase()}`;
-        this.errorRegister = true;
-      }
-    },
-  },
+  data: () => ({
+    newAccount: false,
+    show: false,
+    errorMessage: null,
+    errorRegister: false,
+    form: {},
+    step: 1,
+  }),
   computed: {
     currentTitle() {
       switch (this.step) {
@@ -170,6 +149,26 @@ export default {
           return "Criar senha";
         default:
           return "Dados informados!";
+      }
+    },
+  },
+  methods: {
+    ...mapActions("auth", ["register"]),
+
+    async submitForm() {
+      try {
+        await this.register(this.form);
+        this.$router.push({ path: "/home" });
+      } catch (e) {
+        let firstDataError = JSON.stringify(
+          Object.keys(e.response.data)[0]
+        ).replace(/[\]["]/g, "");
+        this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
+          e.response.data[firstDataError]
+        )
+          .replace(/[\]["]/g, "")
+          .toLowerCase()}`;
+        this.errorRegister = true;
       }
     },
   },
