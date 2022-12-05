@@ -1,8 +1,8 @@
 import axios from "axios";
 
 class AuthService {
-  async create(user) {
-    const { data } = await axios.post("auth/registration/", user);
+  async create(userInfo) {
+    const { data } = await axios.post("auth/registration/", userInfo);
     return data;
   }
   async read() {
@@ -15,8 +15,8 @@ class AuthService {
   async delete(inactivatedUser) {
     await axios.patch("auth/user/", inactivatedUser);
   }
-  async login(user) {
-    const { data } = await axios.post("auth/login/", user);
+  async login(userInfo) {
+    const { data } = await axios.post("auth/login/", userInfo);
     return data;
   }
   async logout() {

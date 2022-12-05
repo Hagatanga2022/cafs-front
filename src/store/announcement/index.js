@@ -31,17 +31,17 @@ export const announcement = {
         return Promise.reject(e);
       }
     },
-    async editAnnouncement({ dispatch, state }, idAnnounce) {
+    async editAnnouncement({ dispatch, state }, announceID) {
       try {
-        await announcementService.update(idAnnounce, state.announce);
+        await announcementService.update(announceID, state.announce);
         dispatch("getAnnouncement");
       } catch (e) {
         return Promise.reject(e);
       }
     },
-    async deleteAnnouncement({ dispatch }, idAnnounce) {
+    async deleteAnnouncement({ dispatch }, announceID) {
       try {
-        await announcementService.delete(idAnnounce);
+        await announcementService.delete(announceID);
         dispatch("getAnnouncement");
       } catch (e) {
         return Promise.reject(e);

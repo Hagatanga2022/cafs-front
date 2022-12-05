@@ -31,17 +31,17 @@ export const comment = {
         return Promise.reject(e);
       }
     },
-    async editComment({ dispatch, state }, idComment) {
+    async editComment({ dispatch, state }, commentID) {
       try {
-        await commentService.update(idComment, state.comment);
+        await commentService.update(commentID, state.comment);
         dispatch("getComment");
       } catch (e) {
         return Promise.reject(e);
       }
     },
-    async deleteComment({ dispatch }, idComment) {
+    async deleteComment({ dispatch }, commentID) {
       try {
-        await commentService.delete(idComment);
+        await commentService.delete(commentID);
         dispatch("getComment");
       } catch (e) {
         return Promise.reject(e);
