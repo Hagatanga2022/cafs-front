@@ -79,7 +79,7 @@
           v-model.number="newUser.cpf"
         ></v-text-field>
         <h3>Foto de Perfil</h3>
-        <input
+        <v-file-input
           class="textfield-perfil"
           :rules="rules"
           square
@@ -93,9 +93,9 @@
           prepend-icon=""
           prepend-inner-icon="mdi-camera"
           label="Avatar"
-        />
+        ></v-file-input>
         <br />
-        <v-btn class="white--text mt-10" color="teal" @click="updateUserInfo">
+        <v-btn class="white--text" color="teal" @click="updateUserInfo">
           Salvar
         </v-btn>
       </v-form>
@@ -131,23 +131,21 @@ export default {
   created() {
     this.newUser = { ...this.user };
   },
-  data() {
-    return {
-      Perfil,
-      newUser: {},
-      show: false,
-      save: false,
-      notChanged: false,
-      errorMessage: null,
-      errorUpdate: false,
-      rules: [
-        (value) =>
-          !value ||
-          value.size < 2000000 ||
-          "O tamanho do avatar deve ser menor de 2 MB!",
-      ],
-    };
-  },
+  data: () => ({
+    Perfil,
+    newUser: {},
+    show: false,
+    save: false,
+    notChanged: false,
+    errorMessage: null,
+    errorUpdate: false,
+    rules: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        "O tamanho do avatar deve ser menor de 2 MB!",
+    ],
+  }),
   computed: {
     ...mapState("auth", ["user"]),
 
@@ -181,8 +179,7 @@ export default {
       );
     },
     uploadFile() {
-      console.log(this.$refs.file.files[0]);
-      this.image = this.$refs.file.files[0];
+      this.image = this.$refs.file[Object.keys(this.$refs.file)[95]];
     },
     async submitFile() {
       const formData = new FormData();
@@ -196,7 +193,6 @@ export default {
       return data.attachment_key;
     },
     async updateUserInfo() {
-      console.log(this.image);
       if (await this.hasChangedUserInfo()) {
         try {
           if (this.newUser.username == this.user.username)
@@ -210,17 +206,17 @@ export default {
           this.newUser = { ...this.user };
           console.log(e);
 
-          // // Error formatting
-          // let firstDataError = JSON.stringify(
-          //   Object.keys(e.response.data)[0]
-          // ).replace(/[\]["]/g, "");
-          // this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
-          //   e.response.data[firstDataError]
-          // )
-          //   .replace(/[\]["]/g, "")
-          //   .toLowerCase()}`;
+          // Error message formatting
+          let firstDataError = JSON.stringify(
+            Object.keys(e.response.data)[0]
+          ).replace(/[\]["]/g, "");
+          this.errorMessage = `${firstDataError.toUpperCase()}, ${JSON.stringify(
+            e.response.data[firstDataError]
+          )
+            .replace(/[\]["]/g, "")
+            .toLowerCase()}`;
 
-          // this.errorUpdate = true;
+          this.errorUpdate = true;
         }
       } else {
         this.notChanged = true;
