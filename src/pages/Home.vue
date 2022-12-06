@@ -155,18 +155,37 @@
             :key="indexAnnounce"
           >
             <v-card class="mt-10 pa-2" elevation="3">
-              <v-list-item>
+              <v-list-item class="mb-n2">
                 <v-list-item-content>
-                  <v-list-item-subtitle
-                    >{{
-                      theAnnounce.published_by.first_name
-                        ? theAnnounce.published_by.first_name
-                        : theAnnounce.published_by.username
-                    }}
-                    - {{ dateAndTime(theAnnounce) }}
+                  <v-list-item-subtitle>
+                    <v-row>
+                      <v-col cols="4" sm="2" md="1">
+                        <v-avatar size="36px">
+                          <img
+                            v-if="theAnnounce.published_by.profile_photo"
+                            alt="Avatar"
+                            :src="theAnnounce.published_by.profile_photo.file"
+                          />
+                          <v-icon v-else color="teal" v-text="icon"></v-icon>
+                        </v-avatar>
+                      </v-col>
+                      <v-col class="ml-n7 mb-5">
+                        <h3 class="h3 mb-n3">
+                          {{
+                            theAnnounce.published_by.first_name
+                              ? theAnnounce.published_by.first_name
+                              : theAnnounce.published_by.username
+                          }}
+                        </h3>
+                        <br />
+                        {{ dateAndTime(theAnnounce) }}
+                      </v-col>
+                    </v-row>
                   </v-list-item-subtitle>
                   <v-list-item-title>
-                    {{ theAnnounce.description }}
+                    <p class="ml-2">
+                      {{ theAnnounce.description }}
+                    </p>
                   </v-list-item-title>
                 </v-list-item-content>
                 <div v-if="user.pk == theAnnounce.published_by.pk">
@@ -196,6 +215,7 @@
                   v-if="verifyComments(allComments, theAnnounce).length"
                   class="justify-start ml-3"
                 >
+                  <v-divider class="mb-4"></v-divider>
                   Comentários
                 </h3>
                 <div
@@ -246,26 +266,43 @@
                 </div>
               </section>
               <v-divider></v-divider>
-              <v-text-field
-                v-model="specificComment['comment' + indexAnnounce]"
-                prepend-inner-icon="mdi-comment"
-                @keydown.enter="postCommentInfo(theAnnounce, indexAnnounce)"
-                filled
-                dense
-                rounded
-                auto-grow
-                name="input-7-4"
-                rows="1"
-                class="comentario"
-                placeholder="Digite aqui seu comentário"
-              >
-                <v-icon
-                  slot="append"
-                  @click="postCommentInfo(theAnnounce, indexAnnounce)"
-                  >mdi-send-circle</v-icon
+              <v-row class="my-1">
+                <v-col
+                  class="d-flex flex-end justify-center mt-3"
+                  cols="4"
+                  sm="2"
+                  md="1"
                 >
-              </v-text-field>
-              <v-divider></v-divider>
+                  <v-avatar size="36px">
+                    <img
+                      v-if="user.profile_photo.url"
+                      alt="Avatar"
+                      :src="user.profile_photo.url"
+                    />
+                    <v-icon v-else color="teal" v-text="icon"></v-icon>
+                  </v-avatar>
+                </v-col>
+                <v-text-field
+                  v-model="specificComment['comment' + indexAnnounce]"
+                  prepend-inner-icon="mdi-comment"
+                  @keydown.enter="postCommentInfo(theAnnounce, indexAnnounce)"
+                  filled
+                  dense
+                  rounded
+                  auto-grow
+                  name="input-7-4"
+                  rows="1"
+                  class="comentario"
+                  placeholder="Digite aqui seu comentário"
+                >
+                  <v-icon
+                    slot="append"
+                    @click="postCommentInfo(theAnnounce, indexAnnounce)"
+                    >mdi-send-circle</v-icon
+                  >
+                </v-text-field>
+              </v-row>
+              <v-divider v-show="false"></v-divider>
             </v-card>
           </div>
         </div>
@@ -282,10 +319,12 @@ export default {
   created() {
     this.getAnnouncement();
     this.getComment();
+    console.log(this.allAnnounces);
   },
   data: () => ({
     alignment: 1,
     formatting: [],
+    icon: "mdi-account",
     value:
       "Toggle button requirements.\r\rHave at least three toggle buttons in a group\rLabel buttons with text, an icon, or",
     Avisos,
@@ -435,7 +474,7 @@ export default {
 
 .upbar,
 div.cafs-title h1,
-h3 {
+.cafs-title > h3 {
   display: flex;
   justify-content: center;
   max-width: 100vw;
@@ -456,8 +495,8 @@ h3 {
 .comentario {
   display: flex;
   align-self: flex-end;
-  margin: 20px;
-  height: 40px;
   justify-content: center;
+  margin: 10px 20px 10px auto;
+  height: 40px;
 }
 </style>

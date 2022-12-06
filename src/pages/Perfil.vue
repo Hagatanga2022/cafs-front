@@ -186,7 +186,7 @@ export default {
       formData.append("file", this.image);
       const headers = { "Content-Type": "multipart/form-data" };
       const { data } = await axios.post(
-        "http://cafs.pythonanywhere.com/api/media/images/",
+        `${axios.defaults.baseURL}api/media/images/`,
         formData,
         { headers }
       );
