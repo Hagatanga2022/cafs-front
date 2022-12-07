@@ -3,9 +3,10 @@ import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
 
 import { auth } from "./auth";
-import { announcement } from "./announcement";
 import { comment } from "./comment";
 import { computer } from "./computer";
+import { allocation } from "./allocation";
+import { announcement } from "./announcement";
 
 Vue.use(Vuex);
 
@@ -16,9 +17,10 @@ const vuexLocal = new VuexPersistence({
 
 const modules = {
   auth,
-  announcement,
   comment,
   computer,
+  allocation,
+  announcement,
 };
 
 export default new Vuex.Store({
