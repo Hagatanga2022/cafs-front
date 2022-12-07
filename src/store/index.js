@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
 
 import { auth } from "./auth";
+import { project } from "./project";
 import { comment } from "./comment";
 import { computer } from "./computer";
 import { allocation } from "./allocation";
@@ -17,6 +18,7 @@ const vuexLocal = new VuexPersistence({
 
 const modules = {
   auth,
+  project,
   comment,
   computer,
   allocation,
