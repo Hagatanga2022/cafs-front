@@ -52,7 +52,7 @@
                   :disabled="!valid"
                   class="mt-1 white--text"
                   color="blue"
-                  >Logar</v-btn
+                  >Adicionar</v-btn
                 >
               </div>
             </v-col>
