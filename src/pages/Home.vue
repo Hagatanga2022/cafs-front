@@ -12,7 +12,7 @@
         <v-toolbar-title class="texts">
           <div class="cafs-title">
             <h1 class="h1">C.A.F.S</h1>
-            <h3>
+            <h3 style="color:white">
               <p>Controle de acesso à Fábrica de Software</p>
             </h3>
           </div>
@@ -24,55 +24,17 @@
         <v-col id="text-area" cols="11">
           <v-card>
             <v-card-text>
-              <v-textarea
-                filled
-                v-model="announce.description"
-                label="Escreva um aviso para todos"
-              ></v-textarea>
-              <v-row class="pb-2 ma-0" justify="space-between">
-                <v-btn-toggle v-model="formatting" multiple>
-                  <v-btn>
-                    <v-icon>mdi-format-italic</v-icon>
-                  </v-btn>
-
-                  <v-btn>
-                    <v-icon>mdi-format-bold</v-icon>
-                  </v-btn>
-
-                  <v-btn>
-                    <v-icon>mdi-format-underline</v-icon>
-                  </v-btn>
-
-                  <v-btn>
-                    <v-row align="center" class="flex-column" justify="center">
-                      <v-icon class="cols 12"> mdi-format-color-text </v-icon>
-
-                      <v-sheet
-                        tile
-                        style="margin-top: -4px"
-                        height="4"
-                        width="26"
-                        color="purple"
-                      ></v-sheet>
-                    </v-row>
-                  </v-btn>
-                </v-btn-toggle>
-
-                <v-btn-toggle v-model="alignment">
-                  <v-btn>
-                    <v-icon>mdi-format-align-center</v-icon>
-                  </v-btn>
-
-                  <v-btn>
-                    <v-icon>mdi-format-align-left</v-icon>
-                  </v-btn>
-
-                  <v-btn>
-                    <v-icon>mdi-format-align-right</v-icon>
-                  </v-btn>
-                </v-btn-toggle>
-              </v-row>
-
+              <div class="mural">
+              <h1>Bem-vindo ao mural</h1>
+              </div>
+                  <quill-editor
+                  
+                  @change="onEditorChange($event)"
+                  ref="myQuill"
+                  v-model="announce.description"
+                  >
+                  
+                  </quill-editor>
               <v-sheet class="py-4 text-center" tile>
                 <v-row class="mb-2" dense>
                   <v-col
@@ -156,7 +118,7 @@
           >
             <v-card class="mt-10 pa-2" elevation="3">
               <v-list-item class="mb-n2">
-                <v-list-item-content>
+                <v-list-item-content id="breakline">
                   <v-list-item-subtitle>
                     <v-row>
                       <v-col cols="4" sm="2" md="1">
@@ -169,7 +131,7 @@
                           <v-icon v-else color="teal" v-text="icon"></v-icon>
                         </v-avatar>
                       </v-col>
-                      <v-col class="ml-n7 mb-5">
+                      <v-col class="">
                         <h3 class="h3 mb-n3">
                           {{
                             theAnnounce.published_by.first_name
@@ -182,10 +144,10 @@
                       </v-col>
                     </v-row>
                   </v-list-item-subtitle>
-                  <v-list-item-title>
-                    <p class="ml-2">
-                      {{ theAnnounce.description }}
-                    </p>
+                  <v-list-item-title >
+                    <div class="remOverflow">
+                    <p class="ml-2 pt-5" style="white-space:break-spaces;word-break: normal;" v-html="theAnnounce.description"></p>
+                    </div>
                   </v-list-item-title>
                 </v-list-item-content>
                 <div v-if="user.pk == theAnnounce.published_by.pk">
@@ -266,7 +228,7 @@
                 </div>
               </section>
               <v-divider></v-divider>
-              <v-row class="my-1">
+              <v-row class="my-1 coment-body">
                 <v-col
                   class="d-flex flex-end justify-center mt-3"
                   cols="4"
@@ -426,7 +388,7 @@ export default {
     },
     async editCommentInfo(commentID, commentIdentifier) {
       try {
-        this.comment.description =
+        this.comment.description = ''
           this.specificComment["comment" + commentIdentifier];
         await this.editComment(commentID);
       } catch (e) {
@@ -446,7 +408,7 @@ export default {
 
 <style scoped>
 #text-area {
-  max-width: 62%;
+  max-width: 70vw;
 }
 
 .texto-aviso {
@@ -470,6 +432,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 3vh;
 }
 
 .upbar,
@@ -488,15 +451,51 @@ div.cafs-title h1,
   justify-content: center;
 }
 
-.cards {
-  width: 130%;
+.cards { 
+  width: 60vw;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  overflow: visible;
+
 }
 
 .comentario {
   display: flex;
   align-self: flex-end;
   justify-content: center;
-  margin: 10px 20px 10px auto;
-  height: 40px;
+  margin: 3vh 4vh 6vh auto;
+  height: 5vh;
+  
 }
+#breakline{
+  display: flex;
+  align-items: left;
+  align-content: center;
+  justify-content: left;
+  justify-items: center;
+  padding-top: 2vh;
+  overflow: visible ;
+}
+.coment-body{
+  display:flex;
+  width: 40vw;
+  max-width: auto;
+  min-width: auto;
+ padding: 1vw 0 0 1vw;
+ flex-direction: row;
+ overflow: visible;
+}
+.mural{
+  padding: 1vh 2vh 4vh 1vh;
+}
+.remOverflow{
+  display: flex;
+  word-break: break-all;
+  overflow: visible ;
+  overflow-wrap: break-word;
+}
+
 </style>

@@ -100,11 +100,11 @@ export default {
 <style scoped>
 #content {
   border-radius: 0;
-  height: auto;
+
 }
 
 .main-content {
-  margin-bottom: 2rem;
+  margin-bottom: 20rem;
 }
 
 #testing {
