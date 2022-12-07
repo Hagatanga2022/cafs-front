@@ -12,7 +12,7 @@
         <v-toolbar-title class="texts">
           <div class="cafs-title">
             <h1 class="h1">C.A.F.S</h1>
-            <h3 style="color:white">
+            <h3 style="color: white">
               <p>Controle de acesso à Fábrica de Software</p>
             </h3>
           </div>
@@ -25,16 +25,14 @@
           <v-card>
             <v-card-text>
               <div class="mural">
-              <h1>Bem-vindo ao mural</h1>
+                <h1>Bem-vindo ao mural</h1>
               </div>
-                  <quill-editor
-                  
-                  @change="onEditorChange($event)"
-                  ref="myQuill"
-                  v-model="announce.description"
-                  >
-                  
-                  </quill-editor>
+              <quill-editor
+                @change="onEditorChange($event)"
+                ref="myQuill"
+                v-model="announce.description"
+              >
+              </quill-editor>
               <v-sheet class="py-4 text-center" tile>
                 <v-row class="mb-2" dense>
                   <v-col
@@ -144,9 +142,13 @@
                       </v-col>
                     </v-row>
                   </v-list-item-subtitle>
-                  <v-list-item-title >
+                  <v-list-item-title>
                     <div class="remOverflow">
-                    <p class="ml-2 pt-5" style="white-space:break-spaces;word-break: normal;" v-html="theAnnounce.description"></p>
+                      <p
+                        class="ml-2 pt-5"
+                        style="white-space: break-spaces; word-break: normal"
+                        v-html="theAnnounce.description"
+                      ></p>
                     </div>
                   </v-list-item-title>
                 </v-list-item-content>
@@ -388,7 +390,7 @@ export default {
     },
     async editCommentInfo(commentID, commentIdentifier) {
       try {
-        this.comment.description = ''
+        this.comment.description =
           this.specificComment["comment" + commentIdentifier];
         await this.editComment(commentID);
       } catch (e) {
@@ -451,7 +453,7 @@ div.cafs-title h1,
   justify-content: center;
 }
 
-.cards { 
+.cards {
   width: 60vw;
   flex-wrap: wrap;
   display: flex;
@@ -459,7 +461,6 @@ div.cafs-title h1,
   align-content: center;
   align-items: center;
   overflow: visible;
-
 }
 
 .comentario {
@@ -468,34 +469,32 @@ div.cafs-title h1,
   justify-content: center;
   margin: 3vh 4vh 6vh auto;
   height: 5vh;
-  
 }
-#breakline{
+#breakline {
   display: flex;
   align-items: left;
   align-content: center;
   justify-content: left;
   justify-items: center;
   padding-top: 2vh;
-  overflow: visible ;
+  overflow: visible;
 }
-.coment-body{
-  display:flex;
+.coment-body {
+  display: flex;
   width: 40vw;
   max-width: auto;
   min-width: auto;
- padding: 1vw 0 0 1vw;
- flex-direction: row;
- overflow: visible;
+  padding: 1vw 0 0 1vw;
+  flex-direction: row;
+  overflow: visible;
 }
-.mural{
+.mural {
   padding: 1vh 2vh 4vh 1vh;
 }
-.remOverflow{
+.remOverflow {
   display: flex;
   word-break: break-all;
-  overflow: visible ;
+  overflow: visible;
   overflow-wrap: break-word;
 }
-
 </style>
