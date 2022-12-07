@@ -14,7 +14,7 @@
               <v-text-field
                 @keyup.enter="submitLogin"
                 color="teal"
-                append-icon="mdi-email"
+                
                 square
                 required
                 v-model="user.username"
@@ -24,9 +24,8 @@
               <v-text-field
                 @keyup.enter="submitLogin"
                 color="teal"
-                :type="show ? 'text' : 'password'"
-                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="show = !show"
+                
+               
                 square
                 required
                 v-model="user.password"
@@ -34,24 +33,22 @@
               >
               </v-text-field>
               <v-text-field
-                @keyup.enter="submitLogin"
+                
                 color="teal"
-                :type="show ? 'text' : 'password'"
-                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="show = !show"
+                
+                
+                
                 square
                 required
                 v-model="user.password"
                 label="Número"
               >
               </v-text-field>
-              <span class="text-caption grey--text text--darken-1">
-                Esqueceu sua senha?
-              </span>
+              
   
               <div class="mt-2" align="center">
                 <v-btn
-                  @click="submitLogin"
+                  
                   :disabled="!valid"
                   class="mt-1 white--text"
                   color="blue"
@@ -67,7 +64,7 @@
         v-model="errorLogin"
         multline
         timeout="2000"
-        >{{ errorMessage }}</v-snackbar
+        ></v-snackbar
       >
     </v-container>
   </template>
@@ -76,7 +73,12 @@
   
   export default {
     data: () => ({
-
+    user: {},
+    show: false,
+    valid: true,
+    loginPopUp: false,
+    errorLogin: false,
+    errorMessage: null,
     }),
     computed: {
     ...mapState("computer", ["computer", "allComputers"]),

@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import Computador from "../assets/computador.png";
 import ComputadorB from "../assets/computadorblue.png";
 import CadastrarPC from "../components/Computador.vue"
