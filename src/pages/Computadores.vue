@@ -118,6 +118,7 @@ export default {
   overflow-wrap: break-word;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   
 }
 .imgFilter {
