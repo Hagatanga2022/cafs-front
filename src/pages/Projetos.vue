@@ -56,9 +56,11 @@
               <div class="camTwo">
                 <div class="informations">Status : Em uso</div>
                 <div class="informations">
-                  Orientador : {{ projeto.orientador }}
+                  Coordenador : {{ projeto.coordenador }}
                 </div>
-                <div class="informations"> Bolsista : {{ projeto.bolsista }}</div>
+                <div class="informations">
+                  Bolsista : {{ projeto.bolsista }}
+                </div>
               </div>
             </v-item>
           </v-item-list>
