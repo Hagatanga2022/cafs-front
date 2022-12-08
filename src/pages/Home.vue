@@ -283,7 +283,6 @@ export default {
   created() {
     this.getAnnouncement();
     this.getComment();
-    console.log(this.allAnnounces);
   },
   data: () => ({
     alignment: 1,

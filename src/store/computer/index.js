@@ -19,14 +19,14 @@ export const computer = {
     },
   },
   actions: {
-    async getComputer({ commit }) {
+    async getComputers({ commit }) {
       const computers = await computerService.read();
       commit("setComputer", computers);
     },
     async postComputer({ dispatch, state }) {
       try {
         await computerService.create(state.computer);
-        dispatch("getComputer");
+        dispatch("getComputers");
       } catch (e) {
         return Promise.reject(e);
       }
@@ -34,7 +34,7 @@ export const computer = {
     async editComputer({ dispatch, state }, computerID) {
       try {
         await computerService.update(computerID, state.computer);
-        dispatch("getComputer");
+        dispatch("getComputers");
       } catch (e) {
         return Promise.reject(e);
       }
@@ -42,7 +42,7 @@ export const computer = {
     async deleteComputer({ dispatch }, computerID) {
       try {
         await computerService.delete(computerID);
-        dispatch("getComputer");
+        dispatch("getComputers");
       } catch (e) {
         return Promise.reject(e);
       }

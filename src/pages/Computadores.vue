@@ -80,7 +80,6 @@ import CadastrarPC from "../components/Computador.vue";
 export default {
   created() {
     this.getComputers();
-    console.log(this.allComputers);
   },
   data: () => ({
     Computador,
