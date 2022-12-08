@@ -6,7 +6,7 @@ import StartPage from "../pages/StartPage.vue";
 import Bolsistas from "../pages/Bolsistas.vue";
 import Computadores from "../pages/Computadores.vue";
 import Projetos from "../pages/Projetos.vue";
-import ProjetosConcluidos from "../pages/ProjetosC.vue";
+// import ProjetosConcluidos from "../pages/ProjetosC.vue";
 import Perfil from "../pages/Perfil.vue";
 
 Vue.use(VueRouter);
@@ -53,11 +53,11 @@ const routes = [
         name: "Projetos",
         component: Projetos,
       },
-      {
-        path: "/projetosc",
-        name: "ProjetosConcluidos",
-        component: ProjetosConcluidos,
-      },
+      // {
+      //   path: "/projetosc",
+      //   name: "ProjetosConcluidos",
+      //   component: ProjetosConcluidos,
+      // },
       {
         path: "/perfil",
         name: "Perfil",

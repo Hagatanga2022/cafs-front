@@ -75,11 +75,11 @@ export default {
         { title: "Computadores", icon: "mdi-laptop", to: "/computadores" },
         { title: "Projetos", icon: "mdi-folder", to: "/projetos" },
         { title: "Perfil", icon: "mdi-account", to: "/perfil" },
-        {
-          title: "Projetos concluídos",
-          icon: " mdi-check-circle",
-          to: "/projetosc",
-        },
+        // {
+        //   title: "Projetos concluídos",
+        //   icon: " mdi-check-circle",
+        //   to: "/projetosc",
+        // },
       ],
     };
   },
