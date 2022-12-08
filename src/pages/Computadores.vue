@@ -25,7 +25,6 @@
       <CadastrarPC class="cadastro" />
     </v-card>
     <v-container class="computerBody">
-    
       <!-- <v-img class="imgFilter" 
       :src="ComputadorB"
       width="20vw"
@@ -119,7 +118,6 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  
 }
 .imgFilter {
   filter: opacity(0.2);
@@ -135,12 +133,7 @@ export default {
   align-items: center;
   margin-right: 2vw;
 }
-.titleComputer {
-  display: flex;
-  justify-content: center;
-  height: 10vh;
-  width: auto;
-}
+
 .camOne {
   background-color: #3b7994;
   height: 10vh;

@@ -3,18 +3,18 @@ import projectService from "@/api/project";
 export const project = {
   namespaced: true,
   state: () => ({
-    allProject: [],
+    allProjects: [],
     project: {},
   }),
   mutations: {
     setProject(state, projects) {
-      state.allProject = projects;
+      state.allProjects = projects;
     },
     cleanProject(state) {
       state.project = {};
     },
-    cleanProject(state) {
-      state.allProject = [];
+    cleanProjects(state) {
+      state.allProjects = [];
       state.project = {};
     },
   },
