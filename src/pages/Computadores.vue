@@ -22,9 +22,10 @@
         </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
+      <CadastrarPC class="cadastro" />
     </v-card>
     <v-container class="computerBody">
-      <CadastrarPC class="cadastro" />
+    
       <!-- <v-img class="imgFilter" 
       :src="ComputadorB"
       width="20vw"
@@ -110,11 +111,14 @@ export default {
   align-content: center;
 }
 .computerBody {
-  max-width: 70vw;
+  max-width: 75vw;
   height: 100vh;
   margin-top: 2vh;
   justify-content: center;
   overflow-wrap: break-word;
+  display: flex;
+  flex-direction: row;
+  
 }
 .imgFilter {
   filter: opacity(0.2);
@@ -128,6 +132,7 @@ export default {
   border-radius: 20px;
   justify-content: center;
   align-items: center;
+  margin-right: 2vw;
 }
 .titleComputer {
   display: flex;
