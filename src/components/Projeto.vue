@@ -19,33 +19,53 @@
           </v-card-title>
 
           <v-window v-model="step" class="ma-3">
-            <v-window-item :value="1"
+            <v-window-item :value="1">
+              <v-text-field
+                class="mt-2"
+                color="teal"
+                square
+                required
+                v-model="project.title"
+                label="Coloque o título do seu projeto"
+              ></v-text-field>
+              <v-textarea
+                class="mt-2"
+                color="teal"
+                square
+                required
+                v-model="project.description"
+                label="Adicione uma descrição"
+              >
+              </v-textarea
+            ></v-window-item>
+            <v-window-item :value="2"
               ><v-file-input
                 :rules="rules"
                 square
                 outlined
                 type="file"
-                ref="file"
-                @change="uploadFile"
+                ref="photo"
+                @change="uploadFile('photo')"
                 show-size
                 accept="image/png, image/jpeg, image/bmp"
-                placeholder="Upe sua foto de perfil"
                 prepend-icon=""
                 prepend-inner-icon="mdi-camera"
                 label="Foto do projeto"
-              ></v-file-input
-            ></v-window-item>
-            <v-window-item :value="2">
-              <v-text-field
-                @keyup.enter="postProjectInfo"
-                color="teal"
+              ></v-file-input>
+              <v-file-input
+                :rules="rules"
                 square
-                required
-                v-model="project.coordenador"
-                label="Coordenador"
-              >
-              </v-text-field
-            ></v-window-item>
+                outlined
+                type="file"
+                ref="cover"
+                @change="uploadFile('cover')"
+                show-size
+                accept="image/png, image/jpeg, image/bmp"
+                prepend-icon=""
+                prepend-inner-icon="mdi-camera"
+                label="Capa do projeto"
+              ></v-file-input>
+            </v-window-item>
             <v-window-item :value="3">
               <v-menu
                 ref="menu1"
@@ -58,12 +78,11 @@
               >
                 <template v-slot:activator="{ on, attrs }"
                   ><v-text-field
-                    @keyup.enter="postProjectInfo"
                     color="teal"
                     square
                     required
                     v-model="dateFormatted"
-                    hint="formato MM/DD/YYYY"
+                    hint="formato DD/MM/YYYY"
                     persistent-hint
                     prepend-icon="mdi-calendar"
                     label="Adicione uma data de fim"
@@ -81,20 +100,10 @@
               </v-menu>
             </v-window-item>
             <v-window-item :value="4">
-              <h4 style="color: black">
+              <h4 class="ma-3 mb-5">
                 Todos os dados foram adicionados. Deseja criar o projeto?
               </h4>
-              <v-textarea
-                @keyup.enter="postProjectInfo"
-                class="mt-2"
-                color="teal"
-                square
-                required
-                v-model="project.descricao"
-                label="Adicione uma descrição"
-              >
-              </v-textarea
-            ></v-window-item>
+            </v-window-item>
           </v-window>
 
           <v-divider></v-divider>
@@ -125,6 +134,7 @@
     ></v-snackbar>
   </v-container>
 </template>
+
 <script>
 import { mapState, mapActions } from "vuex";
 import axios from "axios";
@@ -149,6 +159,12 @@ export default {
         .substr(0, 10)
     ),
     menu1: false,
+    rules: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        "O tamanho do avatar deve ser menor de 2 MB!",
+    ],
   }),
   computed: {
     ...mapState("auth", ["user"]),
@@ -159,9 +175,9 @@ export default {
     currentTitle() {
       switch (this.step) {
         case 1:
-          return "Foto do Projeto";
+          return "Descrição";
         case 2:
-          return "Adicione um Coordenador";
+          return "Foto do Projeto";
         case 3:
           return "Data de Fim";
         case 4:
@@ -184,12 +200,17 @@ export default {
       "deleteProject",
     ]),
 
-    uploadFile() {
-      this.image = this.$refs.file[Object.keys(this.$refs.file)[95]];
+    uploadFile(file) {
+      switch (file) {
+        case "photo":
+          this.photo = this.$refs[file][Object.keys(this.$refs[file])[95]];
+        case "cover":
+          this.cover = this.$refs[file][Object.keys(this.$refs[file])[95]];
+      }
     },
-    async submitFile() {
+    async submitFile(image) {
       const formData = new FormData();
-      formData.append("file", this.image);
+      formData.append("file", image);
       const headers = { "Content-Type": "multipart/form-data" };
       const { data } = await axios.post(
         `${axios.defaults.baseURL}api/media/images/`,
@@ -201,7 +222,13 @@ export default {
     async postProjectInfo() {
       try {
         this.project.created_by = this.user.pk;
-        this.project.project_photo_attachment_key = await this.submitFile();
+        this.project.project_icon_attachment_key = await this.submitFile(
+          this.photo
+        );
+        this.project.project_background_image_attachment_key =
+          await this.submitFile(this.cover);
+        this.project.end_date = this.date;
+        // console.log(this.project);
         await this.postProject();
       } catch (e) {
         console.log(e);
@@ -225,7 +252,7 @@ export default {
       if (!date) return null;
 
       const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
+      return `${day}/${month}/${year}`;
     },
     parseDate(date) {
       if (!date) return null;

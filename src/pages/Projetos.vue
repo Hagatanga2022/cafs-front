@@ -37,7 +37,11 @@
           <v-item-list>
             <v-item>
               <div class="camOne">
-                <h2 style="color: white">{{ projeto.name }}</h2>
+                <v-img
+                  class="camOne"
+                  :src="projeto.project_background_image.file"
+                >
+                </v-img>
               </div>
             </v-item>
             <v-item>
@@ -46,7 +50,7 @@
                   <v-avatar class="ball" size="13vh">
                     <img
                       alt="Foto do projeto"
-                      :src="projeto.project_photo.file"
+                      :src="projeto.project_icon.file"
                     />
                   </v-avatar>
                 </div>
@@ -54,12 +58,14 @@
             </v-item>
             <v-item>
               <div class="camTwo">
-                <div class="informations">Status : Em uso</div>
+                <h2 class="text-center">
+                  {{ projeto.title }}
+                </h2>
                 <div class="informations">
-                  Coordenador : {{ projeto.coordenador }}
+                  Coordenador: {{ projeto.created_by.username }}
                 </div>
                 <div class="informations">
-                  Bolsista : {{ projeto.bolsista }}
+                  {{ projeto.description }}
                 </div>
               </div>
             </v-item>
@@ -78,6 +84,7 @@ import CadastrarProjeto from "../components/Projeto.vue";
 export default {
   created() {
     this.getProjects();
+    console.log(this.allProjects);
   },
   data: () => ({
     Projetos,
